@@ -1,0 +1,248 @@
+{
+  "filterlist": {
+    "linux": {
+      "opt_use_host": [],
+      "opt_use_cpu": [],
+      "opt_use_gpu": [
+        "opencl_interop_constructors",
+        "opencl_interop_get",
+        "opencl_interop_kernel",
+        "host_task_interop_api"
+      ],
+      "opt_use_acc": [
+        "atomic_api_64_base",
+        "atomic_api_64_extended",
+        "atomic_constructors_64"
+      ],
+      "opt_use_cpu_aot": [
+        "math_builtin_common_half",
+        "math_builtin_float_half",
+        "math_builtin_relational_half",
+        "accessor_api_buffer_fp16",
+        "accessor_api_image_fp16",
+        "accessor_api_local_fp16",
+        "group_async_work_group_copy_fp16",
+        "group_async_work_group_copy_fp64",
+        "stream_api_fp16",
+        "stream_api_fp64",
+        "image_api_fp16",
+        "specialization_constants",
+        "specialization_constants_negative",
+        "specialization_constants_override",
+        "specialization_constants_recompilation",
+        "nd_item_async_work_group_copy_fp16",
+        "buffer_api_fp16",
+        "buffer_constructors_fp16",
+        "buffer_storage_fp16"
+      ],
+      "opt_use_gpu_aot": [
+        "opencl_interop_constructors",
+        "opencl_interop_get",
+        "opencl_interop_kernel",
+        "host_task_interop_api",
+        "specialization_constants",
+        "specialization_constants_negative",
+        "specialization_constants_override",
+        "specialization_constants_recompilation",
+        "program_constructors",
+        "program_api"
+      ],
+      "opt_use_acc_aot": [
+        "atomic_api_64_base",
+        "atomic_api_64_extended",
+        "atomic_constructors_64",
+        "accessor_api_buffer_fp16",
+        "accessor_api_buffer_fp64",
+        "accessor_api_image_core",
+        "accessor_api_image_fp16",
+        "accessor_api_local_fp16",
+        "accessor_api_local_fp64",
+        "accessor_constructors_fp16",
+        "accessor_constructors_fp64",
+        "image_api_core",
+        "math_builtin_common_double",
+        "math_builtin_common_half",
+        "math_builtin_float_double",
+        "math_builtin_float_half",
+        "math_builtin_relational_double",
+        "math_builtin_relational_half",
+        "group_async_work_group_copy_fp16",
+        "group_async_work_group_copy_fp64",
+        "stream_api_fp16",
+        "stream_api_fp64",
+        "image_api_fp16",
+        "specialization_constants",
+        "specialization_constants_negative",
+        "specialization_constants_override",
+        "specialization_constants_recompilation",
+        "nd_item_async_work_group_copy_fp16",
+        "buffer_api_fp16",
+        "buffer_api_fp64",
+        "buffer_constructors_fp16",
+        "buffer_constructors_fp64",
+        "buffer_storage_fp16",
+        "buffer_storage_fp64"
+      ],
+      "opt_use_gpu_ocl": [],
+      "opt_use_gpu_ocl_aot": [
+      ]
+    },
+    "windows": {
+      "opt_use_host": [],
+      "opt_use_cpu": [],
+      "opt_use_gpu": [
+        "opencl_interop_constructors",
+        "opencl_interop_get",
+        "opencl_interop_kernel",
+        "host_task_interop_api"
+      ],
+      "opt_use_acc": [
+        "atomic_api_64_base",
+        "atomic_api_64_extended",
+        "atomic_constructors_64"
+      ],
+      "opt_use_cpu_aot": [
+        "math_builtin_common_half",
+        "math_builtin_float_half",
+        "math_builtin_relational_half",
+        "accessor_api_buffer_fp16",
+        "accessor_api_image_fp16",
+        "accessor_api_local_fp16",
+        "group_async_work_group_copy_fp16",
+        "group_async_work_group_copy_fp64",
+        "stream_api_fp16",
+        "stream_api_fp64",
+        "image_api_fp16",
+        "specialization_constants",
+        "specialization_constants_negative",
+        "specialization_constants_override",
+        "specialization_constants_recompilation",
+        "nd_item_async_work_group_copy_fp16"
+      ],
+      "opt_use_gpu_aot": [
+        "opencl_interop_get",
+        "opencl_interop_kernel",
+        "opencl_interop_constructors",
+        "host_task_interop_api",
+        "specialization_constants",
+        "specialization_constants_negative",
+        "specialization_constants_override",
+        "specialization_constants_recompilation",
+        "program_constructors",
+        "program_api"
+      ],
+      "opt_use_acc_aot": [
+        "atomic_api_64_base",
+        "atomic_api_64_extended",
+        "atomic_constructors_64",
+        "accessor_api_buffer_fp16",
+        "accessor_api_buffer_fp64",
+        "accessor_api_image_core",
+        "accessor_api_image_fp16",
+        "accessor_api_local_fp16",
+        "accessor_api_local_fp64",
+        "accessor_constructors_fp16",
+        "accessor_constructors_fp64",
+        "image_api_core",
+        "math_builtin_common_double",
+        "math_builtin_common_half",
+        "math_builtin_float_double",
+        "math_builtin_float_half",
+        "math_builtin_relational_double",
+        "math_builtin_relational_half",
+        "group_async_work_group_copy_fp16",
+        "group_async_work_group_copy_fp64",
+        "stream_api_fp16",
+        "stream_api_fp64",
+        "image_api_fp16",
+        "specialization_constants",
+        "specialization_constants_negative",
+        "specialization_constants_override",
+        "specialization_constants_recompilation",
+        "nd_item_async_work_group_copy_fp16"
+      ],
+      "opt_use_gpu_ocl": [],
+      "opt_use_gpu_ocl_aot": [
+      ]
+    }
+  },
+  "similarlist": {
+    "opt_use_host": [
+      "opt_use_host",
+      "opt_use_host_O0",
+      "opt_use_host_O1",
+      "opt_use_host_O2",
+      "opt_use_host_O3",
+      "opt_use_host_fp_precise",
+      "opt_use_host_fp_fast",
+      "opt_use_host_debug",
+      "opt_use_host_O0_debug"
+    ],
+    "opt_use_cpu": [
+      "opt_use_cpu",
+      "opt_use_cpu_O0",
+      "opt_use_cpu_O1",
+      "opt_use_cpu_O2",
+      "opt_use_cpu_O3",
+      "opt_use_cpu_fp_precise",
+      "opt_use_cpu_fp_fast",
+      "opt_use_cpu_debug",
+      "opt_use_cpu_O0_debug",
+      "opt_use_cpu_O1_debug",
+      "opt_use_cpu_O2_debug",
+      "opt_use_cpu_O3_debug"
+    ],
+    "opt_use_gpu": [
+      "opt_use_gpu",
+      "opt_use_gpu_O0",
+      "opt_use_gpu_O1",
+      "opt_use_gpu_O2",
+      "opt_use_gpu_O3",
+      "opt_use_gpu_fp_precise",
+      "opt_use_gpu_fp_fast",
+      "opt_use_gpu_debug",
+      "opt_use_gpu_O0_debug",
+      "opt_use_gpu_O1_debug",
+      "opt_use_gpu_O2_debug",
+      "opt_use_gpu_O3_debug"
+    ],
+    "opt_use_acc": [
+      "opt_use_acc",
+      "opt_use_acc_O0",
+      "opt_use_acc_O1",
+      "opt_use_acc_O2",
+      "opt_use_acc_O3",
+      "opt_use_acc_fp_precise",
+      "opt_use_acc_fp_fast",
+      "opt_use_acc_debug"
+    ],
+    "opt_use_cpu_aot": [
+      "opt_use_cpu_aot",
+      "opt_use_cpu_aot_debug",
+      "opt_use_cpu_aot_O0_debug"
+    ],
+    "opt_use_gpu_aot": [
+      "opt_use_gpu_aot",
+      "opt_use_gpu_aot_debug"
+    ],
+    "opt_use_acc_aot": [
+      "opt_use_acc_aot",
+      "opt_use_acc_aot_debug",
+      "opt_use_acc_aot_O0_debug"
+    ],
+    "opt_use_gpu_ocl": [
+      "opt_use_gpu_ocl",
+      "opt_use_gpu_ocl_O0",
+      "opt_use_gpu_ocl_O1",
+      "opt_use_gpu_ocl_O2",
+      "opt_use_gpu_ocl_O3",
+      "opt_use_gpu_ocl_debug",
+      "opt_use_gpu_ocl_fp_precise",
+      "opt_use_gpu_ocl_fp_fast"
+    ],
+    "opt_use_gpu_ocl_aot": [
+      "opt_use_gpu_ocl_aot",
+      "opt_use_gpu_ocl_aot_debug"
+    ]
+  }
+}

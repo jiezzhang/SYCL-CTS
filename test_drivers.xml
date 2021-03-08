@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testDrivers>
+    <testDriver driverID="sycl_cts" file="intel_test_drivers/sycl_cts.pl" title="sycl_cts">
+        <description>Basic driver for testing the CTS with Official Cmake</description>
+    </testDriver>
+</testDrivers>
