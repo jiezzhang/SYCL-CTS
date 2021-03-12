@@ -15,6 +15,9 @@ else()
         PATH_SUFFIXES bin)
 endif()
 
+find_library(INTEL_SYCL_RUNTIME_LIBRARY sycl HINTS ${INTEL_SYCL_ROOT}
+    PATH_SUFFIXES lib)
+
 if(NOT DEFINED INTEL_SYCL_TRIPLE)
    set(INTEL_SYCL_TRIPLE spir64-unknown-unknown-sycldevice)
 endif()
@@ -26,6 +29,7 @@ message("Intel SYCL compiler flags: `${INTEL_SYCL_FLAGS}`")
 add_library(INTEL_SYCL::Runtime INTERFACE IMPORTED GLOBAL)
 set_target_properties(INTEL_SYCL::Runtime PROPERTIES
   INTERFACE_LINK_LIBRARIES    OpenCL::OpenCL
+  INTERFACE_LINK_LIBRARIES    ${INTEL_SYCL_RUNTIME_LIBRARY}
   INTERFACE_COMPILE_OPTIONS   "${INTEL_SYCL_FLAGS}")
 
 if(${INTEL_SYCL_TRIPLE} MATCHES ".*-nvidia-cuda-.*")
