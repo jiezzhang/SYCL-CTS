@@ -85,6 +85,11 @@
       ],
       "opt_use_gpu_ocl": [],
       "opt_use_gpu_ocl_aot": [
+      ],
+      "opt_use_nv_gpu": [
+        "opencl_interop_constructors",
+        "opencl_interop_get",
+        "opencl_interop_kernel"
       ]
     },
     "windows": {
@@ -243,6 +248,9 @@
     "opt_use_gpu_ocl_aot": [
       "opt_use_gpu_ocl_aot",
       "opt_use_gpu_ocl_aot_debug"
+    ],
+    "opt_use_nv_gpu": [
+      "opt_use_nv_gpu"
     ]
   }
 }

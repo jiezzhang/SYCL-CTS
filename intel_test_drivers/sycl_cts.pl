@@ -731,6 +731,9 @@ sub BuildTest {
   } elsif (get_running_device() == RUNNING_DEVICE_ACC) {
     $opencl_platform = "intel";
     $opencl_device = "opencl_accelerator";
+  } elsif (get_running_device() == RUNNING_DEVICE_NV_GPU) {
+    $opencl_platform = "nvidia";
+    $opencl_device = "opencl_gpu";
   }
 
   # workaround to add options for aot
@@ -759,6 +762,9 @@ sub BuildTest {
     }
     $sycl_flags .= ";-Xsycl-target-backend;\'-device\' \'$gpu_device\'";
   }
+  if (get_running_device() == RUNNING_DEVICE_NV_GPU) {
+    $sycl_flags = "-Xsycl-target-backend;--cuda-gpu-arch=sm_50";
+  }
 
   push(@cmake_cmd, "-DSYCL_IMPLEMENTATION=Intel_SYCL");
   push(@cmake_cmd, "-DINTEL_SYCL_ROOT=" . $compiler_root);
@@ -773,6 +779,10 @@ sub BuildTest {
   push(@cmake_cmd, "-DSYCL_CTS_ENABLE_OPENCL_INTEROP_TESTS=OFF") if ($current_optset =~ m/opt_use_gpu/ and $current_optset !~ m/_ocl/);
   # code coverage requires additional linker options.
   push(@cmake_cmd, "-DCMAKE_EXE_LINKER_FLAGS=\"$opt_linker_flags\"") if (is_linux());
+  if (get_running_device() == RUNNING_DEVICE_NV_GPU) {
+      push(@cmake_cmd, "-DINTEL_SYCL_TRIPLE=nvptx64-nvidia-cuda-sycldevice");
+      push(@cmake_cmd, "-DSYCL_CTS_ENABLE_OPENCL_INTEROP_TESTS=Off -DSYCL_CTS_ENABLE_DOUBLE_TESTS=On -DSYCL_CTS_ENABLE_HALF_TESTS=On");
+  }
 
   push(@cmake_cmd, "$src_dir");
 
