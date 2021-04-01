@@ -877,6 +877,17 @@ sub BuildTest {
 }
 
 sub RunTest {
+  # XDEPS-1112: [L0 GPU][OCL GPU][Regression]sycl_cts/vector_OPERATORS_cl_int with "-O0" optimization hangs on GPU
+  # This is a work around to avoid massive hang issues on PRODW TestingConfig, we will re-enable these tests after
+  # they resolve this bug.
+  # But we prefer to keep one of these hang tests running (1800s) to track the issue.
+  if ($current_optset =~ m/opt_use_gpu/ and $current_optset =~ m/O0/) {
+    if ($current_test =~ m/vector_OPERATORS_/ and $current_test ne "vector_OPERATORS_char") {
+      $failure_message = "[XDEPS-1112] skip running due to known hang issue on GPU";
+      return $SKIP;
+    }
+  }
+
   if (defined $ENV{"SYCL_THROW_ON_BLOCK"}) {
     set_envvar("SYCL_THROW_ON_BLOCK", "");
   }
