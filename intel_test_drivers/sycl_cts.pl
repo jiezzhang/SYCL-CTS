@@ -751,9 +751,6 @@ sub BuildTest {
   $opt_linker_flags .= " -Wl,-no-relax ";
 
   my $sycl_flags = "-fsycl-device-code-split=$split_mode";
-  if ($sycl_triple ne "") {
-    $sycl_flags .= ";-fsycl-targets=" . $sycl_triple;
-  }
   if ($current_optset =~ m/gpu_aot/) {
     my $gpu_device = get_gpu_device_type();
     # If unrecognized device appears, return a badtest.
@@ -776,6 +773,7 @@ sub BuildTest {
   push(@cmake_cmd, "-DCMAKE_CXX_FLAGS_RELEASE=\"$cmake_flags\"");
   # extra options
   push(@cmake_cmd, "-DINTEL_SYCL_FLAGS=\"$sycl_flags\"");
+  push(@cmake_cmd, "-DINTEL_SYCL_TRIPLE=\"$sycl_triple\"") if ($sycl_triple ne "");
   push(@cmake_cmd, "-DSYCL_CTS_ENABLE_OPENCL_INTEROP_TESTS=OFF") if ($current_optset =~ m/opt_use_gpu/ and $current_optset !~ m/_ocl/);
   # code coverage requires additional linker options.
   push(@cmake_cmd, "-DCMAKE_EXE_LINKER_FLAGS=\"$opt_linker_flags\"") if (is_linux());
