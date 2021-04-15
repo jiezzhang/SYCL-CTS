@@ -669,13 +669,22 @@ sub BuildTest {
     $fixed_suite_name =~ s/~.*$//;
   }
 
-  my $compiler = get_cmplr_cmd("cpp_compiler");
-  # get_cmplr_cmd returns "clang++ -fsycl"
-  if ($compiler =~ m/clang\+\+/) {
-    $compiler = substr($compiler, 0, index($compiler, ' '));
+  my $compiler_cmd = get_cmplr_cmd("cpp_compiler");
+  my $compiler = "dpcpp";
+  my @options = ();
+
+  # get_cmplr_cmd returns "clang++" with additional options, e.g. "-fsycl", "-fsycl-unnamed-lambda"
+  if ($compiler_cmd =~ m/clang/) {
+    if (is_windows()) {
+      $compiler = "clang-cl";
+      $compiler_cmd =~ s/clang-cl //g;
+    } else {
+      $compiler = "clang++";
+      $compiler_cmd =~ s/clang\+\+ //g;
+    }
+    push(@options, $compiler_cmd);
   }
 
-  my @options = ();
   add_tc_options(\@options);
 
   # handle windows cmake options
