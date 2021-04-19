@@ -1,7 +1,5 @@
 if(${CMAKE_CXX_COMPILER_ID} MATCHES "GNU" OR
    ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
-    find_program(INTEL_SYCL_C_EXECUTABLE NAMES dpcpp clang HINTS ${INTEL_SYCL_ROOT}
-        PATH_SUFFIXES bin)
     find_program(INTEL_SYCL_CXX_EXECUTABLE NAMES dpcpp clang++ HINTS ${INTEL_SYCL_ROOT}
         PATH_SUFFIXES bin)
 else()
@@ -9,27 +7,29 @@ else()
     string(REPLACE "/machine:x64" "" CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
     # Remove /subsystem option which is not supported by clang-cl
     string(REPLACE "/subsystem:console" "" CMAKE_CREATE_CONSOLE_EXE ${CMAKE_CREATE_CONSOLE_EXE})
-    find_program(INTEL_SYCL_C_EXECUTABLE NAMES dpcpp clang-cl HINTS ${INTEL_SYCL_ROOT}
-        PATH_SUFFIXES bin)
     find_program(INTEL_SYCL_CXX_EXECUTABLE NAMES dpcpp clang-cl HINTS ${INTEL_SYCL_ROOT}
         PATH_SUFFIXES bin)
 endif()
-
-find_library(INTEL_SYCL_RUNTIME_LIBRARY sycl HINTS ${INTEL_SYCL_ROOT}
-    PATH_SUFFIXES lib)
 
 if(NOT DEFINED INTEL_SYCL_TRIPLE)
    set(INTEL_SYCL_TRIPLE spir64-unknown-unknown-sycldevice)
 endif()
 message("Intel SYCL target triple: ${INTEL_SYCL_TRIPLE}")
 
-set(INTEL_SYCL_FLAGS "-fsycl;-fsycl-targets=${INTEL_SYCL_TRIPLE};-sycl-std=2020;-ffp-model=precise;${INTEL_SYCL_FLAGS}")
+# Set precise fp-model for Intel Compiler
+if(WIN32)
+    set(INTEL_FP_FLAG "/fp:precise")
+else()
+    set(INTEL_FP_FLAG "-ffp-model=precise")
+endif()
+set(CMAKE_CXX_FLAGS "${INTEL_FP_FLAG} ${CMAKE_CXX_FLAGS}")
+
+set(INTEL_SYCL_FLAGS "-fsycl;-fsycl-targets=${INTEL_SYCL_TRIPLE};-sycl-std=2020;${INTEL_SYCL_FLAGS}")
 message("Intel SYCL compiler flags: `${INTEL_SYCL_FLAGS}`")
 
 add_library(INTEL_SYCL::Runtime INTERFACE IMPORTED GLOBAL)
 set_target_properties(INTEL_SYCL::Runtime PROPERTIES
   INTERFACE_LINK_LIBRARIES    OpenCL::OpenCL
-  INTERFACE_LINK_LIBRARIES    ${INTEL_SYCL_RUNTIME_LIBRARY}
   INTERFACE_COMPILE_OPTIONS   "${INTEL_SYCL_FLAGS}")
 
 if(${INTEL_SYCL_TRIPLE} MATCHES ".*-nvidia-cuda-.*")
@@ -43,10 +43,8 @@ else()
         INTERFACE_LINK_OPTIONS      "${INTEL_SYCL_FLAGS};-fsycl-device-code-split=per_source")
 endif()
 
-set(CMAKE_C_COMPILER            ${INTEL_SYCL_C_EXECUTABLE})
 set(CMAKE_CXX_COMPILER          ${INTEL_SYCL_CXX_EXECUTABLE})
 # Use SYCL compiler instead of default linker for building SYCL application
-set(CMAKE_C_LINK_EXECUTABLE     "${INTEL_SYCL_CXX_EXECUTABLE} <FLAGS> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> <OBJECTS> -o <TARGET> <LINK_LIBRARIES>")
 set(CMAKE_CXX_LINK_EXECUTABLE   "${INTEL_SYCL_CXX_EXECUTABLE} <FLAGS> <CMAKE_CXX_LINK_FLAGS> <LINK_FLAGS> <OBJECTS> -o <TARGET> <LINK_LIBRARIES>")
 
 add_library(SYCL::SYCL INTERFACE IMPORTED GLOBAL)
