@@ -115,8 +115,10 @@
         <test testName="math_builtin_relational_base" splitGroup="math_builtin_api" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="math_builtin_relational_double" splitGroup="math_builtin_api" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="math_builtin_relational_half" splitGroup="math_builtin_api" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="multi_ptr_apis" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="multi_ptr_api" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="multi_ptr_api_fp16" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="multi_ptr_constructors" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="multi_ptr_constructors_fp16" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="nd_item_api" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="nd_item_async_work_group_copy_core" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="nd_item_async_work_group_copy_fp16" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
