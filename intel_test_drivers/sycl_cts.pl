@@ -919,6 +919,26 @@ sub RunTest {
   my $build_dir = $cwd . "/build";
   my $src_dir = $cwd . "/intel_cts";
 
+  # populate cpp test to category mapping
+  # using src/tests/$category/$test.cpp folder structure
+  if (!%cpp_test2category_map) {
+    populate_cpp_test2category_map($src_dir);
+  }
+
+  if (get_running_device() == RUNNING_DEVICE_CPU) {
+    $opencl_platform = "intel";
+    $opencl_device = "opencl_cpu";
+  } elsif (get_running_device() == RUNNING_DEVICE_GPU) {
+    $opencl_platform = "intel";
+    $opencl_device = "opencl_gpu";
+  } elsif (get_running_device() == RUNNING_DEVICE_ACC) {
+    $opencl_platform = "intel";
+    $opencl_device = "opencl_accelerator";
+  } elsif (get_running_device() == RUNNING_DEVICE_NV_GPU) {
+    $opencl_platform = "nvidia";
+    $opencl_device = "opencl_gpu";
+  }
+
   my @run_option = ();
   push(@run_option, "-p $opencl_platform");
   push(@run_option, "-d $opencl_device");
