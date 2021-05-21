@@ -10,12 +10,12 @@
         <file path="../intel_cts" />
     </files>
     <tests>
-        <test testName="accessor_api_buffer" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="accessor_api_buffer_core" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="accessor_api_buffer_fp16" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="accessor_api_buffer_fp64" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_api_image" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="accessor_api_image_core" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="accessor_api_image_fp16" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_api_local" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="accessor_api_local_core" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="accessor_api_local_fp16" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="accessor_api_local_fp64" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="accessor_constructors_buffer" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
@@ -32,10 +32,19 @@
         <test testName="atomic_api_64_extended" splitGroup="atomic" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="atomic_constructors_32" splitGroup="atomic" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="atomic_constructors_64" splitGroup="atomic" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="buffer_api" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="buffer_constructors" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="buffer_api_core" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="buffer_api_fp16" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="buffer_api_fp64" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+
+        <test testName="buffer_constructors_core" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="buffer_constructors_fp16" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="buffer_constructors_fp64" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+
         <test testName="buffer_destructors" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="buffer_storage" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="buffer_storage_core" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="buffer_storage_fp16" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="buffer_storage_fp64" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+
         <test testName="context_api" splitGroup="context" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="context_constructors" splitGroup="context" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="context_info" splitGroup="context" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
@@ -58,7 +67,11 @@
         <test testName="group_async_work_group_copy_fp64" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="group_constructors" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="group_equality" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="group_mem_fence" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="group_combined_mem_fence" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="group_default_mem_fence" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="group_global_mem_fence" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="group_local_mem_fence" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+
         <test testName="group_wait_for" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="h_item_api" splitGroup="h_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="h_item_constructors" splitGroup="h_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
@@ -108,7 +121,7 @@
         <test testName="math_builtin_relational_half" splitGroup="math_builtin_api" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="multi_ptr_apis" splitGroup="multi_ptr" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="multi_ptr_constructors" splitGroup="multi_ptr" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_item" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="nd_item_api" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="nd_item_async_work_group_copy_core" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="nd_item_async_work_group_copy_fp16" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="nd_item_async_work_group_copy_fp64" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
@@ -118,7 +131,10 @@
         <test testName="nd_item_equality" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="nd_item_global_barrier" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="nd_item_local_barrier" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_item_mem_fence" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="nd_item_combined_mem_fence" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="nd_item_default_mem_fence" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="nd_item_global_mem_fence" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="nd_item_local_mem_fence" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="nd_item_wait_for" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="nd_range_api" splitGroup="nd_range" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="nd_range_constructors" splitGroup="nd_range" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
