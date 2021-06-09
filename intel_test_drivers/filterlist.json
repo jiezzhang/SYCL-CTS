@@ -195,7 +195,8 @@
       "opt_use_cpu_O0_debug",
       "opt_use_cpu_O1_debug",
       "opt_use_cpu_O2_debug",
-      "opt_use_cpu_O3_debug"
+      "opt_use_cpu_O3_debug",
+      "opt_use_cpu_nonspirv"
     ],
     "opt_use_gpu": [
       "opt_use_gpu",
