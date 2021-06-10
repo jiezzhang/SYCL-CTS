@@ -593,7 +593,15 @@ sub generate_current_test_build_lf {
   push(@cmd, @ninja_cmd);
   push(@cmd, "test_$current_test");
   log_command(join(" ", @cmd));
-  $compiler_output .= $filtered_output;
+
+  if ($opt_remove !~ /none/i) {
+    # CMPLRTST-12826: Need aggressive cleanup for any value of -remove TC option except "none"
+    $compiler_output .= "\n*** please check build detail in build.lf ***\n\n";
+  } else {
+    $compiler_output .= $filtered_output;
+  }
+
+
   generate_current_test_fail_message($failure, $filtered_output);
 }
 
@@ -793,27 +801,27 @@ sub BuildTest {
 
   push(@cmake_cmd, "$src_dir");
 
-  $compiler_output .= "[cmd][cmake] " . join(" ", @cmake_cmd) . "\n";
+  my $cmake_compiler_output .= "[cmd][cmake] " . join(" ", @cmake_cmd) . "\n";
 
   my $start_time = Time::HiRes::gettimeofday();
   execute(join(" ", @cmake_cmd));
   my $stop_time = Time::HiRes::gettimeofday();
   my $elapsed = $stop_time - $start_time;
 
-  $compiler_output .= "$command_output\n";
-  $compiler_output .= "\n[cmd][cmake] elapsed time is ${elapsed}s\n";
+  $cmake_compiler_output .= "$command_output\n";
+  $cmake_compiler_output .= "\n[cmd][cmake] elapsed time is ${elapsed}s\n";
   if ($command_status != $PASS) {
     my $cmake_error_message = "[cmd][cmake] fail: " . join(" ", @cmake_cmd) . "\n";
-    $compiler_output .= "$cmake_error_message\n";
+    $cmake_compiler_output .= "$cmake_error_message\n";
 
     # quit when cmd is timed out
     return if is_cmd_timeout();
 
-    generate_build_lf($compiler_output);
-    generate_current_test_fail_message($COMPFAIL, $compiler_output);
+    generate_build_lf($cmake_compiler_output);
+    generate_current_test_fail_message($COMPFAIL, $cmake_compiler_output);
     return $COMPFAIL;
   } else {
-    $compiler_output .= "[cmd][cmake] pass\n";
+    $cmake_compiler_output .= "[cmd][cmake] pass\n";
   }
 
   # 2. ninja step, do the compilation.
@@ -837,19 +845,19 @@ sub BuildTest {
     push(@ninja_cmd, "test_" . $category_name);
   }
 
-  $compiler_output .= "[cmd][ninja] " . join(" ", @ninja_cmd) . "\n";
+  $cmake_compiler_output .= "[cmd][ninja] " . join(" ", @ninja_cmd) . "\n";
 
   $start_time = Time::HiRes::gettimeofday();
   execute(join(" ", @ninja_cmd));
   $stop_time = Time::HiRes::gettimeofday();
   $elapsed = $stop_time - $start_time;
 
-  $compiler_output .= "$command_output\n";
-  $compiler_output .= "\n[cmd][ninja] elapsed time is ${elapsed}s\n";
+  $cmake_compiler_output .= "$command_output\n";
+  $cmake_compiler_output .= "\n[cmd][ninja] elapsed time is ${elapsed}s\n";
   if ($command_status != $PASS) {
-    $compiler_output .= "[cmd][ninja] fail\n";
+    $cmake_compiler_output .= "[cmd][ninja] fail\n";
   } else {
-    $compiler_output .= "[cmd][ninja] pass\n";
+    $cmake_compiler_output .= "[cmd][ninja] pass\n";
   }
 
   # quit when cmd is timed out
@@ -864,22 +872,27 @@ sub BuildTest {
       $test_bin = $test_bin . ".exe";
     }
     if (-e $test_bin) {
-      $compiler_output .= "[validation] bin/test_$category built\n";
+      $cmake_compiler_output .= "[validation] bin/test_$category built\n";
     } else {
-      $compiler_output .= "[validation] bin/test_$category not built\n";
+      $cmake_compiler_output .= "[validation] bin/test_$category not built\n";
     }
   }
-  $compiler_output .= "[validation] finished\n";
+  $cmake_compiler_output .= "[validation] finished\n";
 
 
   # put all build logs to build.lf
-  generate_build_lf($compiler_output);
+  generate_build_lf($cmake_compiler_output);
 
   # prepare ret, compiler_output and fail_message
   # almost the same workflow as generate_dryrun_result(), but log_command() is not executed
-  $filtered_output = filter_build_output($current_test, $compiler_output);
+  $filtered_output = filter_build_output($current_test, $cmake_compiler_output);
   $ret = check_current_test_pass($stage, $filtered_output);
-  $compiler_output = $filtered_output;
+  if ($opt_remove !~ /none/i) {
+    # CMPLRTST-12826: Need aggressive cleanup for any value of -remove TC option except "none"
+    $compiler_output .= "\n*** please check build output in build.lf ***\n\n";
+  } else {
+    $compiler_output = $filtered_output;
+  }
   generate_current_test_fail_message($ret, $filtered_output);
 
   return $ret;
@@ -976,5 +989,13 @@ sub RunTest {
   return $ret;
 }
 
+sub CleanupTest {
+  my @testlist = get_tests_to_run();
+  # CMPLRTST-12826: Need aggressive cleanup for any value of -remove TC option except "none"
+  if ($opt_remove !~ /none/i and $current_test eq $testlist[-1]) {
+    remove("$optset_work_dir/build/*");
+    remove("$optset_work_dir/intel_cts");
+  }
+}
 
 1;
