@@ -599,8 +599,8 @@ sub generate_current_test_build_lf {
 
   # log, $compiler_output and $failure_message
   log_command("cd $optset_work_dir/build");
-  log_command(join(" ", @cmake_cmd));
-  push(@cmd, @ninja_cmd);
+  push(@cmd, "ninja");
+  push(@cmd, $parallel_opt);
   push(@cmd, "test_$current_test");
   log_command(join(" ", @cmd));
 
