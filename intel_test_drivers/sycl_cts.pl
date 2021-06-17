@@ -950,6 +950,7 @@ sub RunTest {
   } elsif (get_running_device() == RUNNING_DEVICE_NV_GPU) {
     $opencl_platform = "nvidia";
     $opencl_device = "opencl_gpu";
+    set_envvar("SYCL_DEVICE_FILTER", "cuda:gpu:0");
   }
 
   my @run_option = ();
