@@ -57,7 +57,7 @@ sub need_filter_test {
   push(@filter_tests, "initialized");
   push(@filter_tests, @$filter_list);
 
-  return 1 if (grep( /^$testname$/, @$filter_tests));
+  return 1 if (grep( /^$testname$/, @filter_tests));
 
   return 0;
 }
