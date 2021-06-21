@@ -39,15 +39,25 @@ sub need_filter_test {
 
   my $json = decode_json($json_contents);
 
-  my $similar_optset = "";
-  my $similarlist = $json->{"similarlist"};
-  OUTERLOOP: for my $optset_k (keys(%$similarlist)) {
-    for my $optset_v (@{$similarlist->{$optset_k}}) {
-      if ($current_optset eq $optset_v) {
-        $similar_optset = $optset_k;
-        last OUTERLOOP;
-      }
-    }
+  my $similar_optset = "opt_use_host";
+  if ($current_optset =~ m/opt_use_cpu_aot/) {
+    $similar_optset = "opt_use_cpu_aot";
+  } elsif ($current_optset =~ m/opt_use_cpu/) {
+    $similar_optset = "opt_use_cpu";
+  } elsif ($current_optset =~ m/opt_use_acc_aot/) {
+    $similar_optset = "opt_use_acc_aot";
+  } elsif ($current_optset =~ m/opt_use_acc/) {
+    $similar_optset = "opt_use_acc";
+  } elsif ($current_optset =~ m/opt_use_gpu_ocl_aot/) {
+    $similar_optset = "opt_use_gpu_ocl_aot";
+  } elsif ($current_optset =~ m/opt_use_gpu_ocl/) {
+    $similar_optset = "opt_use_gpu_ocl";
+  } elsif ($current_optset =~ m/opt_use_gpu_aot/) {
+    $similar_optset = "opt_use_gpu_aot";
+  } elsif ($current_optset =~ m/opt_use_gpu/) {
+    $similar_optset = "opt_use_gpu";
+  } elsif ($current_optset = ~ m/opt_use_nv_gpu/) {
+    $similar_optset = "opt_use_nv_gpu";
   }
 
   my $os_k = "linux";
@@ -589,8 +599,8 @@ sub generate_current_test_build_lf {
 
   # log, $compiler_output and $failure_message
   log_command("cd $optset_work_dir/build");
-  log_command(join(" ", @cmake_cmd));
-  push(@cmd, @ninja_cmd);
+  push(@cmd, "ninja");
+  push(@cmd, $parallel_opt);
   push(@cmd, "test_$current_test");
   log_command(join(" ", @cmd));
 
