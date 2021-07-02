@@ -108,7 +108,8 @@
         <test testName="math_builtin_float_base" splitGroup="math_builtin_api" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="math_builtin_float_double" splitGroup="math_builtin_api" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="math_builtin_float_half" splitGroup="math_builtin_api" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="math_builtin_geometric" splitGroup="math_builtin_api" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="math_builtin_geometric_base" splitGroup="math_builtin_api" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="math_builtin_geometric_double" splitGroup="math_builtin_api" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="math_builtin_half" splitGroup="math_builtin_api" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="math_builtin_integer" splitGroup="math_builtin_api" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="math_builtin_native" splitGroup="math_builtin_api" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
