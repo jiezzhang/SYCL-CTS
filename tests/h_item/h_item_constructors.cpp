@@ -9,6 +9,7 @@
 #include "../common/common.h"
 
 #include <array>
+#include <string>
 
 #define TEST_NAME h_item_constructors
 
@@ -30,7 +31,7 @@ enum class current_check {
 
 }  // namespace
 
-namespace TEST_NAME {
+namespace TEST_NAMESPACE {
 using namespace sycl_cts;
 
 /**
@@ -132,7 +133,8 @@ class TEST_NAME : public util::test_base {
       {
         auto testQueue = util::get_cts_object::queue();
 
-        const auto simpleRange = getRange<numDims>(1);
+        const auto simpleRange =
+            util::get_cts_object::range<numDims>::get(1, 1, 1);
 
         cl::sycl::buffer<bool> successBuf(success.data(),
                                           cl::sycl::range<1>(success.size()));
@@ -186,9 +188,8 @@ class TEST_NAME : public util::test_base {
 
     } catch (const cl::sycl::exception& e) {
       log_exception(log, e);
-      cl::sycl::string_class errorMsg =
-          "a SYCL exception was caught: " + cl::sycl::string_class(e.what());
-      FAIL(log, errorMsg.c_str());
+      auto errorMsg = std::string("a SYCL exception was caught: ") + e.what();
+      FAIL(log, errorMsg);
     }
   }
 
@@ -204,4 +205,4 @@ class TEST_NAME : public util::test_base {
 // construction of this proxy will register the above test
 util::test_proxy<TEST_NAME> proxy;
 
-}  // namespace TEST_NAME
+}  // namespace TEST_NAMESPACE
