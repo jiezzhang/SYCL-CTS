@@ -93,8 +93,10 @@
         <test testName="kernel_constructors" splitGroup="kernel" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="kernel_info" splitGroup="kernel" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="kernel_pointers" splitGroup="kernel" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="multi_ptr_apis" splitGroup="multi_ptr" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="multi_ptr_api" splitGroup="multi_ptr" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="multi_ptr_api_fp16" splitGroup="multi_ptr" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="multi_ptr_constructors" splitGroup="multi_ptr" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="multi_ptr_constructors_fp16" splitGroup="multi_ptr" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="nd_item" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="nd_item_async_work_group_copy_core" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="nd_item_async_work_group_copy_fp16" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />

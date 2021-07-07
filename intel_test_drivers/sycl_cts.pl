@@ -95,7 +95,6 @@ my %cpp_test2category_map;
 my %cpp_test_name_change = (
   'group_async_work_group_copy_core' => 'group_async_work_group_copy',
   'image_api_core' => 'image_api',
-  'multi_ptr_apis' => 'multi_ptr_api',
   'nd_item_async_work_group_copy_core' => 'nd_item_async_work_group_copy',
   'sampler_apis' => 'sampler_api',
   'stream_api_core' => 'stream_api',

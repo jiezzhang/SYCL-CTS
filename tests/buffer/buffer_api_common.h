@@ -11,7 +11,7 @@
 
 #include "../common/common.h"
 
-namespace {
+namespace buffer_api_common {
 using namespace sycl_cts;
 
 /** empty_kernel.
@@ -29,12 +29,12 @@ class empty_kernel {
 template <size_t dims>
 inline void precalculate(cl::sycl::range<dims> &rangeIn,
                          cl::sycl::range<dims> &rangeOut, size_t &elementsCount,
-                         unsigned elementsIn, unsigned elementsOut);
+                         size_t elementsIn, size_t elementsOut);
 
 template <>
 inline void precalculate<1>(cl::sycl::range<1> &rangeIn,
                             cl::sycl::range<1> &rangeOut, size_t &elementsCount,
-                            unsigned elementsIn, unsigned elementsOut) {
+                            size_t elementsIn, size_t elementsOut) {
   rangeIn = cl::sycl::range<1>(elementsIn);
   rangeOut = cl::sycl::range<1>(elementsOut);
   elementsCount = elementsOut;
@@ -43,7 +43,7 @@ inline void precalculate<1>(cl::sycl::range<1> &rangeIn,
 template <>
 inline void precalculate<2>(cl::sycl::range<2> &rangeIn,
                             cl::sycl::range<2> &rangeOut, size_t &elementsCount,
-                            unsigned elementsIn, unsigned elementsOut) {
+                            size_t elementsIn, size_t elementsOut) {
   rangeIn = cl::sycl::range<2>(elementsIn, elementsIn);
   rangeOut = cl::sycl::range<2>(elementsOut, elementsIn);
   elementsCount = (elementsOut * elementsIn);
@@ -52,7 +52,7 @@ inline void precalculate<2>(cl::sycl::range<2> &rangeIn,
 template <>
 inline void precalculate<3>(cl::sycl::range<3> &rangeIn,
                             cl::sycl::range<3> &rangeOut, size_t &elementsCount,
-                            unsigned elementsIn, unsigned elementsOut) {
+                            size_t elementsIn, size_t elementsOut) {
   rangeIn = cl::sycl::range<3>(elementsIn, elementsIn, elementsIn);
   rangeOut = cl::sycl::range<3>(elementsOut, elementsIn, elementsIn);
   elementsCount = (elementsOut * elementsIn * elementsIn);
@@ -68,12 +68,12 @@ buffer
 template <typename TIn, typename TOut>
 class test_buffer_reinterpret {
  public:
-  unsigned elementsIn, elementsOut;
+  size_t elementsIn, elementsOut;
 
   template <size_t dims>
   void check(TIn* data, util::logger& log) {
-    cl::sycl::range<dims> rangeIn = getRange<dims>(1);
-    cl::sycl::range<dims> rangeOut = getRange<dims>(1);
+    auto rangeIn = util::get_cts_object::range<dims>::get(1, 1, 1);
+    auto rangeOut = util::get_cts_object::range<dims>::get(1, 1, 1);
     size_t elementsCount = 0;
     precalculate<dims>(rangeIn, rangeOut, elementsCount, elementsIn,
                        elementsOut);
@@ -104,8 +104,9 @@ class test_buffer_reinterpret_no_range {
 
   static void check(TIn* data, const size_t inputElemsPerDim,
                     util::logger& log) {
+    size_t size = sizeof(TOut) * inputElemsPerDim / sizeof(TIn);
     cl::sycl::range<inputDim> rangeIn =
-        getRange<inputDim>(sizeof(TOut) * inputElemsPerDim / sizeof(TIn));
+        sycl_cts::util::get_cts_object::range<inputDim>::get(size, size, size);
     cl::sycl::buffer<TIn, inputDim> buf1(data, rangeIn);
 
     auto buf2 = buf1.template reinterpret<TOut>();
@@ -140,8 +141,9 @@ class test_buffer_reinterpret_no_range<TIn, TOut, inputDim, 1> {
  public:
   static void check(TIn* data, const size_t inputElemsPerDim,
                     util::logger& log) {
+    size_t size = sizeof(TOut) * inputElemsPerDim / sizeof(TIn);
     cl::sycl::range<inputDim> rangeIn =
-        getRange<inputDim>(sizeof(TOut) * inputElemsPerDim / sizeof(TIn));
+        sycl_cts::util::get_cts_object::range<inputDim>::get(size, size, size);
     cl::sycl::buffer<TIn, inputDim> buf1{data, rangeIn};
     const auto expectedOutputCount = buf1.get_size() / sizeof(TOut);
 
@@ -362,7 +364,11 @@ void test_buffer(util::logger &log, cl::sycl::range<dims> &r,
       sub_r[0] = r[0] - i[0];
       cl::sycl::buffer<T, dims> buf_sub(buf, i, sub_r);
       auto isSubBuffer = buf_sub.is_sub_buffer();
+      auto isOrigSubBuffer = buf.is_sub_buffer();
       check_return_type<bool>(log, isSubBuffer, "is_sub_buffer()");
+      if (!isSubBuffer || isOrigSubBuffer) {
+        FAIL(log, "is_sub_buffer() return a wrong result");
+      }
     }
 
     /* check buffer properties */
@@ -381,11 +387,17 @@ void test_buffer(util::logger &log, cl::sycl::range<dims> &r,
           buf.template has_property<cl::sycl::property::buffer::use_mutex>();
       check_return_type<bool>(log, hasUseMutexProperty,
                               "has_property<use_mutex>()");
+      if (!hasUseMutexProperty) {
+        FAIL(log, "has_property<use_mutex> return a wrong result ");
+      }
 
       auto hasContentBoundProperty = buf.template has_property<
           cl::sycl::property::buffer::context_bound>();
       check_return_type<bool>(log, hasContentBoundProperty,
                               "has_property<context_bound>()");
+      if (!hasContentBoundProperty) {
+        FAIL(log, "has_property<context_bound> return a wrong result ");
+      }
 
       /* check get_property() */
 
@@ -424,12 +436,14 @@ void test_buffer(util::logger &log, cl::sycl::range<dims> &r,
 template <typename T, int numDims>
 void test_type_reinterpret(util::logger &log) {
   static constexpr size_t inputElemsPerDim = 4;
-  std::vector<uint8_t> reinterpretInputData(sizeof(T) * inputElemsPerDim *
-                                            numDims);
+  auto numElems = inputElemsPerDim;
+  for (int i = 1; i < numDims; ++i) {
+    numElems *= inputElemsPerDim;
+  }
+  std::vector<uint8_t> reinterpretInputData(sizeof(T) * numElems);
   using ReinterpretT = flip_signedness_t<T>;
 
   // Check reinterpreting with a range
-  static constexpr auto numElems = inputElemsPerDim * numDims;
   test_buffer_reinterpret<uint8_t, T>{sizeof(T) * numElems, numElems}
       .template check<numDims>(reinterpretInputData.data(), log);
 

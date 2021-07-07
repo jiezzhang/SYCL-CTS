@@ -44,6 +44,9 @@ template <int index, int numDims, typename success_acc_t>
 inline void check_equality_helper(success_acc_t& success,
                                   const cl::sycl::item<numDims>& actual,
                                   const cl::sycl::item<numDims>& expected) {
+  CHECK_EQUALITY_HELPER(success, actual.get_range(index),
+                        expected.get_range(index));
+
   CHECK_EQUALITY_HELPER(success, actual.get_id(index), expected.get_id(index));
   CHECK_EQUALITY_HELPER(success, actual[index], expected[index]);
 }
@@ -54,6 +57,9 @@ inline void check_equality(success_acc_t& successAcc,
                            const cl::sycl::item<numDims>& actual,
                            const cl::sycl::item<numDims>& expected) {
   auto& success = successAcc[static_cast<size_t>(currentCheck)];
+  if (actual.get_range() != expected.get_range()) {
+    success = false;
+  }
   if (numDims >= 1) {
     check_equality_helper<0>(success, actual, expected);
   }
@@ -88,7 +94,8 @@ class TEST_NAME : public util::test_base {
       {
         auto testQueue = util::get_cts_object::queue();
 
-        const auto simpleRange = getRange<numDims>(1);
+        const auto simpleRange =
+            util::get_cts_object::range<numDims>::get(1, 1, 1);
 
         cl::sycl::buffer<bool> successBuf(success.data(),
                                           cl::sycl::range<1>(success.size()));
