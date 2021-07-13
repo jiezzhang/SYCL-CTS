@@ -720,6 +720,9 @@ sub BuildTest {
     }
   }
 
+  # CMPLRTOOLS-24280: work-around for tc output limit.
+  push(@options, "-Wno-deprecated-declarations");
+
   # 1. cmake step, building the test setup, 3 directories are used.
   #    1) build directory -- stored cmake cache files and make/configuration files.
   #       after compilation, all objects and executables are stored here.
