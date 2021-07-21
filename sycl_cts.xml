@@ -163,17 +163,6 @@
         <test testName="stream_api_fp64" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="stream_constructors" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="vector_ALIAS_char" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="vector_ALIAS_cl_char" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="vector_ALIAS_cl_double" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="vector_ALIAS_cl_float" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="vector_ALIAS_cl_half" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="vector_ALIAS_cl_int" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="vector_ALIAS_cl_long" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="vector_ALIAS_cl_short" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="vector_ALIAS_cl_uchar" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="vector_ALIAS_cl_uint" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="vector_ALIAS_cl_ulong" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="vector_ALIAS_cl_ushort" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="vector_ALIAS_double" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="vector_ALIAS_float" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="vector_ALIAS_half" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
