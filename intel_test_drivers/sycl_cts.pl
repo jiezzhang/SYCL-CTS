@@ -686,6 +686,10 @@ sub BuildTest {
     $fixed_suite_name =~ s/~.*$//;
   }
 
+  if($compiler ne "efi2_linux64_computecpp" and $current_optset =~ m/cpu_nonspirv/) {
+    set_envvar("CL_CONFIG_LTO_PM", "legacy");
+  }
+
   my $compiler_cmd = get_cmplr_cmd("cpp_compiler");
   my $compiler = "dpcpp";
   my @options = ();
@@ -773,6 +777,8 @@ sub BuildTest {
     $sycl_triple = "spir64_gen-unknown-unknown-sycldevice";
   } elsif ($current_optset =~ m/acc_aot/) {
     $sycl_triple = "spir64_fpga-unknown-unknown-sycldevice";
+  } elsif ($current_optset =~ m/opt_use_cpu_nonspirv/) {
+    $sycl_triple = "x86_64";
   }
 
   my $split_mode = "per_kernel";
