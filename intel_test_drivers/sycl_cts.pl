@@ -774,7 +774,7 @@ sub BuildTest {
   } elsif ($current_optset =~ m/acc_aot/) {
     $sycl_triple = "spir64_fpga-unknown-unknown-sycldevice";
   } elsif ($current_optset =~ m/opt_use_cpu_nonspirv/) {
-    $sycl_triple = "x86_64-unknown-unknown-sycldevice";
+    $sycl_triple = "x86_64";
   }
 
   my $split_mode = "per_kernel";
