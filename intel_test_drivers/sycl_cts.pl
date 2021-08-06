@@ -42,6 +42,8 @@ sub need_filter_test {
   my $similar_optset = "opt_use_host";
   if ($current_optset =~ m/opt_use_cpu_aot/) {
     $similar_optset = "opt_use_cpu_aot";
+  } elsif ($current_optset =~ m/opt_use_cpu_nonspirv/) {
+    $similar_optset = "opt_use_cpu_nonspirv";
   } elsif ($current_optset =~ m/opt_use_cpu/) {
     $similar_optset = "opt_use_cpu";
   } elsif ($current_optset =~ m/opt_use_acc_aot/) {
@@ -253,6 +255,11 @@ sub filter_py_generator {
     copy("$src_dir/tests/math_builtin_api/CMakeLists.txt", "$src_dir/tests/math_builtin_api/CMakeLists.txt.bak");
     if ($testname =~ m/math_builtin_/) {
       if ($current_optset =~ m/cpu_aot/) {
+        for my $filtertest (@filter_tests) {
+          next if ($filtertest !~ m/math_builtin_/);
+          `sed -i '/foreach(var \${MATH_VARIANT})/a \\ \\ \\ \\ if("math_builtin_\${cat}_\${var}" STREQUAL "$filtertest")\\n\\ \\ \\ \\ \\ \\ continue()\\n\\ \\ \\ \\ endif()' $src_dir/tests/math_builtin_api/CMakeLists.txt`;
+        }
+      } elsif ($current_optset =~ m/cpu_nonspirv/) {
         for my $filtertest (@filter_tests) {
           next if ($filtertest !~ m/math_builtin_/);
           `sed -i '/foreach(var \${MATH_VARIANT})/a \\ \\ \\ \\ if("math_builtin_\${cat}_\${var}" STREQUAL "$filtertest")\\n\\ \\ \\ \\ \\ \\ continue()\\n\\ \\ \\ \\ endif()' $src_dir/tests/math_builtin_api/CMakeLists.txt`;
