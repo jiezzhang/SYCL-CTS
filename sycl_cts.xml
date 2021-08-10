@@ -162,6 +162,19 @@
         <test testName="stream_api_fp16" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="stream_api_fp64" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="stream_constructors" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="usm_aligned_alloc_device" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="usm_aligned_alloc_host" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="usm_aligned_alloc_shared" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="usm_aligned_alloc" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="usm_allocator_api_aligned" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="usm_allocator_api" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="usm_allocator_constructors" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="usm_fill_memset_memcpy" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="usm_get_pointer_queries" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="usm_malloc_device" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="usm_malloc_host" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="usm_malloc_shared" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
+        <test testName="usm_malloc" splitGroup="common_2" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="vector_ALIAS_char" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="vector_ALIAS_double" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
         <test testName="vector_ALIAS_float" splitGroup="vector_alias" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
