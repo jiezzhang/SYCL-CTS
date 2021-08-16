@@ -4,12 +4,14 @@ use XML::Simple;
 use File::Basename;
 use Data::Dumper;
 
-@common_deps = ('$TESTROOT/CT-SyclTests/sycl.pm',
-                 'intel_test_drivers/filterlist.json',
-                 'CMakeLists.txt',
-                 'util',
-                 'oclmath',
-                 'tests/common'
+%common_deps = ('$TESTROOT/CT-SyclTests/sycl.pm' => '',
+                 'intel_test_drivers/filterlist.json' => '',
+                 'CMakeLists.txt' => '',
+                 'util' => '',
+                 'oclmath' => '',
+                 'cmake' => '',
+                 'tests/common' => 'tests/common',
+                 'tests/CMakeLists.txt' => 'tests/CMakeLists.txt'
                 );
 $new_split_group = "new";
 $config_file_path = "intel_test_drivers/config";
@@ -90,8 +92,12 @@ sub get_cts_cases_and_folders {
 sub add_common_path {
   my $xml = shift;
   my @common_paths = ();
-  for my $dep (@common_deps) {
+  while(my($dep, $dst) = each %common_deps) {
     my $common_path = { 'path' => $dep };
+    if ($dst ne '') {
+      $common_path = { 'path' => $dep, 'dst' => $dst };
+    }
+
     push(@common_paths, $common_path);
   }
   $xml->{files}->{file} = [@common_paths];
@@ -103,9 +109,12 @@ sub generate_config_file {
 
   my $xml = XMLin("intel_test_drivers/config/TEMPLATE_sycl_cts.xml");
   my $source_path = "tests/$folder";
-  $xml->{files}->{file} = { path => $source_path };
-  my $xml_text = XMLout( $xml, xmldecl => '<?xml version="1.0" encoding="UTF-8" ?>', RootName => 'files');
-  print2file($xml_text, "$config_file_path/$folder.xml");
+  $xml->{files} = {file => [{path => $source_path, dst => $source_path}]};
+  # my @file_path = [{ file => {path => $source_path} }];
+  # $xml->{files} = [@file_path];
+  my $xml_text = XMLout( $xml, xmldecl => '<?xml version="1.0" encoding="UTF-8" ?>');
+  print2file($xml_text, "$config_file_path/TEMPLATE_$folder.xml");
+  # print(Dumper($xml));
 }
 
 
@@ -127,17 +136,19 @@ sub add_tests {
   foreach $case (keys %$cases) {
     my $folder = $cases->{$case};
     my $split_group = $test_split_rule->{$case};
-    if (!exists($test_split_rule->{$case}) || (! -e "$config_file_path/$folder.xml")) {
-      generate_config_file($case, $folder);
+    if (!exists($test_split_rule->{$case})) {
       $split_group = $new_split_group;
       # print("$case, $split_group\n");
     }
+    if (! -e "$config_file_path/TEMPLATE_$folder.xml") {
+      generate_config_file($case, $folder);
+    }
     
-    my $new_case = {testName => "$case", splitGroup => $split_group, configFile => "$config_file_path/$folder.xml"};
+    my $new_case = {testName => "$case", splitGroup => $split_group, configFile => "$config_file_path/TEMPLATE_$folder.xml"};
     push(@new_tests, $new_case);   
   }
 
-  # sort sycl_cts.xml by splitGroup 
+  # sort sycl_cts.xml by splitGroup and testName
   @new_tests = sort { $a->{splitGroup} cmp $b->{splitGroup}  or 
                       $a->{testName} cmp $b->{testName}
                     } @new_tests;
