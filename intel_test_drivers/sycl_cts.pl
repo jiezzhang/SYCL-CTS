@@ -79,13 +79,14 @@ sub need_filter_test {
 # the map will be scaned in the array order, the first match will be return
 my @py_test2category_map = (
   ['^math_builtin_\w+$', 'math_builtin_api'],
-  ['^vector_alias_\w+$', 'vector_alias'],
-  ['^vector_constructors_\w+$', 'vector_constructors'],
+  ['^vector_ALIAS_\w+$', 'vector_alias'],
+  ['^vector_CONSTRUCTORS_\w+$', 'vector_constructors'],
+  ['^vector_swizzles_opencl_\w+$', 'vector_swizzles_opencl'],
   ['^vector_swizzles_\w+$', 'vector_swizzles'],
-  ['^vector_swizzle_assignment_\w+$', 'vector_swizzle_assignment'],
-  ['^vector_api_\w+$', 'vector_api'],
-  ['^vector_operators_\w+$', 'vector_operators'],
-  ['^vector_load_store_\w+$', 'vector_load_store']
+  ['^vector_SWIZZLE_ASSIGNMENT_\w+$', 'vector_swizzle_assignment'],
+  ['^vector_API_\w+$', 'vector_api'],
+  ['^vector_OPERATORS_\w+$', 'vector_operators'],
+  ['^vector_LOAD_STORE_\w+$', 'vector_load_store']
 );
 
 # the mapping between cpp test to category,
@@ -150,6 +151,16 @@ my $cl_info;
 # This variable stores khronos_sycl_cts instead of khronos_sycl_cts~10-1.
 my $fixed_suite_name;
 
+# due to test name might be different in the cpp and in the bin
+# use pre defined %cpp_test_name_change to handle the mapping
+sub get_actual_cpp_test_name {
+  my $test_name = shift;
+  if (exists $cpp_test_name_change{$test_name}){
+    $test_name = $cpp_test_name_change{$test_name}
+  }
+  return $test_name;
+}
+
 # scan the source cpp files, src/tests/$category/$test.cpp,
 # a cpp test's category should be the parent folder of the cpp file
 # find out the mapping and fill into %cpp_test2category_map
@@ -192,6 +203,7 @@ sub get_category_name {
   }
   # 2. get category from %cpp_test2category_map
   # change the test name if found in $cpp_test_name_change
+  $test_name = get_actual_cpp_test_name($test_name);
   if (exists $cpp_test2category_map{$test_name}) {
     return $cpp_test2category_map{$test_name};
   }
@@ -210,7 +222,7 @@ sub remove_unused_category_src {
   # loop over @test_name_list and change to correct test names if needed
   my @test_names = [];
   foreach my $test_name (@test_name_list) {
-    push(@test_names, $test_name);
+    push(@test_names, get_actual_cpp_test_name($test_name));
   }
 
   my @category_dirs = glob("$src_dir/tests/*");
@@ -312,7 +324,7 @@ sub check_current_test_pass {
 
   return $SKIP if (need_filter_test($current_test));
 
-  my $current_cpp_test_name = $current_test;
+  my $current_cpp_test_name = get_actual_cpp_test_name($current_test);
   my $category = get_category_name($current_test);
 
   if ($stage eq 'build') {
@@ -383,7 +395,7 @@ sub generate_build_lf {
 sub filter_build_output {
   my $testname = shift;
   my $output = shift;
-  my $current_cpp_test_name = $current_test;
+  my $current_cpp_test_name = get_actual_cpp_test_name($current_test);
   my $category = get_category_name($testname);
 
   my $filtered_output = "";
@@ -495,7 +507,7 @@ sub filter_build_output {
 sub filter_run_output {
   my $testname = shift;
   my $output = shift;
-  my $current_cpp_test_name = $current_test;
+  my $current_cpp_test_name = get_actual_cpp_test_name($current_test);
   my $category = get_category_name($testname);
 
   my $filtered_output = "";
@@ -645,6 +657,7 @@ sub BuildTest {
     filter_py_generator($src_dir, $testname);
     push(@test_name_list, $testname);
   }
+
   # populate cpp test to category mapping
   # using src/tests/$category/$test.cpp folder structure
   if (!%cpp_test2category_map) {
