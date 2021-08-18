@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<suite description="         Tests of the CTS for SYCL     ">
+<suite description="
+        Tests of the CTS for SYCL
+    ">
   <files>
     <file path="oclmath" />
     <file dst="tests/common" path="tests/common" />
@@ -12,13 +14,11 @@
   </files>
   <rules></rules>
   <tests>
-    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_buffer_atomic64" />
     <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_buffer_core" />
     <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_buffer_fp16" />
     <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_buffer_fp64" />
     <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_image_core" />
     <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_image_fp16" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_local_atomic64" />
     <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_local_core" />
     <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_local_fp16" />
     <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_local_fp64" />
@@ -28,8 +28,9 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_constructors_fp64" />
     <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_constructors_image" />
     <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_constructors_local" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_buffer_atomic64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_local_atomic64" />
     <test configFile="intel_test_drivers/config/TEMPLATE_address_space.xml" splitGroup="common_1" testName="address_space" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_exception_handling.xml" splitGroup="common_1" testName="asynchronous_exceptions" />
     <test configFile="intel_test_drivers/config/TEMPLATE_atomic.xml" splitGroup="common_1" testName="atomic_api_32" />
     <test configFile="intel_test_drivers/config/TEMPLATE_atomic.xml" splitGroup="common_1" testName="atomic_api_64_base" />
     <test configFile="intel_test_drivers/config/TEMPLATE_atomic.xml" splitGroup="common_1" testName="atomic_api_64_extended" />
@@ -62,7 +63,7 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_event.xml" splitGroup="common_1" testName="event_info" />
     <test configFile="intel_test_drivers/config/TEMPLATE_event.xml" splitGroup="common_1" testName="event_wait" />
     <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_api" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_async_work_group_copy" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_async_work_group_copy_core" />
     <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_async_work_group_copy_fp16" />
     <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_async_work_group_copy_fp64" />
     <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_combined_mem_fence" />
@@ -87,12 +88,9 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_hierarchical.xml" splitGroup="common_1" testName="hierarchical_lambda" />
     <test configFile="intel_test_drivers/config/TEMPLATE_hierarchical.xml" splitGroup="common_1" testName="hierarchical_non_uniform_local_range" />
     <test configFile="intel_test_drivers/config/TEMPLATE_hierarchical.xml" splitGroup="common_1" testName="hierarchical_private_memory" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_host_task.xml" splitGroup="common_1" testName="host_task_interop_api" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_host_task.xml" splitGroup="common_1" testName="host_task_invoke_api" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_exception_handling.xml" splitGroup="common_1" testName="synchronous_exceptions" />
     <test configFile="intel_test_drivers/config/TEMPLATE_id.xml" splitGroup="common_2" testName="id_api" />
     <test configFile="intel_test_drivers/config/TEMPLATE_id.xml" splitGroup="common_2" testName="id_constructors" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_image.xml" splitGroup="common_2" testName="image_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_image.xml" splitGroup="common_2" testName="image_api_core" />
     <test configFile="intel_test_drivers/config/TEMPLATE_image.xml" splitGroup="common_2" testName="image_api_fp16" />
     <test configFile="intel_test_drivers/config/TEMPLATE_image.xml" splitGroup="common_2" testName="image_constructors" />
     <test configFile="intel_test_drivers/config/TEMPLATE_invoke.xml" splitGroup="common_2" testName="invoke_kernel_param_sizes" />
@@ -113,7 +111,7 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_multi_ptr.xml" splitGroup="common_2" testName="multi_ptr_constructors" />
     <test configFile="intel_test_drivers/config/TEMPLATE_multi_ptr.xml" splitGroup="common_2" testName="multi_ptr_constructors_fp16" />
     <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_api" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_async_work_group_copy" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_async_work_group_copy_core" />
     <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_async_work_group_copy_fp16" />
     <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_async_work_group_copy_fp64" />
     <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_combined_barrier" />
@@ -145,12 +143,12 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_queue.xml" splitGroup="common_2" testName="queue_properties" />
     <test configFile="intel_test_drivers/config/TEMPLATE_range.xml" splitGroup="common_2" testName="range_api" />
     <test configFile="intel_test_drivers/config/TEMPLATE_range.xml" splitGroup="common_2" testName="range_constructors" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_sampler.xml" splitGroup="common_2" testName="sampler_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_sampler.xml" splitGroup="common_2" testName="sampler_apis" />
     <test configFile="intel_test_drivers/config/TEMPLATE_sampler.xml" splitGroup="common_2" testName="sampler_constructors" />
     <test configFile="intel_test_drivers/config/TEMPLATE_scalars.xml" splitGroup="common_2" testName="scalars_interopability_types" />
     <test configFile="intel_test_drivers/config/TEMPLATE_scalars.xml" splitGroup="common_2" testName="scalars_sycl_types" />
     <test configFile="intel_test_drivers/config/TEMPLATE_std_classes.xml" splitGroup="common_2" testName="std_classes" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_stream.xml" splitGroup="common_2" testName="stream_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_stream.xml" splitGroup="common_2" testName="stream_api_core" />
     <test configFile="intel_test_drivers/config/TEMPLATE_stream.xml" splitGroup="common_2" testName="stream_api_fp16" />
     <test configFile="intel_test_drivers/config/TEMPLATE_stream.xml" splitGroup="common_2" testName="stream_api_fp64" />
     <test configFile="intel_test_drivers/config/TEMPLATE_stream.xml" splitGroup="common_2" testName="stream_constructors" />
@@ -167,6 +165,8 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_malloc_device" />
     <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_malloc_host" />
     <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_malloc_shared" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_host_task.xml" splitGroup="common_2" testName="host_task_interop_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_host_task.xml" splitGroup="common_2" testName="host_task_invoke_api" />
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_common_base" />
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_common_double" />
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_common_half" />
@@ -181,131 +181,131 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_base" />
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_double" />
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_half" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_alias_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_alias_double" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_alias_float" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_alias_int" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_alias_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_alias_long_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_alias_short" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_alias_signed_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_alias_sycl__half" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_alias_unsigned_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_alias_unsigned_int" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_alias_unsigned_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_alias_unsigned_long_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_alias_unsigned_short" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_double" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_float" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_int" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_long_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_short" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_signed_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_sycl__byte" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_sycl__half" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_unsigned_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_unsigned_int" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_unsigned_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_unsigned_long_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_api_unsigned_short" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_double" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_float" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_int" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_long_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_short" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_signed_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_std__int16_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_std__int32_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_std__int64_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_std__int8_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_std__uint16_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_std__uint32_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_std__uint64_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_std__uint8_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_sycl__byte" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_sycl__half" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_unsigned_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_unsigned_int" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_unsigned_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_unsigned_long_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_constructors_unsigned_short" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_double" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_float" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_int" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_long_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_short" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_signed_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_std__int16_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_std__int32_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_std__int64_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_std__int8_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_std__uint16_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_std__uint32_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_std__uint64_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_std__uint8_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_sycl__byte" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_sycl__half" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_unsigned_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_unsigned_int" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_unsigned_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_unsigned_long_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_load_store_unsigned_short" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_1" testName="vector_operators_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_1" testName="vector_operators_double" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_1" testName="vector_operators_float" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_1" testName="vector_operators_sycl__half" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_2" testName="vector_operators_int" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_2" testName="vector_operators_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_2" testName="vector_operators_long_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_2" testName="vector_operators_short" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_3" testName="vector_operators_signed_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_3" testName="vector_operators_unsigned_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_3" testName="vector_operators_unsigned_int" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_4" testName="vector_operators_sycl__byte" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_4" testName="vector_operators_unsigned_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_4" testName="vector_operators_unsigned_long_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_4" testName="vector_operators_unsigned_short" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_5" testName="vector_operators_std__int16_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_5" testName="vector_operators_std__int32_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_5" testName="vector_operators_std__int64_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_5" testName="vector_operators_std__int8_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_6" testName="vector_operators_std__uint16_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_6" testName="vector_operators_std__uint32_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_6" testName="vector_operators_std__uint64_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_6" testName="vector_operators_std__uint8_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_double" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_float" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_int" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_long_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_short" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_signed_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_std__int16_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_std__int32_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_std__int64_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_std__int8_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_std__uint16_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_std__uint32_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_std__uint64_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_std__uint8_t" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_sycl__byte" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_sycl__half" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_unsigned_char" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_unsigned_int" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_unsigned_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_unsigned_long_long" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_swizzle_assignment_unsigned_short" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_double" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_float" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_half" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_int" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_long_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_short" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_signed_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_unsigned_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_unsigned_int" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_unsigned_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_unsigned_long_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_unsigned_short" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_byte" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_double" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_float" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_half" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_int" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_long_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_short" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_signed_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_unsigned_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_unsigned_int" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_unsigned_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_unsigned_long_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_api.xml" splitGroup="vector_api" testName="vector_API_unsigned_short" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_byte" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_double" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_float" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_half" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_int" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_int16_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_int32_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_int64_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_int8_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_long_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_short" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_signed_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_uint16_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_uint32_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_uint64_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_uint8_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_unsigned_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_unsigned_int" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_unsigned_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_unsigned_long_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_constructors.xml" splitGroup="vector_constructors" testName="vector_CONSTRUCTORS_unsigned_short" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_byte" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_double" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_float" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_half" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_int" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_int16_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_int32_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_int64_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_int8_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_long_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_short" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_signed_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_uint16_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_uint32_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_uint64_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_uint8_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_unsigned_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_unsigned_int" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_unsigned_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_unsigned_long_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_load_store.xml" splitGroup="vector_load_store" testName="vector_LOAD_STORE_unsigned_short" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_1" testName="vector_OPERATORS_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_1" testName="vector_OPERATORS_double" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_1" testName="vector_OPERATORS_float" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_1" testName="vector_OPERATORS_half" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_2" testName="vector_OPERATORS_int" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_2" testName="vector_OPERATORS_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_2" testName="vector_OPERATORS_long_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_2" testName="vector_OPERATORS_short" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_3" testName="vector_OPERATORS_signed_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_3" testName="vector_OPERATORS_unsigned_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_3" testName="vector_OPERATORS_unsigned_int" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_4" testName="vector_OPERATORS_byte" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_4" testName="vector_OPERATORS_unsigned_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_4" testName="vector_OPERATORS_unsigned_long_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_4" testName="vector_OPERATORS_unsigned_short" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_5" testName="vector_OPERATORS_int16_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_5" testName="vector_OPERATORS_int32_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_5" testName="vector_OPERATORS_int64_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_5" testName="vector_OPERATORS_int8_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_6" testName="vector_OPERATORS_uint16_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_6" testName="vector_OPERATORS_uint32_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_6" testName="vector_OPERATORS_uint64_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_operators.xml" splitGroup="vector_operators_6" testName="vector_OPERATORS_uint8_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_byte" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_double" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_float" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_half" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_int" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_int16_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_int32_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_int64_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_int8_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_long_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_short" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_signed_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_uint16_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_uint32_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_uint64_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_uint8_t" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_unsigned_char" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_unsigned_int" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_unsigned_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_unsigned_long_long" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzle_assignment.xml" splitGroup="vector_swizzle_assignment" testName="vector_SWIZZLE_ASSIGNMENT_unsigned_short" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_1" testName="vector_swizzles_char" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_1" testName="vector_swizzles_double" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_1" testName="vector_swizzles_float" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_1" testName="vector_swizzles_sycl__half" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_1" testName="vector_swizzles_half" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_2" testName="vector_swizzles_int" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_2" testName="vector_swizzles_long" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_2" testName="vector_swizzles_long_long" />
@@ -313,7 +313,7 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_3" testName="vector_swizzles_signed_char" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_3" testName="vector_swizzles_unsigned_char" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_3" testName="vector_swizzles_unsigned_int" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_4" testName="vector_swizzles_sycl__byte" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_4" testName="vector_swizzles_byte" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_4" testName="vector_swizzles_unsigned_long" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_4" testName="vector_swizzles_unsigned_long_long" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_swizzles.xml" splitGroup="vector_swizzles_4" testName="vector_swizzles_unsigned_short" />

@@ -16,6 +16,8 @@ use Data::Dumper;
 $new_split_group = "new";
 $config_file_path = "intel_test_drivers/config";
 $cts_src_dir = cwd();
+@category_name_list = ();
+@failed_categories = ();
 
 sub print2file
 {
@@ -28,8 +30,18 @@ sub print2file
     close FD;
 }
 
+sub get_category_names {
+  my @category_dirs = glob("$cts_src_dir/tests/*");
+  for my $category_dir (@category_dirs) {
+    if (!($category_dir =~ m/common/) && -d $category_dir) {
+      push(@category_name_list, basename($category_dir));
+    }
+  }
+}
+
 sub get_cts_cases_and_folders {
-  my $build_folder = "/tmp/cts_build";
+  my $build_folder = "$cts_src_dir/../cts_build";
+  my $bin_folder = "$build_folder/bin";
 
   mkdir($build_folder);
   chdir($build_folder);
@@ -66,26 +78,46 @@ sub get_cts_cases_and_folders {
     die("Failed to run \"$cmd\": $!");
   }
 
-  my $full_list = `ninja -n`;
-  chdir($cts_src_dir);
-  `rm -rf $build_folder`;
+  get_category_names();
+  my $ninja_cmd = "ninja -k 999 -j 7 -v";
 
-  my @lines = split("\n", $full_list);
-  my %cases;
-  for my $line (@lines) {
-    my %case; 
-    my $folder;
-    my $casename; 
-    if( $line =~ /object\s+tests\/(\w+)\/.*\/(\w+).cpp.o/i ) {
-      $folder = $1;
-      $casename = $2;
+  # Build every category to prevent math builtin compilation problem
+  for my $category (@category_name_list) {
+    my $cmd = $ninja_cmd . " test_$category";
+    `$cmd > build_$category.log 2>&1`;
+    if ($? != 0) {
+      push(@failed_categories, $category);
     }
+  }
+  print("Following categories fail to be built: @failed_categories\n");
 
-    if (defined($folder) && defined($casename) && ($folder ne "common")) {
+  my @binaries = glob("$bin_folder/test_*");
+  my %cases;
+  for my $binary (@binaries) {
+    my $folder = "";
+    next if ($bianry eq "test_all");
+    my $full_list = `$binary --list`;
+    if ($? != 0) {
+      die("Failed to run \"$binary\": $!");
+    }
+    my @lines = split("\n", $full_list);
+    my $binary_name = basename($binary);
+    if ( $binary_name =~ /test_(\w+)/i ) {
+      $folder = $1;
+    }
+    for my $casename (@lines) {
+      next if ($casename =~ m/tests\ in\ executable/);
+
+      if ( $casename =~ /^\W+(\w+)/) {
+        $casename = $1;
+      }
+
       $cases->{$casename} = $folder;
     }
   }
 
+  chdir($cts_src_dir);
+  `rm -rf $build_folder`;
   return $cases;
 }
 
@@ -117,6 +149,29 @@ sub generate_config_file {
   # print(Dumper($xml));
 }
 
+sub check_diff_cases {
+  my @eixsting_test_map = @{$_[0]};
+  my @new_cases = @{$_[1]};
+  # print("@new_cases\n");
+
+  my %count;
+  for my $element (@eixsting_test_map) { $count{$element}++ }
+
+  my (@in_old_only, @in_new_only);
+  for my $element (@new_cases) { 
+    if (! exists($count{$element})) {
+      push(@in_new_only, $element);
+      next;
+    } else {
+      $count{$element}++;
+    }
+  }
+  for my $element (keys %count) {
+      push(@in_old_only, $element) if ($count{$element} <= 1);
+  }
+  print("These cases exist in the old xml only: @in_old_only\n");
+  print("These cases exist in the new xml only: @in_new_only\n");
+}
 
 sub add_tests {
   my $xml = shift;
@@ -125,12 +180,16 @@ sub add_tests {
   my @tests = @{$xml->{tests}->{test}};
   my @new_tests = ();
 
+  my @existing_array = ();
+  my @new_array = ();
+
   # Record all existing splitGroup rules
   my $test_split_rule = {};
   for my $test (@tests) {
     my $test_name = $test->{testName};
     my $split_group = $test->{splitGroup};
     $test_split_rule->{$test_name} = $split_group;
+    push(@existing_array, $test_name);
   }
 
   foreach $case (keys %$cases) {
@@ -145,9 +204,10 @@ sub add_tests {
     }
     
     my $new_case = {testName => "$case", splitGroup => $split_group, configFile => "$config_file_path/TEMPLATE_$folder.xml"};
-    push(@new_tests, $new_case);   
+    push(@new_tests, $new_case); 
+    push(@new_array, $case); 
   }
-
+  check_diff_cases(\@existing_array, \@new_array);
   # sort sycl_cts.xml by splitGroup and testName
   @new_tests = sort { $a->{splitGroup} cmp $b->{splitGroup}  or 
                       $a->{testName} cmp $b->{testName}
