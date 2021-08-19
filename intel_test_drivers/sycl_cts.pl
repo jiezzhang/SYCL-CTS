@@ -655,7 +655,6 @@ sub BuildTest {
   my $current_category = get_category_name($current_test);
 
   # tests already compiled in first run, need parse result and generate lf file.
-  # TODO: only skip build when this catagory is compiled
   if(dryrun("$build_dir/bin/test_$current_category")) {
     return $dryrun_result;
   }
@@ -865,7 +864,6 @@ sub BuildTest {
   push(@ninja_cmd, "-k 999");
   push(@ninja_cmd, "-v");
   # specify categories to be build in order not to build test_all
-  # TODO: only compile current category
   if ($current_category eq "opencl_interop" and $current_optset =~ m/opt_use_gpu/ and $current_optset !~ m/_ocl/) {
     return $SKIP;
   }
@@ -887,7 +885,6 @@ sub BuildTest {
   }
 
   # quit when cmd is timed out
-  # TODO: maybe need to update timeout
   return if is_cmd_timeout();
 
   # validation on the binary is actually built,
