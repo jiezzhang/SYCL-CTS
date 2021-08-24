@@ -102,9 +102,9 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_item.xml" splitGroup="common_2" testName="item_constructors" />
     <test configFile="intel_test_drivers/config/TEMPLATE_item.xml" splitGroup="common_2" testName="item_equality" />
     <test configFile="intel_test_drivers/config/TEMPLATE_kernel.xml" splitGroup="common_2" testName="kernel_api" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_kernel_args.xml" splitGroup="common_2" testName="kernel_args" />
     <test configFile="intel_test_drivers/config/TEMPLATE_kernel.xml" splitGroup="common_2" testName="kernel_constructors" />
     <test configFile="intel_test_drivers/config/TEMPLATE_kernel.xml" splitGroup="common_2" testName="kernel_info" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_kernel_args.xml" splitGroup="common_2" testName="kernel_args" />
     <test configFile="intel_test_drivers/config/TEMPLATE_pointers.xml" splitGroup="common_2" testName="kernel_pointers" />
     <test configFile="intel_test_drivers/config/TEMPLATE_multi_ptr.xml" splitGroup="common_2" testName="multi_ptr_api" />
     <test configFile="intel_test_drivers/config/TEMPLATE_multi_ptr.xml" splitGroup="common_2" testName="multi_ptr_api_fp16" />

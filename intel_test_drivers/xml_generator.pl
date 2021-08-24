@@ -210,6 +210,7 @@ sub add_tests {
   check_diff_cases(\@existing_array, \@new_array);
   # sort sycl_cts.xml by splitGroup and testName
   @new_tests = sort { $a->{splitGroup} cmp $b->{splitGroup}  or 
+                      $a->{configFile} cmp $b->{configFile}  or
                       $a->{testName} cmp $b->{testName}
                     } @new_tests;
   $xml->{tests}->{test} = [@new_tests];

@@ -652,7 +652,7 @@ sub BuildTest {
 
   # TODO: copy binary to other places because we will delete build for each category
   my $current_category = get_category_name($current_test);
-
+  $build_lf = "$optset_work_dir/build\_$current_category.lf";
   # tests already compiled in first run, need parse result and generate lf file.
   if(dryrun()) {
     return $dryrun_result;
@@ -660,7 +660,6 @@ sub BuildTest {
 
   my $ret = $PASS;
   my @test_name_list = ();
-  $build_lf = "$optset_work_dir/build\_$current_category.lf";
 
   for my $testname (get_tests_to_run()) {
     my $category_name = get_category_name($testname);
@@ -891,7 +890,9 @@ sub BuildTest {
   # in case of no obvious errors from cmake and ninja,
   # but binary is still not built
   my $test_bin = "$cwd/build/bin/test_$current_category";
-
+  if (is_windows()) {
+    $test_bin = $test_bin . ".exe";
+  }
   if (-e $test_bin) {
     $cmake_compiler_output .= "[validation] bin/test_$current_category built\n";
   } else {
