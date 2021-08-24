@@ -51,8 +51,8 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_context.xml" splitGroup="common_1" testName="context_info" />
     <test configFile="intel_test_drivers/config/TEMPLATE_device.xml" splitGroup="common_1" testName="device_api" />
     <test configFile="intel_test_drivers/config/TEMPLATE_device.xml" splitGroup="common_1" testName="device_constructors" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_device_event.xml" splitGroup="common_1" testName="device_event_api" />
     <test configFile="intel_test_drivers/config/TEMPLATE_device.xml" splitGroup="common_1" testName="device_info" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_device_event.xml" splitGroup="common_1" testName="device_event_api" />
     <test configFile="intel_test_drivers/config/TEMPLATE_device_selector.xml" splitGroup="common_1" testName="device_selector_api" />
     <test configFile="intel_test_drivers/config/TEMPLATE_device_selector.xml" splitGroup="common_1" testName="device_selector_constructors" />
     <test configFile="intel_test_drivers/config/TEMPLATE_device_selector.xml" splitGroup="common_1" testName="device_selector_custom" />
