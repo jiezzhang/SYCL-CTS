@@ -624,9 +624,8 @@ sub generate_dryrun_result {
 }
 
 sub dryrun {
-  my $binary = shift;
   my $fh;
-  if (! -e $binary) {
+  if (! -e $build_lf) {
     return 0;
   }
 
@@ -655,12 +654,13 @@ sub BuildTest {
   my $current_category = get_category_name($current_test);
 
   # tests already compiled in first run, need parse result and generate lf file.
-  if(dryrun("$build_dir/bin/test_$current_category")) {
+  if(dryrun()) {
     return $dryrun_result;
   }
 
   my $ret = $PASS;
   my @test_name_list = ();
+  $build_lf = "$optset_work_dir/build\_$current_category.lf";
 
   for my $testname (get_tests_to_run()) {
     my $category_name = get_category_name($testname);
