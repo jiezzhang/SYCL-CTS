@@ -91,7 +91,7 @@ my @py_test2category_map = (
 
 # the mapping between cpp test to category,
 # will be populated by populate_cpp_test2category_map() when build starts
-my %cpp_test2category_map;
+my %cpp_test2category_map = ();
 # some test name in the cpp is different from the output of the test binary
 # this mapping configs: test name in binary => test name in cpp
 my %cpp_test_name_change = (
@@ -101,9 +101,6 @@ my %cpp_test_name_change = (
   'sampler_apis' => 'sampler_api',
   'stream_api_core' => 'stream_api',
 );
-
-# global variable to store all categories have been assigned
-my @category_name_list = ();
 
 # CTS requires newer cmake tool (3.10+), need to identify the fixed path.
 my $cmake_root = $ENV{ICS_PKG_CMAKE};
@@ -121,7 +118,6 @@ my $cmake_tool;
 my $parallel_opt = "-j 7";
 
 my $cwd = cwd();
-my @test_name_list = ();
 
 # Use build.lf to store standard output of cmake/ctest build logs, and parse it to <test>.lf
 my $build_lf = "$optset_work_dir/build.lf";
@@ -134,10 +130,6 @@ my $build_lf = "$optset_work_dir/build.lf";
 # 4) return code
 # 5) fail message
 my $dryrun_result = $PASS;
-
-my @cmake_cmd = ();
-my @ninja_cmd = ();
-my @ctest_cmd = ();
 
 my $sep = "/";
 my $opencl_platform = "host";
@@ -180,8 +172,6 @@ sub populate_cpp_test2category_map {
       # fill into $cpp_test2category_map
       if (!(exists $cpp_test2category_map{$test_name})){
         $cpp_test2category_map{$test_name} = $category_name;
-      }else{
-        $cpp_test2category_map{$test_name} = "duplicated";
       }
     }
   }
@@ -216,8 +206,8 @@ sub get_category_name {
 # This function can speed up cmake configuration.
 sub remove_unused_category_src {
   my $src_dir = $_[0];
-  my @category_list = @{$_[1]};
-  my @test_list = @{$_[2]};
+  my @test_name_list = @{$_[1]};
+  my $categroy = $_[2];
 
   # loop over @test_name_list and change to correct test names if needed
   my @test_names = [];
@@ -230,17 +220,16 @@ sub remove_unused_category_src {
     next if ($category_dir =~ m/CMakeLists\.txt|common/);
 
     my $category_base_dir = basename($category_dir);
-    if (!grep(/^$category_base_dir$/, @category_list)) {
-      # remove dir if a category has not been assigned
+    if ($category_base_dir ne $categroy) {
       rmtree $category_dir;
       next;
-    }else{
-      my @test_cpps = glob("$category_dir/*.cpp");
-      # remove cpp if a test has not been asigned
-      for my $test_cpp (@test_cpps) {
-        my $test_cpp_basename = get_base_name_we($test_cpp);
-        unlink $test_cpp if (!grep(/^$test_cpp_basename$/, @test_names));
-      }
+    }
+
+    my @test_cpps = glob("$category_dir/*.cpp");
+    # remove cpp if a test has not been asigned
+    for my $test_cpp (@test_cpps) {
+      my $test_cpp_basename = get_base_name_we($test_cpp);
+      unlink $test_cpp if (!grep(/^$test_cpp_basename$/, @test_names));
     }
   }
 }
@@ -635,7 +624,6 @@ sub generate_dryrun_result {
 
 sub dryrun {
   my $fh;
-
   if (! -e $build_lf) {
     return 0;
   }
@@ -648,29 +636,37 @@ sub dryrun {
 
 sub BuildTest {
   my $stage = 'build';
-
   my $build_dir = $cwd . "/build";
-  my $src_dir = $cwd . "/intel_cts";
+  my $binary_dir = $cwd . "/bin";
+  my $src_dir = $cwd;
 
-  for my $testname (get_tests_to_run()) {
-    next if (need_filter_test($testname));
-    filter_py_generator($src_dir, $testname);
-    push(@test_name_list, $testname);
-  }
+  my @cmake_cmd = ();
+  my @ninja_cmd = ();
+  my @ctest_cmd = ();
+
+  chdir_log($cwd);
 
   # populate cpp test to category mapping
   # using src/tests/$category/$test.cpp folder structure
-  if (!%cpp_test2category_map) {
-    populate_cpp_test2category_map($src_dir);
-  }
+  populate_cpp_test2category_map($src_dir);
 
+  # TODO: copy binary to other places because we will delete build for each category
+  my $current_category = get_category_name($current_test);
+  $build_lf = "$optset_work_dir/build\_$current_category.lf";
   # tests already compiled in first run, need parse result and generate lf file.
   if(dryrun()) {
     return $dryrun_result;
   }
 
   my $ret = $PASS;
+  my @test_name_list = ();
 
+  for my $testname (get_tests_to_run()) {
+    my $category_name = get_category_name($testname);
+    next if ($category_name ne $current_category || need_filter_test($testname));
+    filter_py_generator($src_dir, $testname);
+    push(@test_name_list, $testname);
+  }
   # get the category list of all the tests to be run on the workstation
   # and remove sources which do not need to be built
   for my $test_name (@test_name_list) {
@@ -680,12 +676,11 @@ sub BuildTest {
       $compiler_output .= "[category_map] $test_name: $category_name category\n";
       next;
     }
-    push(@category_name_list, $category_name) if (!grep(/^$category_name$/, @category_name_list));
     $compiler_output .= "[category_map] $test_name -> $category_name\n";
   }
   $compiler_output .= "[category_map] finished\n";
 
-  remove_unused_category_src($src_dir, \@category_name_list, \@test_name_list);
+  remove_unused_category_src($src_dir, \@test_name_list, $current_category);
 
   # suite name split to <suite>~n, need to remove ~n here
   $fixed_suite_name = $current_suite;
@@ -743,7 +738,13 @@ sub BuildTest {
   # work-around for option with double quotes, e.g. -Xs "-device skl"
   $cmake_flags =~ s/"/'/g;
 
-  safe_Mkdir($build_dir);
+  if (-e $build_dir) {
+    execute("rm -rf $build_dir");
+  }
+  if (! -e $binary_dir) {
+    safe_Mkdir($binary_dir);
+  }
+  execute("mkdir -p $build_dir");
   chdir_log($build_dir);
 
   if (is_windows()) {
@@ -789,7 +790,7 @@ sub BuildTest {
   }
 
   my $split_mode = "per_kernel";
-  $split_mode = "per_source" if grep( /^vector_swizzles|^math_builtin|^accessor|^group/, @category_name_list);
+  $split_mode = "per_source" if grep( /^vector_swizzles|^math_builtin|^accessor|^group/, $current_category);
   $opt_linker_flags .= " -Wl,-no-relax ";
 
   my $sycl_flags = "-fsycl-device-code-split=$split_mode";
@@ -865,10 +866,10 @@ sub BuildTest {
   push(@ninja_cmd, "-k 999");
   push(@ninja_cmd, "-v");
   # specify categories to be build in order not to build test_all
-  foreach my $category_name (@category_name_list) {
-    next if ($category_name eq "opencl_interop" and $current_optset =~ m/opt_use_gpu/ and $current_optset !~ m/_ocl/);
-    push(@ninja_cmd, "test_" . $category_name);
+  if ($current_category eq "opencl_interop" and $current_optset =~ m/opt_use_gpu/ and $current_optset !~ m/_ocl/) {
+    return $SKIP;
   }
+  push(@ninja_cmd, "test_" . $current_category);
 
   $cmake_compiler_output .= "[cmd][ninja] " . join(" ", @ninja_cmd) . "\n";
 
@@ -891,16 +892,15 @@ sub BuildTest {
   # validation on the binary is actually built,
   # in case of no obvious errors from cmake and ninja,
   # but binary is still not built
-  foreach my $category (@category_name_list) {
-    my $test_bin = "$cwd/build/bin/test_$category";
-    if (is_windows()) {
-      $test_bin = $test_bin . ".exe";
-    }
-    if (-e $test_bin) {
-      $cmake_compiler_output .= "[validation] bin/test_$category built\n";
-    } else {
-      $cmake_compiler_output .= "[validation] bin/test_$category not built\n";
-    }
+  my $test_bin = "$cwd/build/bin/test_$current_category";
+  if (is_windows()) {
+    $test_bin = $test_bin . ".exe";
+  }
+  if (-e $test_bin) {
+    $cmake_compiler_output .= "[validation] bin/test_$current_category built\n";
+    execute("mv $test_bin $binary_dir/");
+  } else {
+    $cmake_compiler_output .= "[validation] bin/test_$current_category not built\n";
   }
   $cmake_compiler_output .= "[validation] finished\n";
 
@@ -956,6 +956,7 @@ sub RunTest {
   my $ret = $PASS;
   my $build_dir = $cwd . "/build";
   my $src_dir = $cwd . "/intel_cts";
+  my $binary_dir = $cwd . "/bin";
 
   # populate cpp test to category mapping
   # using src/tests/$category/$test.cpp folder structure
@@ -983,7 +984,7 @@ sub RunTest {
   push(@run_option, "-d $opencl_device");
 
   my $current_category = get_category_name($current_test);
-  my $test_bin = "$cwd/build/bin/test_$current_category";
+  my $test_bin = "$binary_dir/test_$current_category";
 
   push(@run_option, " --test $current_test");
   $execution_output .= "[cmd][test] $test_bin " . join(" ", @run_option) . "\n";
@@ -1021,6 +1022,7 @@ sub CleanupTest {
   if ($opt_remove !~ /none/i and $current_test eq $testlist[-1]) {
     remove("$optset_work_dir/build/*");
     remove("$optset_work_dir/intel_cts");
+    remove("$optset_work_dir/bin/*");
   }
 }
 
