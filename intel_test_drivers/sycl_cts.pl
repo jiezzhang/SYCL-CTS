@@ -638,6 +638,7 @@ sub dryrun {
 sub BuildTest {
   my $stage = 'build';
   my $build_dir = $cwd . "/build";
+  my $binary_dir = $cwd . "/bin";
   my $src_dir = $cwd;
 
   my @cmake_cmd = ();
@@ -739,9 +740,12 @@ sub BuildTest {
   $cmake_flags =~ s/"/'/g;
 
   if (-e $build_dir) {
-    rmtree($build_dir);
+    execute("rm -rf $build_dir");
   }
-  safe_Mkdir($build_dir);
+  if (! -e $binary_dir) {
+    safe_Mkdir($binary_dir);
+  }
+  execute("mkdir -p $build_dir");
   chdir_log($build_dir);
 
   if (is_windows()) {
@@ -895,6 +899,7 @@ sub BuildTest {
   }
   if (-e $test_bin) {
     $cmake_compiler_output .= "[validation] bin/test_$current_category built\n";
+    execute("mv $test_bin $binary_dir/");
   } else {
     $cmake_compiler_output .= "[validation] bin/test_$current_category not built\n";
   }
@@ -952,6 +957,7 @@ sub RunTest {
   my $ret = $PASS;
   my $build_dir = $cwd . "/build";
   my $src_dir = $cwd . "/intel_cts";
+  my $binary_dir = $cwd . "/bin";
 
   # populate cpp test to category mapping
   # using src/tests/$category/$test.cpp folder structure
@@ -979,7 +985,7 @@ sub RunTest {
   push(@run_option, "-d $opencl_device");
 
   my $current_category = get_category_name($current_test);
-  my $test_bin = "$cwd/build/bin/test_$current_category";
+  my $test_bin = "$binary_dir/test_$current_category";
 
   push(@run_option, " --test $current_test");
   $execution_output .= "[cmd][test] $test_bin " . join(" ", @run_option) . "\n";
@@ -1017,6 +1023,7 @@ sub CleanupTest {
   if ($opt_remove !~ /none/i and $current_test eq $testlist[-1]) {
     remove("$optset_work_dir/build/*");
     remove("$optset_work_dir/intel_cts");
+    remove("$optset_work_dir/bin/*");
   }
 }
 
