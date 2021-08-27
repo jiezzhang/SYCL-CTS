@@ -173,7 +173,6 @@ sub populate_cpp_test2category_map {
       if (!(exists $cpp_test2category_map{$test_name})){
         $cpp_test2category_map{$test_name} = $category_name;
       }
-      $tmp = $cpp_test2category_map{$test_name};
     }
   }
 }
