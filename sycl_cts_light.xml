@@ -1,140 +1,171 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<suite>
-    <description>
-        A subset of sycl_cts to running with analyzer, exclude heavy tests.
-    </description>
-    <rules />
-    <files>
-        <file path="$TESTROOT/CT-SyclTests/sycl.pm" />
-        <file path="../intel_cts/intel_test_drivers/filterlist.json" />
-        <file path="../intel_cts" />
-    </files>
-    <tests>
-        <test testName="accessor_api_buffer" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_api_buffer_fp16" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_api_buffer_fp64" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_api_image" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_api_image_fp16" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_api_local" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_api_local_fp16" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_api_local_fp64" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_constructors_buffer" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_constructors_buffer_placeholder" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_constructors_fp16" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_constructors_fp64" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_constructors_image" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="accessor_constructors_local" splitGroup="accessor" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="address_space" splitGroup="address_space" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="asynchronous_exceptions" splitGroup="exceptions" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="synchronous_exceptions" splitGroup="exceptions" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="atomic_api_32" splitGroup="atomic" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="atomic_api_64_base" splitGroup="atomic" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="atomic_api_64_extended" splitGroup="atomic" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="atomic_constructors_32" splitGroup="atomic" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="atomic_constructors_64" splitGroup="atomic" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="buffer_api" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="buffer_constructors" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="buffer_destructors" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="buffer_storage" splitGroup="buffer" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="context_api" splitGroup="context" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="context_constructors" splitGroup="context" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="context_info" splitGroup="context" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="device_api" splitGroup="device" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="device_constructors" splitGroup="device" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="device_event_api" splitGroup="device" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="device_info" splitGroup="device" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="device_selector_api" splitGroup="device" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="device_selector_constructors" splitGroup="device" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="device_selector_custom" splitGroup="device" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="device_selector_predefined" splitGroup="device" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="error_types" splitGroup="error" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="event_api" splitGroup="event" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="event_constructors" splitGroup="event" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="event_info" splitGroup="event" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="event_wait" splitGroup="event" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="group_api" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="group_async_work_group_copy_core" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="group_async_work_group_copy_fp16" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="group_async_work_group_copy_fp64" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="group_constructors" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="group_equality" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="group_mem_fence" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="group_wait_for" splitGroup="group" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="h_item_api" splitGroup="h_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="h_item_constructors" splitGroup="h_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="h_item_equality" splitGroup="h_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="handler_api" splitGroup="handler" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="handler_copy" splitGroup="handler" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="handler_invoke_api" splitGroup="handler" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="header_test" splitGroup="header" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="hierarchical_functor" splitGroup="hierarchical" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="hierarchical_id" splitGroup="hierarchical" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="hierarchical_implicit_barriers" splitGroup="hierarchical" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="hierarchical_implicit_conditional" splitGroup="hierarchical" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="hierarchical_implicit_reduce" splitGroup="hierarchical" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="hierarchical_lambda" splitGroup="hierarchical" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="hierarchical_non_uniform_local_range" splitGroup="hierarchical" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="hierarchical_private_memory" splitGroup="hierarchical" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="id_api" splitGroup="id" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="id_constructors" splitGroup="id" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="image_api_core" splitGroup="image" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="image_api_fp16" splitGroup="image" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="image_constructors" splitGroup="image" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="invoke_kernel_param_sizes" splitGroup="invoke" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="invoke_kernel_params" splitGroup="invoke" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="invoke_template_kernels" splitGroup="invoke" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="item_1d" splitGroup="item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="item_2d" splitGroup="item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="item_3d" splitGroup="item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="item_constructors" splitGroup="item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="item_equality" splitGroup="item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="kernel_api" splitGroup="kernel" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="kernel_args" splitGroup="kernel" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="kernel_constructors" splitGroup="kernel" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="kernel_info" splitGroup="kernel" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="kernel_pointers" splitGroup="kernel" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="multi_ptr_api" splitGroup="multi_ptr" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="multi_ptr_api_fp16" splitGroup="multi_ptr" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="multi_ptr_constructors" splitGroup="multi_ptr" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="multi_ptr_constructors_fp16" splitGroup="multi_ptr" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_item" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_item_async_work_group_copy_core" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_item_async_work_group_copy_fp16" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_item_async_work_group_copy_fp64" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_item_combined_barrier" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_item_constructors" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_item_default_barrier" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_item_equality" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_item_global_barrier" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_item_local_barrier" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_item_mem_fence" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_item_wait_for" splitGroup="nd_item" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_range_api" splitGroup="nd_range" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_range_constructors" splitGroup="nd_range" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="nd_range_equality" splitGroup="nd_range" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="opencl_interop_constructors" splitGroup="opencl_interop" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="opencl_interop_get" splitGroup="opencl_interop" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="opencl_interop_kernel" splitGroup="opencl_interop" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="platform_api" splitGroup="platform" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="platform_constructors" splitGroup="platform" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="platform_info" splitGroup="platform" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="program_api" splitGroup="program" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="program_constructors" splitGroup="program" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="program_info" splitGroup="program" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="queue_api" splitGroup="queue" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="queue_constructors" splitGroup="queue" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="queue_info" splitGroup="queue" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="queue_properties" splitGroup="queue" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="range_api" splitGroup="range" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="range_constructors" splitGroup="range" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="sampler_apis" splitGroup="sampler" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="sampler_constructors" splitGroup="sampler" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="scalars_interopability_types" splitGroup="scalars" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="scalars_sycl_types" splitGroup="scalars" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="std_classes" splitGroup="std" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="stream_api_core" splitGroup="stream" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="stream_api_fp16" splitGroup="stream" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="stream_api_fp64" splitGroup="stream" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-        <test testName="stream_constructors" splitGroup="stream" configFile="intel_test_drivers/config/TEMPLATE_sycl_cts.xml" />
-    </tests>
+<?xml version="1.0" encoding="UTF-8" ?>
+<suite description="
+        Tests of the CTS for SYCL
+    ">
+  <files>
+    <file path="oclmath" />
+    <file dst="tests/common" path="tests/common" />
+    <file dst="tests/CMakeLists.txt" path="tests/CMakeLists.txt" />
+    <file path="intel_test_drivers/filterlist.json" />
+    <file path="$TESTROOT/CT-SyclTests/sycl.pm" />
+    <file path="util" />
+    <file path="CMakeLists.txt" />
+    <file path="cmake" />
+  </files>
+  <rules></rules>
+  <tests>
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_buffer_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_buffer_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_buffer_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_image_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_image_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_local_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_local_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_local_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_constructors_buffer" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_constructors_buffer_placeholder" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_constructors_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_constructors_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_constructors_image" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_constructors_local" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_buffer_atomic64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_api_local_atomic64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_address_space.xml" splitGroup="common_1" testName="address_space" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_atomic.xml" splitGroup="common_1" testName="atomic_api_32" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_atomic.xml" splitGroup="common_1" testName="atomic_api_64_base" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_atomic.xml" splitGroup="common_1" testName="atomic_api_64_extended" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_atomic.xml" splitGroup="common_1" testName="atomic_constructors_32" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_atomic.xml" splitGroup="common_1" testName="atomic_constructors_64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_buffer.xml" splitGroup="common_1" testName="buffer_api_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_buffer.xml" splitGroup="common_1" testName="buffer_api_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_buffer.xml" splitGroup="common_1" testName="buffer_api_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_buffer.xml" splitGroup="common_1" testName="buffer_constructors_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_buffer.xml" splitGroup="common_1" testName="buffer_constructors_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_buffer.xml" splitGroup="common_1" testName="buffer_constructors_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_buffer.xml" splitGroup="common_1" testName="buffer_destructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_buffer.xml" splitGroup="common_1" testName="buffer_storage_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_buffer.xml" splitGroup="common_1" testName="buffer_storage_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_buffer.xml" splitGroup="common_1" testName="buffer_storage_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_context.xml" splitGroup="common_1" testName="context_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_context.xml" splitGroup="common_1" testName="context_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_context.xml" splitGroup="common_1" testName="context_info" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_device.xml" splitGroup="common_1" testName="device_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_device.xml" splitGroup="common_1" testName="device_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_device.xml" splitGroup="common_1" testName="device_info" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_device_event.xml" splitGroup="common_1" testName="device_event_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_device_selector.xml" splitGroup="common_1" testName="device_selector_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_device_selector.xml" splitGroup="common_1" testName="device_selector_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_device_selector.xml" splitGroup="common_1" testName="device_selector_custom" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_device_selector.xml" splitGroup="common_1" testName="device_selector_predefined" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_error.xml" splitGroup="common_1" testName="error_types" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_event.xml" splitGroup="common_1" testName="event_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_event.xml" splitGroup="common_1" testName="event_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_event.xml" splitGroup="common_1" testName="event_info" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_event.xml" splitGroup="common_1" testName="event_wait" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_async_work_group_copy_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_async_work_group_copy_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_async_work_group_copy_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_combined_mem_fence" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_default_mem_fence" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_equality" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_global_mem_fence" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_local_mem_fence" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_group.xml" splitGroup="common_1" testName="group_wait_for" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_h_item.xml" splitGroup="common_1" testName="h_item_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_h_item.xml" splitGroup="common_1" testName="h_item_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_h_item.xml" splitGroup="common_1" testName="h_item_equality" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_handler.xml" splitGroup="common_1" testName="handler_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_handler.xml" splitGroup="common_1" testName="handler_copy" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_handler.xml" splitGroup="common_1" testName="handler_invoke_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_header.xml" splitGroup="common_1" testName="header_test" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_hierarchical.xml" splitGroup="common_1" testName="hierarchical_functor" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_hierarchical.xml" splitGroup="common_1" testName="hierarchical_id" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_hierarchical.xml" splitGroup="common_1" testName="hierarchical_implicit_barriers" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_hierarchical.xml" splitGroup="common_1" testName="hierarchical_implicit_conditional" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_hierarchical.xml" splitGroup="common_1" testName="hierarchical_implicit_reduce" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_hierarchical.xml" splitGroup="common_1" testName="hierarchical_lambda" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_hierarchical.xml" splitGroup="common_1" testName="hierarchical_non_uniform_local_range" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_hierarchical.xml" splitGroup="common_1" testName="hierarchical_private_memory" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_id.xml" splitGroup="common_2" testName="id_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_id.xml" splitGroup="common_2" testName="id_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_image.xml" splitGroup="common_2" testName="image_api_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_image.xml" splitGroup="common_2" testName="image_api_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_image.xml" splitGroup="common_2" testName="image_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_invoke.xml" splitGroup="common_2" testName="invoke_kernel_param_sizes" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_invoke.xml" splitGroup="common_2" testName="invoke_kernel_params" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_invoke.xml" splitGroup="common_2" testName="invoke_template_kernels" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_item.xml" splitGroup="common_2" testName="item_1d" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_item.xml" splitGroup="common_2" testName="item_2d" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_item.xml" splitGroup="common_2" testName="item_3d" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_item.xml" splitGroup="common_2" testName="item_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_item.xml" splitGroup="common_2" testName="item_equality" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_kernel.xml" splitGroup="common_2" testName="kernel_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_kernel.xml" splitGroup="common_2" testName="kernel_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_kernel.xml" splitGroup="common_2" testName="kernel_info" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_kernel_args.xml" splitGroup="common_2" testName="kernel_args" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_pointers.xml" splitGroup="common_2" testName="kernel_pointers" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_multi_ptr.xml" splitGroup="common_2" testName="multi_ptr_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_multi_ptr.xml" splitGroup="common_2" testName="multi_ptr_api_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_multi_ptr.xml" splitGroup="common_2" testName="multi_ptr_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_multi_ptr.xml" splitGroup="common_2" testName="multi_ptr_constructors_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_async_work_group_copy_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_async_work_group_copy_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_async_work_group_copy_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_combined_barrier" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_combined_mem_fence" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_default_barrier" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_default_mem_fence" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_equality" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_global_barrier" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_global_mem_fence" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_local_barrier" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_local_mem_fence" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_item.xml" splitGroup="common_2" testName="nd_item_wait_for" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_range.xml" splitGroup="common_2" testName="nd_range_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_range.xml" splitGroup="common_2" testName="nd_range_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_nd_range.xml" splitGroup="common_2" testName="nd_range_equality" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_opencl_interop.xml" splitGroup="common_2" testName="opencl_interop_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_opencl_interop.xml" splitGroup="common_2" testName="opencl_interop_get" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_opencl_interop.xml" splitGroup="common_2" testName="opencl_interop_kernel" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_platform.xml" splitGroup="common_2" testName="platform_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_platform.xml" splitGroup="common_2" testName="platform_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_platform.xml" splitGroup="common_2" testName="platform_info" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_program.xml" splitGroup="common_2" testName="program_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_program.xml" splitGroup="common_2" testName="program_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_program.xml" splitGroup="common_2" testName="program_info" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_queue.xml" splitGroup="common_2" testName="queue_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_queue.xml" splitGroup="common_2" testName="queue_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_queue.xml" splitGroup="common_2" testName="queue_info" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_queue.xml" splitGroup="common_2" testName="queue_properties" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_range.xml" splitGroup="common_2" testName="range_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_range.xml" splitGroup="common_2" testName="range_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_sampler.xml" splitGroup="common_2" testName="sampler_apis" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_sampler.xml" splitGroup="common_2" testName="sampler_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_scalars.xml" splitGroup="common_2" testName="scalars_interopability_types" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_scalars.xml" splitGroup="common_2" testName="scalars_sycl_types" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_std_classes.xml" splitGroup="common_2" testName="std_classes" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_stream.xml" splitGroup="common_2" testName="stream_api_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_stream.xml" splitGroup="common_2" testName="stream_api_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_stream.xml" splitGroup="common_2" testName="stream_api_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_stream.xml" splitGroup="common_2" testName="stream_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_aligned_alloc" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_aligned_alloc_device" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_aligned_alloc_host" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_aligned_alloc_shared" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_allocator_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_allocator_api_aligned" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_allocator_constructors" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_fill_memset_memcpy" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_get_pointer_queries" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_malloc" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_malloc_device" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_malloc_host" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_malloc_shared" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_host_task.xml" splitGroup="common_2" testName="host_task_interop_api" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_host_task.xml" splitGroup="common_2" testName="host_task_invoke_api" />
+  </tests>
 </suite>
