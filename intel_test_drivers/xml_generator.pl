@@ -67,7 +67,15 @@ sub get_case_name {
   my $casename = "";
   open(FH, $file) or die "Couldn't open $file";
   while(<FH>) {
-    if ($_ =~ /#define\s+TEST_NAME\s+(\S+)/) {
+    # Some names are defined in the next line
+    if ($_ =~ /#define\s+TEST_NAME\s+\\/) {
+      my $nextline = <FH>;
+      if ($nextline =~ /\s+(\S+)/) {
+        $casename = $1;
+        last;
+      }
+    }
+    elsif ($_ =~ /#define\s+TEST_NAME\s+(\S+)/) {
       $casename = $1;
       last;
     }
@@ -75,7 +83,7 @@ sub get_case_name {
   if ($casename eq "") {
     die "Couldn't find casename for $file";
   }
-  print("$casename\n");
+  # print("$casename\n");
   return $casename;
 }
 
@@ -124,7 +132,7 @@ sub get_cts_cases_and_folders {
   get_generated_src("$build_folder/build.ninja");
  
   for my $src (@source_files) {
-    print ("$src\n");
+    # print ("$src\n");
     my $casename = get_case_name($src);
     my $folder = basename(dirname(abs_path($src)));
     $cases->{$casename} = $folder;
@@ -239,7 +247,7 @@ sub update_suite_xml {
   my $xml = XMLin($xml_name);
 
   add_common_path($xml);
-  print("@$skip_tests\n");
+  # print("@$skip_tests\n");
 
   foreach $case (keys %$cases) { 
     for $skip (@$skip_tests) {
