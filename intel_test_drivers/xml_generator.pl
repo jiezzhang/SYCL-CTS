@@ -189,6 +189,7 @@ sub check_diff_cases {
 sub add_tests {
   my $xml = shift;
   my $cases = shift;
+  my $xml_name = shift;
 
   my @tests = @{$xml->{tests}->{test}};
   my @new_tests = ();
@@ -221,24 +222,35 @@ sub add_tests {
     push(@new_array, $case); 
   }
   check_diff_cases(\@existing_array, \@new_array);
-  # sort sycl_cts.xml by splitGroup and testName
+  # sort by splitGroup and testName
   @new_tests = sort { $a->{splitGroup} cmp $b->{splitGroup}  or 
                       $a->{configFile} cmp $b->{configFile}  or
                       $a->{testName} cmp $b->{testName}
                     } @new_tests;
   $xml->{tests}->{test} = [@new_tests];
   my $xml_text = XMLout( $xml, xmldecl => '<?xml version="1.0" encoding="UTF-8" ?>', RootName => 'suite');
-  print2file($xml_text, "sycl_cts.xml");
+  print2file($xml_text, $xml_name);
 }
 
 sub update_suite_xml {
   my $cases = shift;
-  my $xml = XMLin("sycl_cts.xml");
+  my $xml_name = shift;
+  my $skip_tests = shift;
+  my $xml = XMLin($xml_name);
 
   add_common_path($xml);
-  # print(Dumper($xml));
-  add_tests($xml, $cases);
+  print("@$skip_tests\n");
 
+  foreach $case (keys %$cases) { 
+    for $skip (@$skip_tests) {
+      if ($case =~ m/$skip/) {
+        delete($cases->{$case});
+        last;
+      }
+    }
+  }
+
+  add_tests($xml, $cases, $xml_name);
 }
 
 if (! -e "sycl_cts.xml") {
@@ -247,4 +259,6 @@ if (! -e "sycl_cts.xml") {
 my $cases = get_cts_cases_and_folders();
 # print(Dumper($cases));
 
-update_suite_xml($cases);
+update_suite_xml($cases, "sycl_cts.xml");
+my @skip_tests = ('^vector_\w+$', '^math_builtin_\w+$');
+update_suite_xml($cases, "sycl_cts_light.xml", \@skip_tests);
