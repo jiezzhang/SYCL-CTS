@@ -178,8 +178,11 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_base" />
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_double" />
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_half" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_exception_handling.xml" splitGroup="new" testName="asynchronous_exceptions" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_exception_handling.xml" splitGroup="new" testName="synchronous_exceptions" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_address_space.xml" splitGroup="common1" testName="address_space_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_address_space.xml" splitGroup="common1" testName="address_space_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_address_space.xml" splitGroup="common1" testName="address_space_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_exception_handling.xml" splitGroup="common1" testName="asynchronous_exceptions" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_exception_handling.xml" splitGroup="common1" testName="synchronous_exceptions" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_char" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_double" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_float" />
