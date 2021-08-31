@@ -1,4 +1,5 @@
 use Cwd;
+use Cwd 'abs_path';
 use lib "/ics/itools/unx/perllib";
 use XML::Simple;
 use File::Basename;
@@ -16,11 +17,9 @@ use Data::Dumper;
 $new_split_group = "new";
 $config_file_path = "intel_test_drivers/config";
 $cts_src_dir = cwd();
-@category_name_list = ();
-@failed_categories = ();
+@source_files = ();
 
-sub print2file
-{
+sub print2file {
     my $s = shift;
     my $file = shift;
     ###
@@ -31,17 +30,59 @@ sub print2file
 }
 
 sub get_category_names {
+  my @category_name_list = ();
   my @category_dirs = glob("$cts_src_dir/tests/*");
+
   for my $category_dir (@category_dirs) {
     if (!($category_dir =~ m/common/) && -d $category_dir) {
-      push(@category_name_list, basename($category_dir));
+      my @src = glob("$category_dir/*.cpp");
+      push(@source_files, @src);
     }
   }
+}
+
+sub get_generated_src {
+  my $file = shift;
+  open(FH, $file) or die "Couldn't open $file";
+  while(<FH>) {
+    if ($_ =~ /\s*COMMAND\s*=\s*(.+)/) {
+      my $cmd = $1;
+      if ($cmd =~ m/python/) {
+        # print("$cmd\n");
+        `$cmd > /dev/null 2>&1`;
+        if ($? != 0) {
+          die "Couldn't execute $cmd";
+        }
+        if ($cmd =~ /\-o\s*(.+\.cpp)/) {
+          # print("$1\n");
+          push(@source_files, $1);
+        } 
+      }
+    }
+  }  
+}
+
+sub get_case_name {
+  my $file = shift;
+  my $casename = "";
+  open(FH, $file) or die "Couldn't open $file";
+  while(<FH>) {
+    if ($_ =~ /#define\s+TEST_NAME\s+(\S+)/) {
+      $casename = $1;
+      last;
+    }
+  }
+  if ($casename eq "") {
+    die "Couldn't find casename for $file";
+  }
+  print("$casename\n");
+  return $casename;
 }
 
 sub get_cts_cases_and_folders {
   my $build_folder = "$cts_src_dir/../cts_build";
   my $bin_folder = "$build_folder/bin";
+  my %cases;
 
   mkdir($build_folder);
   chdir($build_folder);
@@ -77,46 +118,18 @@ sub get_cts_cases_and_folders {
   if ($? != 0) {
     die("Failed to run \"$cmd\": $!");
   }
+  chdir($cts_src_dir);
 
   get_category_names();
-  my $ninja_cmd = "ninja -k 999 -j 7 -v";
-
-  # Build every category to prevent math builtin compilation problem
-  for my $category (@category_name_list) {
-    my $cmd = $ninja_cmd . " test_$category";
-    `$cmd > build_$category.log 2>&1`;
-    if ($? != 0) {
-      push(@failed_categories, $category);
-    }
-  }
-  print("Following categories fail to be built: @failed_categories\n");
-
-  my @binaries = glob("$bin_folder/test_*");
-  my %cases;
-  for my $binary (@binaries) {
-    my $folder = "";
-    next if ($bianry eq "test_all");
-    my $full_list = `$binary --list`;
-    if ($? != 0) {
-      die("Failed to run \"$binary\": $!");
-    }
-    my @lines = split("\n", $full_list);
-    my $binary_name = basename($binary);
-    if ( $binary_name =~ /test_(\w+)/i ) {
-      $folder = $1;
-    }
-    for my $casename (@lines) {
-      next if ($casename =~ m/tests\ in\ executable/);
-
-      if ( $casename =~ /^\W+(\w+)/) {
-        $casename = $1;
-      }
-
-      $cases->{$casename} = $folder;
-    }
+  get_generated_src("$build_folder/build.ninja");
+ 
+  for my $src (@source_files) {
+    print ("$src\n");
+    my $casename = get_case_name($src);
+    my $folder = basename(dirname(abs_path($src)));
+    $cases->{$casename} = $folder;
   }
 
-  chdir($cts_src_dir);
   `rm -rf $build_folder`;
   return $cases;
 }
