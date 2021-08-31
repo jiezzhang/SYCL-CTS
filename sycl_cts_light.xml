@@ -28,6 +28,11 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_constructors_fp64" />
     <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_constructors_image" />
     <test configFile="intel_test_drivers/config/TEMPLATE_accessor.xml" splitGroup="accessor" testName="accessor_constructors_local" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_address_space.xml" splitGroup="common1" testName="address_space_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_address_space.xml" splitGroup="common1" testName="address_space_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_address_space.xml" splitGroup="common1" testName="address_space_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_exception_handling.xml" splitGroup="common1" testName="asynchronous_exceptions" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_exception_handling.xml" splitGroup="common1" testName="synchronous_exceptions" />
     <test configFile="intel_test_drivers/config/TEMPLATE_atomic.xml" splitGroup="common_1" testName="atomic_api_32" />
     <test configFile="intel_test_drivers/config/TEMPLATE_atomic.xml" splitGroup="common_1" testName="atomic_api_64_base" />
     <test configFile="intel_test_drivers/config/TEMPLATE_atomic.xml" splitGroup="common_1" testName="atomic_api_64_extended" />
@@ -164,10 +169,5 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_malloc_device" />
     <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_malloc_host" />
     <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_malloc_shared" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_address_space.xml" splitGroup="common1" testName="address_space_core" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_address_space.xml" splitGroup="common1" testName="address_space_fp16" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_address_space.xml" splitGroup="common1" testName="address_space_fp64" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_exception_handling.xml" splitGroup="common1" testName="asynchronous_exceptions" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_exception_handling.xml" splitGroup="common1" testName="synchronous_exceptions" />
   </tests>
 </suite>
