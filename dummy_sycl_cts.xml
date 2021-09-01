@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<suite description="Dummy xml for sycl_cts. Don't use this xml to run any tests">
+  <files>
+    <file path="../intel_cts" />
+  </files>
+  <rules></rules>
+  <tests>
+  </tests>
+</suite>
+
