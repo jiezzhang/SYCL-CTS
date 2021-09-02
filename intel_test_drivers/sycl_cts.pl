@@ -144,7 +144,6 @@ sub populate_test_map {
   close($fh);
 
   $test_map = decode_json($json_contents);
-  #TODO: do content check here!
 }
 
 # get category of a test
@@ -160,7 +159,7 @@ sub get_category_name {
   return "missing";
 }
 
-# get category of a test
+# get binary name of a test
 sub get_binary_name {
   my $test_name = shift;
 
@@ -287,6 +286,8 @@ sub check_current_test_pass {
 
   my $current_cpp_test_name = get_actual_cpp_test_name($current_test);
   my $category = get_category_name($current_test);
+  my $binary = get_binary_name($current_test);
+
 
   if ($stage eq 'build') {
     # build fail
@@ -294,7 +295,7 @@ sub check_current_test_pass {
       if ($line =~ m/FAILED: .*$current_cpp_test_name\.cpp\.o/) {
         # compile fail
         return $COMPFAIL;
-      } elsif ($line =~ m/FAILED: bin\/test_$category/) {
+      } elsif ($line =~ m/FAILED: bin\/$binary/) {
         # link fail
         return $COMPFAIL;
       } elsif ($line =~ m/\[cmd\]\[cmake\] fail: /) {
@@ -303,7 +304,7 @@ sub check_current_test_pass {
       } elsif ($line =~ m/\[category_map\] $current_test: (missing|duplicated) category/) {
         # detection of missing/duplicated category of a test
         return $COMPFAIL;
-      } elsif ($line =~ m/\[validation\] bin\/test_$category not built/) {
+      } elsif ($line =~ m/\[validation\] bin\/$binary not built/) {
         # detection of missing/duplicated binary
         return $COMPFAIL;
       }
@@ -358,6 +359,7 @@ sub filter_build_output {
   my $output = shift;
   my $current_cpp_test_name = get_actual_cpp_test_name($current_test);
   my $category = get_category_name($testname);
+  my $binary = get_binary_name($testname);
 
   my $filtered_output = "";
 
@@ -427,7 +429,7 @@ sub filter_build_output {
       # find failure lines
       if ($line =~ m/FAILED: .*$current_cpp_test_name\.cpp\.o/ ) {
         $found_fail = 1;
-      } elsif ($line =~ m/FAILED: bin\/test_$category/) {
+      } elsif ($line =~ m/FAILED: bin\/$binary/) {
         $found_fail = 1;
       }
 
@@ -453,7 +455,7 @@ sub filter_build_output {
 
   # validation of binaries
   for my $line (split /^/, $output) {
-    if ($line =~ m/^\[validation\] bin\/test_$category /) {
+    if ($line =~ m/^\[validation\] bin\/$binary /) {
       $filtered_output .= $line;
     }
 
@@ -482,12 +484,12 @@ sub filter_run_output {
     }
     if ($related_line == 1) {
       if ($line =~ m/  - fail/ || $line =~ m/  - pass/) {
-	# conclusion of a test
-	$filtered_output .= $line;
+        # conclusion of a test
+        $filtered_output .= $line;
         last;
       } elsif ($line =~ m/--- /) {
         # reaches the next test
-	last;
+        last;
       } else {
         # content of a test
         $filtered_output .= $line;
@@ -621,7 +623,6 @@ sub BuildTest {
   # populate test mapping
   populate_test_map($src_dir);
 
-  # TODO: copy binary to other places because we will delete build for each category
   my $current_category = get_category_name($current_test);
   my $current_binary = get_binary_name($current_test);
   $build_lf = "$optset_work_dir/build\_$current_category.lf";
@@ -864,15 +865,15 @@ sub BuildTest {
   # validation on the binary is actually built,
   # in case of no obvious errors from cmake and ninja,
   # but binary is still not built
-  my $test_bin = "$cwd/build/bin/test_$current_category";
+  my $test_bin = "$cwd/build/bin/$current_binary";
   if (is_windows()) {
     $test_bin = $test_bin . ".exe";
   }
   if (-e $test_bin) {
-    $cmake_compiler_output .= "[validation] bin/test_$current_category built\n";
+    $cmake_compiler_output .= "[validation] bin/$current_binary built\n";
     execute("mv $test_bin $binary_dir/");
   } else {
-    $cmake_compiler_output .= "[validation] bin/test_$current_category not built\n";
+    $cmake_compiler_output .= "[validation] bin/$current_binary not built\n";
   }
   $cmake_compiler_output .= "[validation] finished\n";
 
@@ -959,7 +960,8 @@ sub RunTest {
   push(@run_option, "-d $opencl_device");
 
   my $current_category = get_category_name($current_test);
-  my $test_bin = "$binary_dir/test_$current_category";
+  my $current_binary = get_binary_name($current_test);
+  my $test_bin = "$binary_dir/$current_binary";
 
   push(@run_option, " --test $current_test");
   $execution_output .= "[cmd][test] $test_bin " . join(" ", @run_option) . "\n";
