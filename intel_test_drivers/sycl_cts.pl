@@ -955,12 +955,13 @@ sub RunTest {
 
   my $ret = $PASS;
   my $build_dir = $cwd . "/build";
-  my $src_dir = $cwd . "/intel_cts";
   my $binary_dir = $cwd . "/bin";
+  my $src_dir = $cwd;
+
 
   # populate cpp test to category mapping
   # using src/tests/$category/$test.cpp folder structure
-  if (!%cpp_test2category_map) {
+  if (! keys %cpp_test2category_map) {
     populate_cpp_test2category_map($src_dir);
   }
 
