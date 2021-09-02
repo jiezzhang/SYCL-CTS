@@ -4,9 +4,11 @@ use lib "/ics/itools/unx/perllib";
 use XML::Simple;
 use File::Basename;
 use Data::Dumper;
+use JSON;
 
 %common_deps = ('$TESTROOT/CT-SyclTests/sycl.pm' => '',
                  'intel_test_drivers/filterlist.json' => '',
+                 'intel_test_drivers/case.json' => '',
                  'CMakeLists.txt' => '',
                  'util' => '',
                  'oclmath' => '',
@@ -62,6 +64,23 @@ sub get_generated_src {
   }  
 }
 
+sub get_generated_binary {
+  my $file = shift;
+  my %cpp2binary;
+  open(FH, $file) or die "Couldn't open $file";
+  while(<FH>) {
+    if ($_ =~ /\s*build\s*bin\/(test_\w+):/) {
+      my $bin = $1;
+      my $line = $_;
+      my @sources = $line =~ /\/(\w+\.cpp)\.o/g;
+      foreach my $source (@sources) {
+        $cpp2binary->{$source} = $bin if (!($source =~ m/main/));
+      }
+    }
+  }
+  return $cpp2binary;
+}
+
 sub get_case_name {
   my $file = shift;
   my $casename = "";
@@ -90,7 +109,8 @@ sub get_case_name {
 sub get_cts_cases_and_folders {
   my $build_folder = "$cts_src_dir/../cts_build";
   my $bin_folder = "$build_folder/bin";
-  my %cases;
+  my %case2folder;
+  my %case2source;
 
   mkdir($build_folder);
   chdir($build_folder);
@@ -130,16 +150,20 @@ sub get_cts_cases_and_folders {
 
   get_category_names();
   get_generated_src("$build_folder/build.ninja");
+  my $source2binary = get_generated_binary("$build_folder/build.ninja");
  
   for my $src (@source_files) {
     # print ("$src\n");
     my $casename = get_case_name($src);
     my $folder = basename(dirname(abs_path($src)));
-    $cases->{$casename} = $folder;
-  }
+    my $source = basename(abs_path($src));
+    my $binary = %$source2binary->{$source};
 
-  `rm -rf $build_folder`;
-  return $cases;
+    $case2folder->{$casename} = $folder;
+    $case2source->{$casename} = $source;
+  }
+  # `rm -rf $build_folder`;
+  return ($case2folder, $case2source, $source2binary);
 }
 
 sub add_common_path {
@@ -261,12 +285,37 @@ sub update_suite_xml {
   add_tests($xml, $cases, $xml_name);
 }
 
+sub update_cts_json {
+  my $case2folder = shift;
+  my $case2source = shift;
+  my $source2binary = shift;
+  my $json_name = shift;
+
+  my %json;
+  foreach $case (keys %$case2folder) { 
+    my $source = %$case2source->{$case};
+    my $folder = %$case2folder->{$case};
+    my $binary = %$source2binary->{$source};
+    $source =~ s/\.cpp//; # Remove .cpp subfix 
+    my $new_record = {source => $source, folder => $folder, binary => $binary};
+    $json->{$case} = $new_record
+    # push(@records, $new_record);
+  }
+  my $json_text = encode_json($json);
+  print2file($json_text, $json_name);
+}
+
+
 if (! -e "sycl_cts.xml") {
     die("Please run this script in `intel_cts`");
 }
-my $cases = get_cts_cases_and_folders();
+my $case2folder;
+my $case2source;
+my $source2binary;
+($case2folder, $case2source, $source2binary) = get_cts_cases_and_folders();
 # print(Dumper($cases));
 
-update_suite_xml($cases, "sycl_cts.xml");
+update_cts_json($case2folder, $case2source, $source2binary, "intel_test_drivers/case.json");
+update_suite_xml($case2folder, "sycl_cts.xml");
 my @skip_tests = ('^vector_\w+$', '^math_builtin_\w+$');
-update_suite_xml($cases, "sycl_cts_light.xml", \@skip_tests);
+update_suite_xml($case2folder, "sycl_cts_light.xml", \@skip_tests);
