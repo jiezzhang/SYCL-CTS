@@ -940,9 +940,12 @@ sub RunTest {
   }
 
   my $execution_timelimit = 1800;
-  if (is_linux() and $opt_linker_flags =~ m/ftest-coverage/ or $current_optset =~ m/debug/
-      or $current_test =~ m/stream_api_core/ # CMPLRTST-11833
-      or ($current_test =~ m/vector_swizzles_/ and $current_optset =~ m/gpu_O0/)) # CMPLRTST-11895 
+  if ($current_test =~ m/vector_swizzles_/ and ($current_optset =~ m/debug/ or $current_optset =~ m/gpu_O0/)) # CMPLRLLVM-30660
+  {
+    $execution_timelimit = 5400;
+    $execution_output .= "[cmd][test] enlarge execution timelimit to 5400s for vector_swizzles_* tests in debug and gpu+O0 mode.\n";
+  } elsif (is_linux() and $opt_linker_flags =~ m/ftest-coverage/ or $current_optset =~ m/debug/
+      or $current_test =~ m/stream_api_core/) # CMPLRTST-11833
   {
     $execution_timelimit = 3600;
     $execution_output .= "[cmd][test] enlarge execution timelimit to 3600s for code coverage and debug mode.\n";
