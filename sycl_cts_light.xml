@@ -151,6 +151,37 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_sampler.xml" splitGroup="common_2" testName="sampler_constructors" />
     <test configFile="intel_test_drivers/config/TEMPLATE_scalars.xml" splitGroup="common_2" testName="scalars_interopability_types" />
     <test configFile="intel_test_drivers/config/TEMPLATE_scalars.xml" splitGroup="common_2" testName="scalars_sycl_types" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_class_with_member_fun" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_defined_various_ways_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_defined_various_ways_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_defined_various_ways_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_defined_various_ways_via_kb_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_defined_various_ways_via_kb_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_defined_various_ways_via_kb_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_multiple_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_multiple_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_multiple_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_multiple_via_kb_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_multiple_via_kb_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_multiple_via_kb_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_inter_link_1st_tu_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_inter_link_1st_tu_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_inter_link_1st_tu_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_inter_link_1st_tu_via_kb_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_inter_link_1st_tu_via_kb_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_inter_link_1st_tu_via_kb_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_inter_link_2nd_tu_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_inter_link_2nd_tu_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_inter_link_2nd_tu_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_inter_link_2nd_tu_via_kb_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_inter_link_2nd_tu_via_kb_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_inter_link_2nd_tu_via_kb_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_stress_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_stress_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_stress_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_stress_via_kb_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_stress_via_kb_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="common_2" testName="specialization_constants_same_name_stress_via_kb_fp64" />
     <test configFile="intel_test_drivers/config/TEMPLATE_std_classes.xml" splitGroup="common_2" testName="std_classes" />
     <test configFile="intel_test_drivers/config/TEMPLATE_stream.xml" splitGroup="common_2" testName="stream_api_core" />
     <test configFile="intel_test_drivers/config/TEMPLATE_stream.xml" splitGroup="common_2" testName="stream_api_fp16" />
