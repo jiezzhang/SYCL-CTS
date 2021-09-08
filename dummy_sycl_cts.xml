@@ -5,6 +5,7 @@
   </files>
   <rules></rules>
   <tests>
+    <test configFile="intel_test_drivers/config/TEMPLATE_id.xml" splitGroup="common_2" testName="id_api" />
   </tests>
 </suite>
 

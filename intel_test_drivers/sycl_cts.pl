@@ -74,33 +74,7 @@ sub need_filter_test {
   return 0;
 }
 
-# the regex configured for each py test to find its category
-# when searching for the category,
-# the map will be scaned in the array order, the first match will be return
-my @py_test2category_map = (
-  ['^math_builtin_\w+$', 'math_builtin_api'],
-  ['^vector_ALIAS_\w+$', 'vector_alias'],
-  ['^vector_CONSTRUCTORS_\w+$', 'vector_constructors'],
-  ['^vector_swizzles_opencl_\w+$', 'vector_swizzles_opencl'],
-  ['^vector_swizzles_\w+$', 'vector_swizzles'],
-  ['^vector_SWIZZLE_ASSIGNMENT_\w+$', 'vector_swizzle_assignment'],
-  ['^vector_API_\w+$', 'vector_api'],
-  ['^vector_OPERATORS_\w+$', 'vector_operators'],
-  ['^vector_LOAD_STORE_\w+$', 'vector_load_store']
-);
-
-# the mapping between cpp test to category,
-# will be populated by populate_cpp_test2category_map() when build starts
-my %cpp_test2category_map = ();
-# some test name in the cpp is different from the output of the test binary
-# this mapping configs: test name in binary => test name in cpp
-my %cpp_test_name_change = (
-  'group_async_work_group_copy_core' => 'group_async_work_group_copy',
-  'image_api_core' => 'image_api',
-  'nd_item_async_work_group_copy_core' => 'nd_item_async_work_group_copy',
-  'sampler_apis' => 'sampler_api',
-  'stream_api_core' => 'stream_api',
-);
+my $test_map;
 
 # CTS requires newer cmake tool (3.10+), need to identify the fixed path.
 my $cmake_root = $ENV{ICS_PKG_CMAKE};
@@ -144,58 +118,55 @@ my $cl_info;
 my $fixed_suite_name;
 
 # due to test name might be different in the cpp and in the bin
-# use pre defined %cpp_test_name_change to handle the mapping
+# use $test_map to handle the mapping
 sub get_actual_cpp_test_name {
   my $test_name = shift;
-  if (exists $cpp_test_name_change{$test_name}){
-    $test_name = $cpp_test_name_change{$test_name}
+  if (exists $test_map->{$test_name}){
+    my $record = $test_map->{$test_name};
+    $test_name = $record->{"source"};
   }
   return $test_name;
 }
 
-# scan the source cpp files, src/tests/$category/$test.cpp,
-# a cpp test's category should be the parent folder of the cpp file
-# find out the mapping and fill into %cpp_test2category_map
-sub populate_cpp_test2category_map {
-  my $src_dir = shift;
+# read case name information from json. Each record is formated as below
+# case_name = {
+#   "source" => source_name
+#   "folder" => folder_name
+#   "binary" => binary_name
+# }
+sub populate_test_map {
+  my $json_contents = do {
+    local $/ = undef;
+    open($fh, '<:encoding(UTF-8)', "$optset_work_dir/case.json")
+      or die "[case.json] $!";
+    <$fh>;
+  };
+  close($fh);
 
-  # scan category dirs
-  my @category_dirs = glob("$src_dir/tests/*");
-  for my $category_dir (@category_dirs) {
-    next if ($category_dir =~ m/CMakeLists\.txt|common/);
-    my $category_name = basename($category_dir);
-
-    # scan cpp test files
-    my @test_cpps = glob("$category_dir/*.cpp");
-    for my $test_cpp (@test_cpps) {
-      my $test_name = get_base_name_we($test_cpp);
-      # fill into $cpp_test2category_map
-      if (!(exists $cpp_test2category_map{$test_name})){
-        $cpp_test2category_map{$test_name} = $category_name;
-      }
-    }
-  }
+  $test_map = decode_json($json_contents);
 }
 
-# get category of a test from the following order
-# 1. the defined mapping @py_test2category_map
-# 2. find category of test source directory src/tests/$category
+# get category of a test
 sub get_category_name {
   my $test_name = shift;
-  # 1. get category from user defined test2category mapping (the py tests)
-  # the first match in the @py_test2category_map will be returned
-  for my $test2category (@py_test2category_map){
-    my $test_regex = ${$test2category}[0];
-    my $category_name = ${$test2category}[1];
-    if ( $test_name =~ m/$test_regex/ ) {
-      return $category_name;
-    }
+
+  # get record from $test_map
+  if (exists $test_map->{$test_name}) {
+    my $record = $test_map->{$test_name};
+    return $record->{"folder"};
   }
-  # 2. get category from %cpp_test2category_map
-  # change the test name if found in $cpp_test_name_change
-  $test_name = get_actual_cpp_test_name($test_name);
-  if (exists $cpp_test2category_map{$test_name}) {
-    return $cpp_test2category_map{$test_name};
+  # no match
+  return "missing";
+}
+
+# get binary name of a test
+sub get_binary_name {
+  my $test_name = shift;
+
+  # get record from $test_map
+  if (exists $test_map->{$test_name}) {
+    my $record = $test_map->{$test_name};
+    return $record->{"binary"};
   }
   # no match
   return "missing";
@@ -315,6 +286,8 @@ sub check_current_test_pass {
 
   my $current_cpp_test_name = get_actual_cpp_test_name($current_test);
   my $category = get_category_name($current_test);
+  my $binary = get_binary_name($current_test);
+
 
   if ($stage eq 'build') {
     # build fail
@@ -322,7 +295,7 @@ sub check_current_test_pass {
       if ($line =~ m/FAILED: .*$current_cpp_test_name\.cpp\.o/) {
         # compile fail
         return $COMPFAIL;
-      } elsif ($line =~ m/FAILED: bin\/test_$category/) {
+      } elsif ($line =~ m/FAILED: bin\/$binary/) {
         # link fail
         return $COMPFAIL;
       } elsif ($line =~ m/\[cmd\]\[cmake\] fail: /) {
@@ -331,7 +304,7 @@ sub check_current_test_pass {
       } elsif ($line =~ m/\[category_map\] $current_test: (missing|duplicated) category/) {
         # detection of missing/duplicated category of a test
         return $COMPFAIL;
-      } elsif ($line =~ m/\[validation\] bin\/test_$category not built/) {
+      } elsif ($line =~ m/\[validation\] bin\/$binary not built/) {
         # detection of missing/duplicated binary
         return $COMPFAIL;
       }
@@ -386,6 +359,7 @@ sub filter_build_output {
   my $output = shift;
   my $current_cpp_test_name = get_actual_cpp_test_name($current_test);
   my $category = get_category_name($testname);
+  my $binary = get_binary_name($testname);
 
   my $filtered_output = "";
 
@@ -455,7 +429,7 @@ sub filter_build_output {
       # find failure lines
       if ($line =~ m/FAILED: .*$current_cpp_test_name\.cpp\.o/ ) {
         $found_fail = 1;
-      } elsif ($line =~ m/FAILED: bin\/test_$category/) {
+      } elsif ($line =~ m/FAILED: bin\/$binary/) {
         $found_fail = 1;
       }
 
@@ -481,7 +455,7 @@ sub filter_build_output {
 
   # validation of binaries
   for my $line (split /^/, $output) {
-    if ($line =~ m/^\[validation\] bin\/test_$category /) {
+    if ($line =~ m/^\[validation\] bin\/$binary /) {
       $filtered_output .= $line;
     }
 
@@ -510,12 +484,12 @@ sub filter_run_output {
     }
     if ($related_line == 1) {
       if ($line =~ m/  - fail/ || $line =~ m/  - pass/) {
-	# conclusion of a test
-	$filtered_output .= $line;
+        # conclusion of a test
+        $filtered_output .= $line;
         last;
       } elsif ($line =~ m/--- /) {
         # reaches the next test
-	last;
+        last;
       } else {
         # content of a test
         $filtered_output .= $line;
@@ -646,12 +620,11 @@ sub BuildTest {
 
   chdir_log($cwd);
 
-  # populate cpp test to category mapping
-  # using src/tests/$category/$test.cpp folder structure
-  populate_cpp_test2category_map($src_dir);
+  # populate test mapping
+  populate_test_map($src_dir);
 
-  # TODO: copy binary to other places because we will delete build for each category
   my $current_category = get_category_name($current_test);
+  my $current_binary = get_binary_name($current_test);
   $build_lf = "$optset_work_dir/build\_$current_category.lf";
   # tests already compiled in first run, need parse result and generate lf file.
   if(dryrun()) {
@@ -869,7 +842,7 @@ sub BuildTest {
   if ($current_category eq "opencl_interop" and $current_optset =~ m/opt_use_gpu/ and $current_optset !~ m/_ocl/) {
     return $SKIP;
   }
-  push(@ninja_cmd, "test_" . $current_category);
+  push(@ninja_cmd, $current_binary);
 
   $cmake_compiler_output .= "[cmd][ninja] " . join(" ", @ninja_cmd) . "\n";
 
@@ -892,15 +865,15 @@ sub BuildTest {
   # validation on the binary is actually built,
   # in case of no obvious errors from cmake and ninja,
   # but binary is still not built
-  my $test_bin = "$cwd/build/bin/test_$current_category";
+  my $test_bin = "$cwd/build/bin/$current_binary";
   if (is_windows()) {
     $test_bin = $test_bin . ".exe";
   }
   if (-e $test_bin) {
-    $cmake_compiler_output .= "[validation] bin/test_$current_category built\n";
+    $cmake_compiler_output .= "[validation] bin/$current_binary built\n";
     execute("mv $test_bin $binary_dir/");
   } else {
-    $cmake_compiler_output .= "[validation] bin/test_$current_category not built\n";
+    $cmake_compiler_output .= "[validation] bin/$current_binary not built\n";
   }
   $cmake_compiler_output .= "[validation] finished\n";
 
@@ -961,11 +934,10 @@ sub RunTest {
   my $binary_dir = $cwd . "/bin";
   my $src_dir = $cwd;
 
-
   # populate cpp test to category mapping
   # using src/tests/$category/$test.cpp folder structure
-  if (! keys %cpp_test2category_map) {
-    populate_cpp_test2category_map($src_dir);
+  if (! keys %test_map) {
+    populate_test_map($src_dir);
   }
 
   if (get_running_device() == RUNNING_DEVICE_CPU) {
@@ -988,7 +960,8 @@ sub RunTest {
   push(@run_option, "-d $opencl_device");
 
   my $current_category = get_category_name($current_test);
-  my $test_bin = "$binary_dir/test_$current_category";
+  my $current_binary = get_binary_name($current_test);
+  my $test_bin = "$binary_dir/$current_binary";
 
   push(@run_option, " --test $current_test");
   $execution_output .= "[cmd][test] $test_bin " . join(" ", @run_option) . "\n";
