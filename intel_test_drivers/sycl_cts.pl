@@ -74,7 +74,14 @@ sub need_filter_test {
   return 0;
 }
 
+# test_map[case_name] = {
+#   "source" => source_name
+#   "folder" => folder_name
+#   "binary" => binary_name
+# }
 my $test_map;
+# Store all cpp defining tests. Only cpp in this array should be removed
+my @target_srcs = ();
 
 # CTS requires newer cmake tool (3.10+), need to identify the fixed path.
 my $cmake_root = $ENV{ICS_PKG_CMAKE};
@@ -144,6 +151,9 @@ sub populate_test_map {
   close($fh);
 
   $test_map = decode_json($json_contents);
+  for my $record (values %$test_map) {
+    push(@target_srcs, $record->{"source"});
+  }
 }
 
 # get category of a test
@@ -197,10 +207,12 @@ sub remove_unused_category_src {
     }
 
     my @test_cpps = glob("$category_dir/*.cpp");
-    # remove cpp if a test has not been asigned
+    # remove cpp if a test defining tests has not been asigned 
     for my $test_cpp (@test_cpps) {
       my $test_cpp_basename = get_base_name_we($test_cpp);
-      unlink $test_cpp if (!grep(/^$test_cpp_basename$/, @test_names));
+      if (!grep(/^$test_cpp_basename$/, @test_names) && grep(/^$test_cpp_basename$/, @target_srcs)) {
+        unlink $test_cpp;
+      }
     }
   }
 }

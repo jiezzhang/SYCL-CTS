@@ -99,10 +99,6 @@ sub get_case_name {
       last;
     }
   }
-  if ($casename eq "") {
-    die "Couldn't find casename for $file";
-  }
-  # print("$casename\n");
   return $casename;
 }
 
@@ -155,6 +151,7 @@ sub get_cts_cases_and_folders {
   for my $src (@source_files) {
     # print ("$src\n");
     my $casename = get_case_name($src);
+    next if ($casename eq ""); # Skip if current file doesn't define any test
     my $folder = basename(dirname(abs_path($src)));
     my $source = basename(abs_path($src));
     my $binary = %$source2binary->{$source};
