@@ -298,7 +298,7 @@ sub update_cts_json {
     $json->{$case} = $new_record
     # push(@records, $new_record);
   }
-  my $json_text = encode_json($json);
+  my $json_text = JSON->new->ascii->pretty->encode($json);
   print2file($json_text, $json_name);
 }
 

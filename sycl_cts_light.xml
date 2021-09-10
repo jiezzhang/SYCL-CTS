@@ -2,14 +2,14 @@
 <suite description="         Tests of the CTS for SYCL     ">
   <files>
     <file path="oclmath" />
-    <file path="intel_test_drivers/case.json" />
-    <file dst="tests/common" path="tests/common" />
-    <file dst="tests/CMakeLists.txt" path="tests/CMakeLists.txt" />
-    <file path="intel_test_drivers/filterlist.json" />
     <file path="$TESTROOT/CT-SyclTests/sycl.pm" />
     <file path="util" />
     <file path="CMakeLists.txt" />
+    <file dst="tests/common" path="tests/common" />
     <file path="cmake" />
+    <file dst="tests/CMakeLists.txt" path="tests/CMakeLists.txt" />
+    <file path="intel_test_drivers/case.json" />
+    <file path="intel_test_drivers/filterlist.json" />
   </files>
   <rules></rules>
   <tests>
