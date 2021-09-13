@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<opt name="TEMPLATE" description="WARNING: DON'T UPDATE THIS FILE MANUALLY!!!
+      This is auto-generated accessors configuration file which affects all tests in ported gcc suites
+      If you have any issue with this file please contact Compiler QA team" driverID="sycl_cts">
+  <files>
+    <file dst="tests/reduction" path="tests/reduction" />
+  </files>
+  <rules></rules>
+</opt>

@@ -49,6 +49,11 @@
       "binary" : "test_vector_load_store",
       "folder" : "vector_load_store"
    },
+   "usm_api_fill_queue_multiple_events" : {
+      "source" : "usm_api_fill_queue_multiple_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
    "vector_SWIZZLE_ASSIGNMENT_double" : {
       "source" : "vector_swizzle_assignment_double",
       "binary" : "test_vector_swizzle_assignment",
@@ -88,6 +93,11 @@
       "source" : "vector_operators_std__int64_t",
       "binary" : "test_vector_operators",
       "folder" : "vector_operators"
+   },
+   "usm_api_copy_queue_single_event" : {
+      "source" : "usm_api_copy_queue_single_event",
+      "binary" : "test_usm",
+      "folder" : "usm"
    },
    "atomic_api_64_base" : {
       "source" : "atomic_api_64_base",
@@ -129,6 +139,11 @@
       "binary" : "test_specialization_constants",
       "folder" : "specialization_constants"
    },
+   "usm_api_memset_handler_no_events" : {
+      "source" : "usm_api_memset_handler_no_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
    "specialization_constants_same_name_inter_link_2nd_tu_via_kb_fp16" : {
       "source" : "specialization_constants_same_name_inter_link_2nd_tu_via_kb_fp16",
       "binary" : "test_specialization_constants",
@@ -139,13 +154,8 @@
       "binary" : "test_vector_api",
       "folder" : "vector_api"
    },
-   "vector_swizzles_int16_t" : {
-      "source" : "vector_swizzles_int16_t",
-      "binary" : "test_vector_swizzles",
-      "folder" : "vector_swizzles"
-   },
-   "usm_get_pointer_queries" : {
-      "source" : "usm_get_pointer_queries",
+   "usm_api_fill_queue_no_events" : {
+      "source" : "usm_api_fill_queue_no_events",
       "binary" : "test_usm",
       "folder" : "usm"
    },
@@ -154,25 +164,35 @@
       "binary" : "test_specialization_constants",
       "folder" : "specialization_constants"
    },
+   "usm_get_pointer_queries" : {
+      "source" : "usm_get_pointer_queries",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
+   "vector_swizzles_int16_t" : {
+      "source" : "vector_swizzles_int16_t",
+      "binary" : "test_vector_swizzles",
+      "folder" : "vector_swizzles"
+   },
    "vector_SWIZZLE_ASSIGNMENT_long" : {
       "source" : "vector_swizzle_assignment_long",
       "binary" : "test_vector_swizzle_assignment",
       "folder" : "vector_swizzle_assignment"
    },
-   "math_builtin_integer" : {
-      "source" : "math_builtin_integer",
-      "binary" : "test_math_builtin_api",
-      "folder" : "math_builtin_api"
+   "device_selector_predefined" : {
+      "source" : "device_selector_predefined",
+      "binary" : "test_device_selector",
+      "folder" : "device_selector"
    },
    "image_api_core" : {
       "source" : "image_api",
       "binary" : "test_image",
       "folder" : "image"
    },
-   "device_selector_predefined" : {
-      "source" : "device_selector_predefined",
-      "binary" : "test_device_selector",
-      "folder" : "device_selector"
+   "math_builtin_integer" : {
+      "source" : "math_builtin_integer",
+      "binary" : "test_math_builtin_api",
+      "folder" : "math_builtin_api"
    },
    "id_constructors" : {
       "source" : "id_constructors",
@@ -188,6 +208,11 @@
       "source" : "vector_swizzle_assignment_std__uint8_t",
       "binary" : "test_vector_swizzle_assignment",
       "folder" : "vector_swizzle_assignment"
+   },
+   "usm_api_mem_advise_queue_no_events" : {
+      "source" : "usm_api_mem_advise_queue_no_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
    },
    "vector_ALIAS_char" : {
       "source" : "vector_alias_char",
@@ -294,18 +319,13 @@
       "binary" : "test_nd_item",
       "folder" : "nd_item"
    },
-   "vector_swizzles_int" : {
-      "source" : "vector_swizzles_int",
-      "binary" : "test_vector_swizzles",
-      "folder" : "vector_swizzles"
-   },
    "item_constructors" : {
       "source" : "item_constructors",
       "binary" : "test_item",
       "folder" : "item"
    },
-   "vector_swizzles_long" : {
-      "source" : "vector_swizzles_long",
+   "vector_swizzles_int" : {
+      "source" : "vector_swizzles_int",
       "binary" : "test_vector_swizzles",
       "folder" : "vector_swizzles"
    },
@@ -313,6 +333,11 @@
       "source" : "device_event_api",
       "binary" : "test_device_event",
       "folder" : "device_event"
+   },
+   "vector_swizzles_long" : {
+      "source" : "vector_swizzles_long",
+      "binary" : "test_vector_swizzles",
+      "folder" : "vector_swizzles"
    },
    "specialization_constants_multiple_fp16" : {
       "source" : "specialization_constants_multiple_fp16",
@@ -393,6 +418,11 @@
       "source" : "vector_swizzle_assignment_short",
       "binary" : "test_vector_swizzle_assignment",
       "folder" : "vector_swizzle_assignment"
+   },
+   "reduction_with_identity_param_fp16" : {
+      "source" : "reduction_with_identity_param_fp16",
+      "binary" : "test_reduction",
+      "folder" : "reduction"
    },
    "group_async_work_group_copy_fp64" : {
       "source" : "group_async_work_group_copy_fp64",
@@ -499,6 +529,11 @@
       "binary" : "test_vector_load_store",
       "folder" : "vector_load_store"
    },
+   "usm_api_memset_queue_multiple_events" : {
+      "source" : "usm_api_memset_queue_multiple_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
    "opencl_interop_kernel" : {
       "source" : "opencl_interop_kernel",
       "binary" : "test_opencl_interop",
@@ -569,6 +604,11 @@
       "binary" : "test_vector_load_store",
       "folder" : "vector_load_store"
    },
+   "usm_api_fill_queue_single_event" : {
+      "source" : "usm_api_fill_queue_single_event",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
    "vector_SWIZZLE_ASSIGNMENT_unsigned_long_long" : {
       "source" : "vector_swizzle_assignment_unsigned_long_long",
       "binary" : "test_vector_swizzle_assignment",
@@ -576,6 +616,11 @@
    },
    "usm_allocator_constructors" : {
       "source" : "usm_allocator_constructors",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
+   "usm_api_mem_advise_queue_multiple_events" : {
+      "source" : "usm_api_mem_advise_queue_multiple_events",
       "binary" : "test_usm",
       "folder" : "usm"
    },
@@ -614,30 +659,30 @@
       "binary" : "test_vector_swizzle_assignment",
       "folder" : "vector_swizzle_assignment"
    },
-   "vector_swizzles_uint64_t" : {
-      "source" : "vector_swizzles_uint64_t",
-      "binary" : "test_vector_swizzles",
-      "folder" : "vector_swizzles"
-   },
    "vector_SWIZZLE_ASSIGNMENT_char" : {
       "source" : "vector_swizzle_assignment_char",
       "binary" : "test_vector_swizzle_assignment",
       "folder" : "vector_swizzle_assignment"
+   },
+   "vector_swizzles_uint64_t" : {
+      "source" : "vector_swizzles_uint64_t",
+      "binary" : "test_vector_swizzles",
+      "folder" : "vector_swizzles"
    },
    "vector_API_long" : {
       "source" : "vector_api_long",
       "binary" : "test_vector_api",
       "folder" : "vector_api"
    },
-   "vector_LOAD_STORE_half" : {
-      "source" : "vector_load_store_sycl__half",
-      "binary" : "test_vector_load_store",
-      "folder" : "vector_load_store"
-   },
    "usm_aligned_alloc_host" : {
       "source" : "usm_aligned_alloc_host",
       "binary" : "test_usm",
       "folder" : "usm"
+   },
+   "vector_LOAD_STORE_half" : {
+      "source" : "vector_load_store_sycl__half",
+      "binary" : "test_vector_load_store",
+      "folder" : "vector_load_store"
    },
    "vector_SWIZZLE_ASSIGNMENT_byte" : {
       "source" : "vector_swizzle_assignment_sycl__byte",
@@ -664,6 +709,11 @@
       "binary" : "test_queue",
       "folder" : "queue"
    },
+   "usm_api_copy_queue_multiple_events" : {
+      "source" : "usm_api_copy_queue_multiple_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
    "vector_OPERATORS_byte" : {
       "source" : "vector_operators_sycl__byte",
       "binary" : "test_vector_operators",
@@ -679,6 +729,11 @@
       "binary" : "test_hierarchical",
       "folder" : "hierarchical"
    },
+   "usm_api_copy_handler_no_events" : {
+      "source" : "usm_api_copy_handler_no_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
    "buffer_storage_fp16" : {
       "source" : "buffer_storage_fp16",
       "binary" : "test_buffer",
@@ -691,6 +746,11 @@
    },
    "specialization_constants_multiple_fp64" : {
       "source" : "specialization_constants_multiple_fp64",
+      "binary" : "test_specialization_constants",
+      "folder" : "specialization_constants"
+   },
+   "specialization_constants_via_kernel_bundle_fp16" : {
+      "source" : "specialization_constants_via_kernel_bundle_fp16",
       "binary" : "test_specialization_constants",
       "folder" : "specialization_constants"
    },
@@ -729,10 +789,20 @@
       "binary" : "test_vector_load_store",
       "folder" : "vector_load_store"
    },
+   "usm_api_memset_queue_single_event" : {
+      "source" : "usm_api_memset_queue_single_event",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
    "accessor_api_buffer_atomic64" : {
       "source" : "accessor_api_buffer_atomic64",
       "binary" : "test_accessor",
       "folder" : "accessor"
+   },
+   "usm_api_memcpy_queue_single_event" : {
+      "source" : "usm_api_memcpy_queue_single_event",
+      "binary" : "test_usm",
+      "folder" : "usm"
    },
    "item_equality" : {
       "source" : "item_equality",
@@ -764,6 +834,11 @@
       "binary" : "test_math_builtin_api",
       "folder" : "math_builtin_api"
    },
+   "specialization_constants_via_kernel_bundle_core" : {
+      "source" : "specialization_constants_via_kernel_bundle_core",
+      "binary" : "test_specialization_constants",
+      "folder" : "specialization_constants"
+   },
    "vector_LOAD_STORE_byte" : {
       "source" : "vector_load_store_sycl__byte",
       "binary" : "test_vector_load_store",
@@ -788,6 +863,11 @@
       "source" : "h_item_api",
       "binary" : "test_h_item",
       "folder" : "h_item"
+   },
+   "usm_api_prefetch_queue_single_event" : {
+      "source" : "usm_api_prefetch_queue_single_event",
+      "binary" : "test_usm",
+      "folder" : "usm"
    },
    "vector_API_unsigned_int" : {
       "source" : "vector_api_unsigned_int",
@@ -869,6 +949,16 @@
       "binary" : "test_pointers",
       "folder" : "pointers"
    },
+   "usm_api_copy_queue_no_events" : {
+      "source" : "usm_api_copy_queue_no_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
+   "usm_api_prefetch_queue_multiple_events" : {
+      "source" : "usm_api_prefetch_queue_multiple_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
    "platform_constructors" : {
       "source" : "platform_constructors",
       "binary" : "test_platform",
@@ -914,13 +1004,18 @@
       "binary" : "test_host_task",
       "folder" : "host_task"
    },
+   "vector_CONSTRUCTORS_unsigned_short" : {
+      "source" : "vector_constructors_unsigned_short",
+      "binary" : "test_vector_constructors",
+      "folder" : "vector_constructors"
+   },
    "vector_API_signed_char" : {
       "source" : "vector_api_signed_char",
       "binary" : "test_vector_api",
       "folder" : "vector_api"
    },
-   "vector_CONSTRUCTORS_unsigned_short" : {
-      "source" : "vector_constructors_unsigned_short",
+   "vector_CONSTRUCTORS_long" : {
+      "source" : "vector_constructors_long",
       "binary" : "test_vector_constructors",
       "folder" : "vector_constructors"
    },
@@ -928,11 +1023,6 @@
       "source" : "stream_api_fp16",
       "binary" : "test_stream",
       "folder" : "stream"
-   },
-   "vector_CONSTRUCTORS_long" : {
-      "source" : "vector_constructors_long",
-      "binary" : "test_vector_constructors",
-      "folder" : "vector_constructors"
    },
    "vector_swizzles_int32_t" : {
       "source" : "vector_swizzles_int32_t",
@@ -959,13 +1049,13 @@
       "binary" : "test_nd_item",
       "folder" : "nd_item"
    },
-   "vector_CONSTRUCTORS_short" : {
-      "source" : "vector_constructors_short",
+   "vector_CONSTRUCTORS_int" : {
+      "source" : "vector_constructors_int",
       "binary" : "test_vector_constructors",
       "folder" : "vector_constructors"
    },
-   "vector_CONSTRUCTORS_int" : {
-      "source" : "vector_constructors_int",
+   "vector_CONSTRUCTORS_short" : {
+      "source" : "vector_constructors_short",
       "binary" : "test_vector_constructors",
       "folder" : "vector_constructors"
    },
@@ -1073,6 +1163,11 @@
       "source" : "queue_info",
       "binary" : "test_queue",
       "folder" : "queue"
+   },
+   "usm_api_memcpy_handler_no_events" : {
+      "source" : "usm_api_memcpy_handler_no_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
    },
    "accessor_api_local_fp64" : {
       "source" : "accessor_api_local_fp64",
@@ -1194,70 +1289,75 @@
       "binary" : "test_header",
       "folder" : "header"
    },
-   "buffer_storage_core" : {
-      "source" : "buffer_storage_core",
-      "binary" : "test_buffer",
-      "folder" : "buffer"
-   },
    "vector_ALIAS_unsigned_char" : {
       "source" : "vector_alias_unsigned_char",
       "binary" : "test_vector_alias",
       "folder" : "vector_alias"
    },
-   "vector_swizzles_uint8_t" : {
-      "source" : "vector_swizzles_uint8_t",
-      "binary" : "test_vector_swizzles",
-      "folder" : "vector_swizzles"
+   "buffer_storage_core" : {
+      "source" : "buffer_storage_core",
+      "binary" : "test_buffer",
+      "folder" : "buffer"
    },
    "accessor_constructors_buffer_placeholder" : {
       "source" : "accessor_constructors_buffer_placeholder",
       "binary" : "test_accessor",
       "folder" : "accessor"
    },
+   "vector_swizzles_uint8_t" : {
+      "source" : "vector_swizzles_uint8_t",
+      "binary" : "test_vector_swizzles",
+      "folder" : "vector_swizzles"
+   },
    "specialization_constants_defined_various_ways_fp64" : {
       "source" : "specialization_constants_defined_various_ways_fp64",
       "binary" : "test_specialization_constants",
       "folder" : "specialization_constants"
    },
-   "vector_SWIZZLE_ASSIGNMENT_uint32_t" : {
-      "source" : "vector_swizzle_assignment_std__uint32_t",
-      "binary" : "test_vector_swizzle_assignment",
-      "folder" : "vector_swizzle_assignment"
-   },
-   "vector_OPERATORS_long_long" : {
-      "source" : "vector_operators_long_long",
-      "binary" : "test_vector_operators",
-      "folder" : "vector_operators"
+   "specialization_constants_via_kernel_bundle_fp64" : {
+      "source" : "specialization_constants_via_kernel_bundle_fp64",
+      "binary" : "test_specialization_constants",
+      "folder" : "specialization_constants"
    },
    "vector_LOAD_STORE_unsigned_long_long" : {
       "source" : "vector_load_store_unsigned_long_long",
       "binary" : "test_vector_load_store",
       "folder" : "vector_load_store"
    },
-   "synchronous_exceptions" : {
-      "source" : "synchronous_exceptions",
-      "binary" : "test_exception_handling",
-      "folder" : "exception_handling"
+   "vector_OPERATORS_long_long" : {
+      "source" : "vector_operators_long_long",
+      "binary" : "test_vector_operators",
+      "folder" : "vector_operators"
+   },
+   "vector_SWIZZLE_ASSIGNMENT_uint32_t" : {
+      "source" : "vector_swizzle_assignment_std__uint32_t",
+      "binary" : "test_vector_swizzle_assignment",
+      "folder" : "vector_swizzle_assignment"
    },
    "hierarchical_id" : {
       "source" : "hierarchical_id",
       "binary" : "test_hierarchical",
       "folder" : "hierarchical"
    },
+   "synchronous_exceptions" : {
+      "source" : "synchronous_exceptions",
+      "binary" : "test_exception_handling",
+      "folder" : "exception_handling"
+   },
    "vector_ALIAS_long_long" : {
       "source" : "vector_alias_long_long",
       "binary" : "test_vector_alias",
       "folder" : "vector_alias"
    },
-   "nd_range_equality" : {
-      "source" : "nd_range_equality",
-      "binary" : "test_nd_range",
-      "folder" : "nd_range"
-   },
    "specialization_constants_same_name_inter_link_2nd_tu_fp64" : {
       "source" : "specialization_constants_same_name_inter_link_2nd_tu_fp64",
       "binary" : "test_specialization_constants",
       "folder" : "specialization_constants"
+   },
+   "nd_range_equality" : {
+      "source" : "nd_range_equality",
+      "binary" : "test_nd_range",
+      "folder" : "nd_range"
    },
    "specialization_constants_same_name_stress_via_kb_fp16" : {
       "source" : "specialization_constants_same_name_stress_via_kb_fp16",
@@ -1279,6 +1379,11 @@
       "binary" : "test_vector_operators",
       "folder" : "vector_operators"
    },
+   "usm_api_memset_queue_no_events" : {
+      "source" : "usm_api_memset_queue_no_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
    "vector_API_half" : {
       "source" : "vector_api_sycl__half",
       "binary" : "test_vector_api",
@@ -1299,20 +1404,20 @@
       "binary" : "test_accessor",
       "folder" : "accessor"
    },
-   "vector_CONSTRUCTORS_int8_t" : {
-      "source" : "vector_constructors_std__int8_t",
-      "binary" : "test_vector_constructors",
-      "folder" : "vector_constructors"
+   "hierarchical_private_memory" : {
+      "source" : "hierarchical_private_memory",
+      "binary" : "test_hierarchical",
+      "folder" : "hierarchical"
    },
    "vector_API_double" : {
       "source" : "vector_api_double",
       "binary" : "test_vector_api",
       "folder" : "vector_api"
    },
-   "hierarchical_private_memory" : {
-      "source" : "hierarchical_private_memory",
-      "binary" : "test_hierarchical",
-      "folder" : "hierarchical"
+   "vector_CONSTRUCTORS_int8_t" : {
+      "source" : "vector_constructors_std__int8_t",
+      "binary" : "test_vector_constructors",
+      "folder" : "vector_constructors"
    },
    "usm_allocator_api_aligned" : {
       "source" : "usm_allocator_api_aligned",
@@ -1333,6 +1438,11 @@
       "source" : "specialization_constants_same_name_inter_link_1st_tu_via_kb_core",
       "binary" : "test_specialization_constants",
       "folder" : "specialization_constants"
+   },
+   "usm_api_fill_handler_no_events" : {
+      "source" : "usm_api_fill_handler_no_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
    },
    "vector_ALIAS_int" : {
       "source" : "vector_alias_int",
@@ -1388,6 +1498,11 @@
       "source" : "math_builtin_relational_double",
       "binary" : "test_math_builtin_api",
       "folder" : "math_builtin_api"
+   },
+   "usm_api_mem_advise_handler_no_events" : {
+      "source" : "usm_api_mem_advise_handler_no_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
    },
    "usm_allocator_api" : {
       "source" : "usm_allocator_api",
@@ -1449,6 +1564,11 @@
       "binary" : "test_nd_item",
       "folder" : "nd_item"
    },
+   "reduction_with_identity_param_core" : {
+      "source" : "reduction_with_identity_param_core",
+      "binary" : "test_reduction",
+      "folder" : "reduction"
+   },
    "event_wait" : {
       "source" : "event_wait",
       "binary" : "test_event",
@@ -1474,6 +1594,11 @@
       "binary" : "test_specialization_constants",
       "folder" : "specialization_constants"
    },
+   "specialization_constants_external_core" : {
+      "source" : "specialization_constants_external_core",
+      "binary" : "test_specialization_constants",
+      "folder" : "specialization_constants"
+   },
    "vector_OPERATORS_short" : {
       "source" : "vector_operators_short",
       "binary" : "test_vector_operators",
@@ -1494,6 +1619,11 @@
       "binary" : "test_nd_range",
       "folder" : "nd_range"
    },
+   "usm_api_mem_advise_queue_single_event" : {
+      "source" : "usm_api_mem_advise_queue_single_event",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
    "vector_SWIZZLE_ASSIGNMENT_uint64_t" : {
       "source" : "vector_swizzle_assignment_std__uint64_t",
       "binary" : "test_vector_swizzle_assignment",
@@ -1503,6 +1633,11 @@
       "source" : "buffer_api_fp64",
       "binary" : "test_buffer",
       "folder" : "buffer"
+   },
+   "usm_api_memcpy_queue_multiple_events" : {
+      "source" : "usm_api_memcpy_queue_multiple_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
    },
    "vector_swizzles_long_long" : {
       "source" : "vector_swizzles_long_long",
@@ -1524,20 +1659,25 @@
       "binary" : "test_kernel_args",
       "folder" : "kernel_args"
    },
-   "vector_LOAD_STORE_uint64_t" : {
-      "source" : "vector_load_store_std__uint64_t",
-      "binary" : "test_vector_load_store",
-      "folder" : "vector_load_store"
-   },
    "vector_CONSTRUCTORS_unsigned_long_long" : {
       "source" : "vector_constructors_unsigned_long_long",
       "binary" : "test_vector_constructors",
       "folder" : "vector_constructors"
    },
+   "vector_LOAD_STORE_uint64_t" : {
+      "source" : "vector_load_store_std__uint64_t",
+      "binary" : "test_vector_load_store",
+      "folder" : "vector_load_store"
+   },
    "vector_OPERATORS_uint64_t" : {
       "source" : "vector_operators_std__uint64_t",
       "binary" : "test_vector_operators",
       "folder" : "vector_operators"
+   },
+   "usm_api_prefetch_queue_no_events" : {
+      "source" : "usm_api_prefetch_queue_no_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
    },
    "vector_API_float" : {
       "source" : "vector_api_float",
@@ -1574,15 +1714,30 @@
       "binary" : "test_vector_swizzle_assignment",
       "folder" : "vector_swizzle_assignment"
    },
+   "specialization_constants_external_fp16" : {
+      "source" : "specialization_constants_external_fp16",
+      "binary" : "test_specialization_constants",
+      "folder" : "specialization_constants"
+   },
    "vector_OPERATORS_int32_t" : {
       "source" : "vector_operators_std__int32_t",
       "binary" : "test_vector_operators",
       "folder" : "vector_operators"
    },
+   "specialization_constants_external_fp64" : {
+      "source" : "specialization_constants_external_fp64",
+      "binary" : "test_specialization_constants",
+      "folder" : "specialization_constants"
+   },
    "buffer_constructors_fp16" : {
       "source" : "buffer_constructors_fp16",
       "binary" : "test_buffer",
       "folder" : "buffer"
+   },
+   "reduction_with_identity_param_fp64" : {
+      "source" : "reduction_with_identity_param_fp64",
+      "binary" : "test_reduction",
+      "folder" : "reduction"
    },
    "vector_CONSTRUCTORS_int32_t" : {
       "source" : "vector_constructors_std__int32_t",
@@ -1619,13 +1774,13 @@
       "binary" : "test_accessor",
       "folder" : "accessor"
    },
-   "vector_CONSTRUCTORS_long_long" : {
-      "source" : "vector_constructors_long_long",
+   "vector_CONSTRUCTORS_signed_char" : {
+      "source" : "vector_constructors_signed_char",
       "binary" : "test_vector_constructors",
       "folder" : "vector_constructors"
    },
-   "vector_CONSTRUCTORS_signed_char" : {
-      "source" : "vector_constructors_signed_char",
+   "vector_CONSTRUCTORS_long_long" : {
+      "source" : "vector_constructors_long_long",
       "binary" : "test_vector_constructors",
       "folder" : "vector_constructors"
    },
@@ -1669,20 +1824,25 @@
       "binary" : "test_vector_api",
       "folder" : "vector_api"
    },
-   "vector_CONSTRUCTORS_char" : {
-      "source" : "vector_constructors_char",
-      "binary" : "test_vector_constructors",
-      "folder" : "vector_constructors"
-   },
    "h_item_constructors" : {
       "source" : "h_item_constructors",
       "binary" : "test_h_item",
       "folder" : "h_item"
    },
+   "vector_CONSTRUCTORS_char" : {
+      "source" : "vector_constructors_char",
+      "binary" : "test_vector_constructors",
+      "folder" : "vector_constructors"
+   },
    "vector_API_byte" : {
       "source" : "vector_api_sycl__byte",
       "binary" : "test_vector_api",
       "folder" : "vector_api"
+   },
+   "usm_api_memcpy_queue_no_events" : {
+      "source" : "usm_api_memcpy_queue_no_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
    },
    "vector_CONSTRUCTORS_half" : {
       "source" : "vector_constructors_sycl__half",
@@ -1698,6 +1858,11 @@
       "source" : "vector_constructors_std__uint16_t",
       "binary" : "test_vector_constructors",
       "folder" : "vector_constructors"
+   },
+   "usm_api_prefetch_handler_no_events" : {
+      "source" : "usm_api_prefetch_handler_no_events",
+      "binary" : "test_usm",
+      "folder" : "usm"
    },
    "vector_SWIZZLE_ASSIGNMENT_int16_t" : {
       "source" : "vector_swizzle_assignment_std__int16_t",
