@@ -637,7 +637,7 @@ sub BuildTest {
 
   my $current_category = get_category_name($current_test);
   my $current_binary = get_binary_name($current_test);
-  $build_lf = "$optset_work_dir/build\_$current_category.lf";
+  $build_lf = "$optset_work_dir/build\_$current_binary.lf";
   # tests already compiled in first run, need parse result and generate lf file.
   if(dryrun()) {
     return $dryrun_result;
@@ -899,7 +899,7 @@ sub BuildTest {
   $ret = check_current_test_pass($stage, $filtered_output);
   if ($opt_remove !~ /none/i) {
     # CMPLRTST-12826: Need aggressive cleanup for any value of -remove TC option except "none"
-    $compiler_output .= "\n*** please check build output in build.lf ***\n\n";
+    $compiler_output .= "\n*** please check build output in $build_lf ***\n\n";
   } else {
     $compiler_output = $filtered_output;
   }
