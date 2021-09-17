@@ -215,6 +215,39 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_base" />
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_double" />
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_half" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_reduction.xml" splitGroup="new" testName="reduction_with_identity_param_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_reduction.xml" splitGroup="new" testName="reduction_with_identity_param_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_reduction.xml" splitGroup="new" testName="reduction_with_identity_param_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_external_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_external_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_external_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_via_kernel_bundle_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_via_kernel_bundle_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_via_kernel_bundle_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_copy_handler_no_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_copy_queue_multiple_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_copy_queue_no_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_copy_queue_single_event" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_fill_handler_no_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_fill_queue_multiple_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_fill_queue_no_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_fill_queue_single_event" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_mem_advise_handler_no_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_mem_advise_queue_multiple_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_mem_advise_queue_no_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_mem_advise_queue_single_event" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_memcpy_handler_no_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_memcpy_queue_multiple_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_memcpy_queue_no_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_memcpy_queue_single_event" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_memset_handler_no_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_memset_queue_multiple_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_memset_queue_no_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_memset_queue_single_event" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_prefetch_handler_no_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_prefetch_queue_multiple_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_prefetch_queue_no_events" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_prefetch_queue_single_event" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_char" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_double" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_float" />
