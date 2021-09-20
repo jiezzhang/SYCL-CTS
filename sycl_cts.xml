@@ -215,12 +215,22 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_base" />
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_double" />
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_half" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_exceptions.xml" splitGroup="new" testName="exceptions_make_error_code" />
     <test configFile="intel_test_drivers/config/TEMPLATE_reduction.xml" splitGroup="new" testName="reduction_with_identity_param_core" />
     <test configFile="intel_test_drivers/config/TEMPLATE_reduction.xml" splitGroup="new" testName="reduction_with_identity_param_fp16" />
     <test configFile="intel_test_drivers/config/TEMPLATE_reduction.xml" splitGroup="new" testName="reduction_with_identity_param_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_exceptions_throwing_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_exceptions_throwing_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_exceptions_throwing_fp64" />
     <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_external_core" />
     <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_external_fp16" />
     <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_external_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_same_command_group_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_same_command_group_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_same_command_group_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_via_handler_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_via_handler_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_via_handler_fp64" />
     <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_via_kernel_bundle_core" />
     <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_via_kernel_bundle_fp16" />
     <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_via_kernel_bundle_fp64" />
