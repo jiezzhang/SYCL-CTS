@@ -139,9 +139,6 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_platform.xml" splitGroup="common_2" testName="platform_constructors" />
     <test configFile="intel_test_drivers/config/TEMPLATE_platform.xml" splitGroup="common_2" testName="platform_info" />
     <test configFile="intel_test_drivers/config/TEMPLATE_pointers.xml" splitGroup="common_2" testName="kernel_pointers" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_program.xml" splitGroup="common_2" testName="program_api" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_program.xml" splitGroup="common_2" testName="program_constructors" />
-    <test configFile="intel_test_drivers/config/TEMPLATE_program.xml" splitGroup="common_2" testName="program_info" />
     <test configFile="intel_test_drivers/config/TEMPLATE_queue.xml" splitGroup="common_2" testName="queue_api" />
     <test configFile="intel_test_drivers/config/TEMPLATE_queue.xml" splitGroup="common_2" testName="queue_constructors" />
     <test configFile="intel_test_drivers/config/TEMPLATE_queue.xml" splitGroup="common_2" testName="queue_info" />

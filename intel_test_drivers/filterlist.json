@@ -58,9 +58,7 @@
         "buffer_storage_fp16",
         "multi_ptr_api_fp16",
         "opencl_interop_get",
-        "opencl_interop_kernel",
-        "program_api",
-        "program_constructors"
+        "opencl_interop_kernel"
       ],
       "opt_use_gpu_aot": [
         "opencl_interop_constructors",
@@ -70,9 +68,7 @@
         "specialization_constants",
         "specialization_constants_negative",
         "specialization_constants_override",
-        "specialization_constants_recompilation",
-        "program_constructors",
-        "program_api"
+        "specialization_constants_recompilation"
       ],
       "opt_use_acc_aot": [
         "atomic_api_64_base",
@@ -172,9 +168,7 @@
         "nd_item_async_work_group_copy_fp16",
         "multi_ptr_api_fp16",
         "opencl_interop_get",
-        "opencl_interop_kernel",
-        "program_api",
-        "program_constructors"
+        "opencl_interop_kernel"
       ],
       "opt_use_gpu_aot": [
         "opencl_interop_get",
@@ -184,9 +178,7 @@
         "specialization_constants",
         "specialization_constants_negative",
         "specialization_constants_override",
-        "specialization_constants_recompilation",
-        "program_constructors",
-        "program_api"
+        "specialization_constants_recompilation"
       ],
       "opt_use_acc_aot": [
         "atomic_api_64_base",
