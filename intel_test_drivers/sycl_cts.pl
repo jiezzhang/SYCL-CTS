@@ -930,13 +930,11 @@ sub RunTest {
     $execution_timelimit = 5400;
     $execution_output .= "[cmd][test] enlarge execution timelimit to 5400s for vector_swizzles_* tests in debug and gpu+O0 mode.\n";
   } elsif (is_linux() and $opt_linker_flags =~ m/ftest-coverage/ or $current_optset =~ m/debug/
-      or $current_test =~ m/stream_api_core/) # CMPLRTST-11833
+      or $current_test =~ m/stream_api_core/ or $current_test eq "group_async_work_group_copy_core"
+      or $current_test =~ m/specialization_constants/) # CMPLRTST-11833 and CMPLRTST-14356
   {
     $execution_timelimit = 3600;
     $execution_output .= "[cmd][test] enlarge execution timelimit to 3600s for code coverage and debug mode.\n";
-  } elsif ($current_test eq "group_async_work_group_copy_core") {
-    $execution_timelimit = 3600;
-    $execution_output .= "[cmd][test] enlarge execution timelimit to 3600s for group_async_work_group_copy_core due to CMPLRTST-14356.\n";
   } else {
     $execution_output .= "[cmd][test] set execution timelimit to 1800s.\n";
   }
