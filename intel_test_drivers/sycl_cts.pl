@@ -745,7 +745,7 @@ sub BuildTest {
   my $compiler_root = dirname(dirname($compiler_path));
 
   my $build_type = $ENV{ICS_WSBUILDTYPE};
-  my $ics_ws_dir = $ENV{ICS_WSDIR};
+  my $ics_ws_dir = $ENV{ICS_SHWORKDIR};
   $ics_ws_dir = "$ics_ws_dir/build/linux_$build_type";
 
   my $opencl_name = "libOpenCL.so";
