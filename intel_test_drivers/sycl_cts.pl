@@ -934,6 +934,9 @@ sub RunTest {
   {
     $execution_timelimit = 3600;
     $execution_output .= "[cmd][test] enlarge execution timelimit to 3600s for code coverage and debug mode.\n";
+  } elsif ($current_test eq "group_async_work_group_copy_core") {
+    $execution_timelimit = 3600;
+    $execution_output .= "[cmd][test] enlarge execution timelimit to 3600s for group_async_work_group_copy_core due to CMPLRTST-14356.\n";
   } else {
     $execution_output .= "[cmd][test] set execution timelimit to 1800s.\n";
   }
