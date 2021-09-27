@@ -746,7 +746,9 @@ sub BuildTest {
 
   my $build_type = $ENV{ICS_WSBUILDTYPE};
   my $ics_ws_dir = $ENV{ICS_SHWORKDIR};
-  $ics_ws_dir = "$ics_ws_dir/build/linux_$build_type";
+  my $os_type = "linux";
+  $os_type = "win" if (is_windows());
+  $ics_ws_dir = "$ics_ws_dir/build/$os_type\_$build_type";
 
   my $opencl_name = "libOpenCL.so";
   $opencl_name = "OpenCL.lib" if is_windows();
