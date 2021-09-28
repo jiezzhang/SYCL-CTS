@@ -743,10 +743,17 @@ sub BuildTest {
 
   my $compiler_path = `which $compiler`;
   my $compiler_root = dirname(dirname($compiler_path));
+
+  my $build_type = $ENV{ICS_WSBUILDTYPE};
+  my $ics_ws_dir = $ENV{ICS_SHWORKDIR};
+  my $os_type = "linux";
+  $os_type = "win" if (is_windows());
+  $ics_ws_dir = "$ics_ws_dir/build/$os_type\_$build_type";
+
   my $opencl_name = "libOpenCL.so";
   $opencl_name = "OpenCL.lib" if is_windows();
-  my $opencl_lib = "${compiler_root}/lib/${opencl_name}";
-  my $opencl_include = "${compiler_root}/include/sycl";
+  my $opencl_lib = "${ics_ws_dir}/lib/${opencl_name}";
+  my $opencl_include = "${ics_ws_dir}/include/sycl";
 
   if (get_running_device() == RUNNING_DEVICE_CPU) {
     $opencl_platform = "intel";
