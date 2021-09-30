@@ -834,11 +834,6 @@
       "binary" : "test_item",
       "folder" : "item"
    },
-   "program_api" : {
-      "source" : "program_api",
-      "binary" : "test_program",
-      "folder" : "program"
-   },
    "nd_item_api" : {
       "source" : "nd_item_api",
       "binary" : "test_nd_item",
@@ -1109,11 +1104,6 @@
       "binary" : "test_host_task",
       "folder" : "host_task"
    },
-   "program_constructors" : {
-      "source" : "program_constructors",
-      "binary" : "test_program",
-      "folder" : "program"
-   },
    "vector_ALIAS_half" : {
       "source" : "vector_alias_sycl__half",
       "binary" : "test_vector_alias",
@@ -1303,11 +1293,6 @@
       "source" : "device_constructors",
       "binary" : "test_device",
       "folder" : "device"
-   },
-   "program_info" : {
-      "source" : "program_info",
-      "binary" : "test_program",
-      "folder" : "program"
    },
    "math_builtin_native" : {
       "source" : "math_builtin_native",
