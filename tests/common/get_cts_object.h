@@ -9,8 +9,7 @@
 #ifndef __SYCLCTS_TESTS_COMMON_GET_CTS_OBJECT_H
 #define __SYCLCTS_TESTS_COMMON_GET_CTS_OBJECT_H
 
-// include our proxy to the real sycl header
-#include "sycl.h"
+#include <sycl/sycl.hpp>
 
 #include "../common/cts_async_handler.h"
 #include "../common/cts_selector.h"
@@ -64,7 +63,12 @@ struct get_cts_object {
   static sycl::queue queue(
       const sycl::device_selector &selector = cts_selector()) {
     static cts_async_handler asyncHandler;
-    return sycl::queue(selector, asyncHandler);
+#if !defined(__HIPSYCL__)
+    return sycl::queue(selector, asyncHandler, sycl::property_list{});
+#else
+    return sycl::queue(selector.select_device(), asyncHandler,
+                       sycl::property_list{});
+#endif
   }
 
   /**
@@ -92,10 +96,18 @@ struct get_cts_object {
     */
     template <class kernel_name>
     static sycl::kernel prebuilt(sycl::queue &queue) {
+// ComputeCpp and hipSYCL do not yet support sycl::get_kernel_bundle
+#if !defined(__COMPUTECPP__) && !defined(__HIPSYCL__)
       auto ctx = queue.get_context();
-      auto kb_exe = sycl::get_kernel_bundle<
-                      kernel_name, sycl::bundle_state::executable>(ctx);
+      auto kb_exe =
+          sycl::get_kernel_bundle<kernel_name, sycl::bundle_state::executable>(
+              ctx);
       return kb_exe.get_kernel(sycl::get_kernel_id<kernel_name>());
+#else
+      sycl::program program(queue.get_context());
+      program.build_with_kernel_type<kernel_name>();
+      return program.get_kernel<kernel_name>();
+#endif
     }
   };
 
