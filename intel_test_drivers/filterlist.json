@@ -110,7 +110,7 @@
       "opt_use_gpu_ocl": [],
       "opt_use_gpu_ocl_aot": [
       ],
-      "opt_use_nv_gpu": [
+      "opt_use_cuda_aot": [
         "opencl_interop_constructors",
         "opencl_interop_get",
         "opencl_interop_kernel"

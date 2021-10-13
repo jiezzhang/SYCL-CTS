@@ -58,8 +58,8 @@ sub need_filter_test {
     $similar_optset = "opt_use_gpu_aot";
   } elsif ($current_optset =~ m/opt_use_gpu/) {
     $similar_optset = "opt_use_gpu";
-  } elsif ($current_optset =~ m/opt_use_nv_gpu/) {
-    $similar_optset = "opt_use_nv_gpu";
+  } elsif ($current_optset =~ m/opt_use_nv_gpu/ or $current_optset =~ m/opt_use_cuda_aot/) {
+    $similar_optset = "opt_use_cuda_aot";
   }
 
   my $os_k = "linux";
