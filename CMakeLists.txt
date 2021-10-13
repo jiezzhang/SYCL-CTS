@@ -25,6 +25,8 @@ endif()
 
 include(AddSYCLExecutable)
 
+include_directories("util")
+
 # ------------------
 # Extensive mode for full coverage
 option(SYCL_CTS_ENABLE_FULL_CONFORMANCE
