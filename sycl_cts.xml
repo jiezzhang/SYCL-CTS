@@ -212,10 +212,17 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_base" />
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_double" />
     <test configFile="intel_test_drivers/config/TEMPLATE_math_builtin_api.xml" splitGroup="math_builtin_api" testName="math_builtin_relational_half" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_exceptions.xml" splitGroup="new" testName="exceptions_error_code" />
     <test configFile="intel_test_drivers/config/TEMPLATE_exceptions.xml" splitGroup="new" testName="exceptions_make_error_code" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_exceptions.xml" splitGroup="new" testName="exceptions_sycl_category" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_exceptions.xml" splitGroup="new" testName="exceptions_sycl_category_try_order_fiasco" />
     <test configFile="intel_test_drivers/config/TEMPLATE_reduction.xml" splitGroup="new" testName="reduction_with_identity_param_core" />
     <test configFile="intel_test_drivers/config/TEMPLATE_reduction.xml" splitGroup="new" testName="reduction_with_identity_param_fp16" />
     <test configFile="intel_test_drivers/config/TEMPLATE_reduction.xml" splitGroup="new" testName="reduction_with_identity_param_fp64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_reduction.xml" splitGroup="new" testName="reduction_with_several_reductions_in_kernel" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_reduction.xml" splitGroup="new" testName="reduction_without_identity_param_core" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_reduction.xml" splitGroup="new" testName="reduction_without_identity_param_fp16" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_reduction.xml" splitGroup="new" testName="reduction_without_identity_param_fp64" />
     <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_exceptions_throwing_core" />
     <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_exceptions_throwing_fp16" />
     <test configFile="intel_test_drivers/config/TEMPLATE_specialization_constants.xml" splitGroup="new" testName="specialization_constants_exceptions_throwing_fp64" />
@@ -255,6 +262,8 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_prefetch_queue_multiple_events" />
     <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_prefetch_queue_no_events" />
     <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_api_prefetch_queue_single_event" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_atomic_access_atomic64" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="new" testName="usm_atomic_access_core" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_char" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_double" />
     <test configFile="intel_test_drivers/config/TEMPLATE_vector_alias.xml" splitGroup="vector_alias" testName="vector_ALIAS_float" />

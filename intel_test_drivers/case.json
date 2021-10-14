@@ -224,6 +224,11 @@
       "binary" : "test_vector_alias",
       "folder" : "vector_alias"
    },
+   "usm_atomic_access_atomic64" : {
+      "source" : "usm_atomic_access_atomic64",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
    "group_default_mem_fence" : {
       "source" : "group_default_mem_fence",
       "binary" : "test_group",
@@ -328,6 +333,11 @@
       "source" : "nd_item_default_barrier",
       "binary" : "test_nd_item",
       "folder" : "nd_item"
+   },
+   "reduction_without_identity_param_fp64" : {
+      "source" : "reduction_without_identity_param_fp64",
+      "binary" : "test_reduction",
+      "folder" : "reduction"
    },
    "item_constructors" : {
       "source" : "item_constructors",
@@ -639,10 +649,20 @@
       "binary" : "test_usm",
       "folder" : "usm"
    },
+   "reduction_without_identity_param_fp16" : {
+      "source" : "reduction_without_identity_param_fp16",
+      "binary" : "test_reduction",
+      "folder" : "reduction"
+   },
    "usm_api_mem_advise_queue_multiple_events" : {
       "source" : "usm_api_mem_advise_queue_multiple_events",
       "binary" : "test_usm",
       "folder" : "usm"
+   },
+   "exceptions_error_code" : {
+      "source" : "exceptions_error_code",
+      "binary" : "test_exceptions",
+      "folder" : "exceptions"
    },
    "accessor_api_local_fp16" : {
       "source" : "accessor_api_local_fp16",
@@ -688,6 +708,11 @@
       "source" : "vector_swizzles_uint64_t",
       "binary" : "test_vector_swizzles",
       "folder" : "vector_swizzles"
+   },
+   "reduction_with_several_reductions_in_kernel" : {
+      "source" : "reduction_with_several_reductions_in_kernel",
+      "binary" : "test_reduction",
+      "folder" : "reduction"
    },
    "vector_API_long" : {
       "source" : "vector_api_long",
@@ -773,6 +798,11 @@
       "source" : "specialization_constants_multiple_fp64",
       "binary" : "test_specialization_constants",
       "folder" : "specialization_constants"
+   },
+   "exceptions_sycl_category_try_order_fiasco" : {
+      "source" : "exceptions_sycl_category_try_order_fiasco",
+      "binary" : "test_exceptions",
+      "folder" : "exceptions"
    },
    "specialization_constants_via_kernel_bundle_fp16" : {
       "source" : "specialization_constants_via_kernel_bundle_fp16",
@@ -1264,15 +1294,15 @@
       "binary" : "test_vector_alias",
       "folder" : "vector_alias"
    },
-   "vector_SWIZZLE_ASSIGNMENT_int" : {
-      "source" : "vector_swizzle_assignment_int",
-      "binary" : "test_vector_swizzle_assignment",
-      "folder" : "vector_swizzle_assignment"
-   },
    "specialization_constants_same_name_inter_link_1st_tu_via_kb_fp16" : {
       "source" : "specialization_constants_same_name_inter_link_1st_tu_via_kb_fp16",
       "binary" : "test_specialization_constants",
       "folder" : "specialization_constants"
+   },
+   "vector_SWIZZLE_ASSIGNMENT_int" : {
+      "source" : "vector_swizzle_assignment_int",
+      "binary" : "test_vector_swizzle_assignment",
+      "folder" : "vector_swizzle_assignment"
    },
    "vector_SWIZZLE_ASSIGNMENT_half" : {
       "source" : "vector_swizzle_assignment_sycl__half",
@@ -1549,6 +1579,11 @@
       "binary" : "test_specialization_constants",
       "folder" : "specialization_constants"
    },
+   "usm_atomic_access_core" : {
+      "source" : "usm_atomic_access_core",
+      "binary" : "test_usm",
+      "folder" : "usm"
+   },
    "vector_CONSTRUCTORS_unsigned_int" : {
       "source" : "vector_constructors_unsigned_int",
       "binary" : "test_vector_constructors",
@@ -1573,6 +1608,11 @@
       "source" : "vector_operators_sycl__half",
       "binary" : "test_vector_operators",
       "folder" : "vector_operators"
+   },
+   "exceptions_sycl_category" : {
+      "source" : "exceptions_sycl_category",
+      "binary" : "test_exceptions",
+      "folder" : "exceptions"
    },
    "vector_CONSTRUCTORS_unsigned_long" : {
       "source" : "vector_constructors_unsigned_long",
@@ -1908,6 +1948,11 @@
       "source" : "vector_operators_unsigned_long_long",
       "binary" : "test_vector_operators",
       "folder" : "vector_operators"
+   },
+   "reduction_without_identity_param_core" : {
+      "source" : "reduction_without_identity_param_core",
+      "binary" : "test_reduction",
+      "folder" : "reduction"
    },
    "multi_ptr_constructors" : {
       "source" : "multi_ptr_constructors",
