@@ -213,6 +213,8 @@
       ],
       "opt_use_gpu_ocl": [],
       "opt_use_gpu_ocl_aot": [
+      ],
+      "opt_use_cuda_aot": [
       ]
     }
   }
