@@ -191,7 +191,7 @@ sub remove_unused_category_src {
   my $categroy = $_[2];
 
   # loop over @test_name_list and change to correct test names if needed
-  my @test_names = [];
+  my @test_names;
   foreach my $test_name (@test_name_list) {
     push(@test_names, get_actual_cpp_test_name($test_name));
   }
@@ -215,6 +215,10 @@ sub remove_unused_category_src {
       }
     }
   }
+  if (scalar(@test_names) == 0) {
+    return $SKIP;
+  }
+  return $PASS;
 }
 
 sub filter_py_generator {
@@ -665,7 +669,9 @@ sub BuildTest {
   }
   $compiler_output .= "[category_map] finished\n";
 
-  remove_unused_category_src($src_dir, \@test_name_list, $current_category);
+  $ret = remove_unused_category_src($src_dir, \@test_name_list, $current_category);
+  # This category have no objects to build. Skip it.
+  return $ret if ($ret == $SKIP);
 
   # suite name split to <suite>~n, need to remove ~n here
   $fixed_suite_name = $current_suite;
