@@ -748,6 +748,7 @@ sub BuildTest {
   push(@cmake_cmd, "-G \"Ninja\"");
 
   my $compiler_path = `which $compiler`;
+  my $compiler_root = dirname(dirname($compiler_path));
   # Valgrind for DPCPP will wrap compiler into a script
   # We need to remove it from PATH to detect real compiler path
   if ($compiler_path =~ m/VALGRIND/) {
@@ -756,11 +757,11 @@ sub BuildTest {
     $compiler_path = `which $compiler`;
     prepend_envvar("PATH", $path);
   }
-  my $compiler_root = dirname(dirname($compiler_path));
+  my $opencl_root = dirname(dirname($compiler_path));
   my $opencl_name = "libOpenCL.so";
   $opencl_name = "OpenCL.lib" if is_windows();
-  my $opencl_lib = "${compiler_root}/lib/${opencl_name}";
-  my $opencl_include = "${compiler_root}/include/sycl";
+  my $opencl_lib = "${opencl_root}/lib/${opencl_name}";
+  my $opencl_include = "${opencl_root}/include/sycl";
 
   if (get_running_device() == RUNNING_DEVICE_CPU) {
     $opencl_platform = "intel";
