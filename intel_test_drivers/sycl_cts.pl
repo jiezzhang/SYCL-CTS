@@ -748,6 +748,14 @@ sub BuildTest {
   push(@cmake_cmd, "-G \"Ninja\"");
 
   my $compiler_path = `which $compiler`;
+  # Valgrind for DPCPP will wrap compiler into a script
+  # We need to remove it from PATH to detect real compiler path
+  if ($compiler_path =~ m/VALGRIND/) {
+    my $path = quotemeta(dirname($compiler_path));
+    $ENV{PATH} =~ s/$path://;
+    $compiler_path = `which $compiler`;
+    prepend_envvar("PATH", $path);
+  }
   my $compiler_root = dirname(dirname($compiler_path));
   my $opencl_name = "libOpenCL.so";
   $opencl_name = "OpenCL.lib" if is_windows();
