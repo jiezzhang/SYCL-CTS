@@ -8,8 +8,8 @@ else()
     string(REPLACE "/machine:x64" "" CMAKE_EXE_LINKER_FLAGS
         "${CMAKE_EXE_LINKER_FLAGS}")
     # Remove /subsystem option which is not supported by clang-cl
-    string(REPLACE "/subsystem:console" "" CMAKE_CREATE_CONSOLE_EXE
-        ${CMAKE_CREATE_CONSOLE_EXE})
+    string(REPLACE "/subsystem:console" "" CMAKE_CXX_CREATE_CONSOLE_EXE
+        "${CMAKE_CXX_CREATE_CONSOLE_EXE}")
     find_program(DPCPP_CXX_EXECUTABLE NAMES dpcpp clang-cl
         HINTS ${DPCPP_INSTALL_DIR}
         PATH_SUFFIXES bin)
@@ -35,6 +35,12 @@ else()
     set(DPCPP_FP_FLAG "-ffp-model=precise")
 endif()
 set(CMAKE_CXX_FLAGS "${DPCPP_FP_FLAG} ${CMAKE_CXX_FLAGS}")
+
+option(DPCPP_DISABLE_SYCL2020_DEPRECATION_WARNINGS
+  "Disable SYCL 2020 deprecation warnings" ON)
+if(DPCPP_DISABLE_SYCL2020_DEPRECATION_WARNINGS)
+    set(CMAKE_CXX_FLAGS "-DSYCL2020_DISABLE_DEPRECATION_WARNINGS ${CMAKE_CXX_FLAGS}")
+endif()
 
 add_library(DPCPP::Runtime INTERFACE IMPORTED GLOBAL)
 set_target_properties(DPCPP::Runtime PROPERTIES

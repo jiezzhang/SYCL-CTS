@@ -35,7 +35,21 @@ class TEST_NAME : public util::test_base {
   /** execute this test
    */
   void run(util::logger &log) override {
-    try {
+    {
+#ifdef SYCL_CTS_TEST_OPENCL_INTEROP
+      /** check get()
+      */
+      {
+        auto queue = util::get_cts_object::queue();
+        auto event = get_queue_event<class event_api_kernel_0>(queue);
+
+        if (!queue.is_host()) {
+          auto evt = event.get();
+          check_return_type<cl_event>(log, evt, "sycl::event::get()");
+        }
+        queue.wait_and_throw();
+      }
+#endif
 
       /** check is_host()
       */
@@ -97,12 +111,6 @@ class TEST_NAME : public util::test_base {
 
         sycl::event::wait_and_throw(eventList);
       }
-
-    } catch (const sycl::exception &e) {
-      log_exception(log, e);
-      std::string errorMsg =
-          "a SYCL exception was caught: " + std::string(e.what());
-      FAIL(log, errorMsg.c_str());
     }
   }
 };

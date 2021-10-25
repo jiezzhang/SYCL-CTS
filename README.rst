@@ -81,8 +81,8 @@ When configuring CMake, it is possible to use these flags:
 ``COMPUTECPP_INSTALL_DIR``
   Required only if your SYCL implementation is ComputeCpp.
 
-``SYCL_CTS_TEST_FILTER``
-  Specify which filter to use when building tests.
+``SYCL_CTS_EXCLUDE_TEST_CATEGORIES``
+  Optional file specifying a list of test categories to be excluded from the build.
 
 ``SYCL_CTS_ENABLE_FULL_CONFORMANCE``
   Enable extensive coverage with huge compilation and execution time.
@@ -107,8 +107,7 @@ The SYCL test suite can be launched via the following command::
     $ python runtests.py --help
 
     usage: runtests.py [-h] [-b BINPATH] [--csvpath CSVPATH] [--list]
-                       [-j JUNIT] [-p {host,intel,amd}]
-                       [-d {host,opencl_cpu,opencl_gpu,opencl_accelerator}]
+                       [-j JUNIT] [--device DEVICE]
 
     Khronos SYCL CTS
 
@@ -158,11 +157,9 @@ stored in a test executable.  For instance::
 Passing the ``--junit`` option will output test results in `junit` format
 when the test suite has finished executing.
 
-The ``--platform`` argument can be used to specify which platform to run the
-tests on.
-
 The ``--device`` argument can be used to specify which device to run the
-tests on.
+tests on. Selection is based on substring matching of the device name.
+ECMAScript regular expression syntax is supported.
 
 The following command will start a typical test run::
 
