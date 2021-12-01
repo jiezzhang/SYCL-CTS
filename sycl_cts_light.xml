@@ -198,6 +198,7 @@
     <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_malloc_device" />
     <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_malloc_host" />
     <test configFile="intel_test_drivers/config/TEMPLATE_usm.xml" splitGroup="common_2" testName="usm_malloc_shared" />
+    <test configFile="intel_test_drivers/config/TEMPLATE_exceptions.xml" splitGroup="new" testName="exceptions_errc_for" />
     <test configFile="intel_test_drivers/config/TEMPLATE_exceptions.xml" splitGroup="new" testName="exceptions_error_code" />
     <test configFile="intel_test_drivers/config/TEMPLATE_exceptions.xml" splitGroup="new" testName="exceptions_make_error_code" />
     <test configFile="intel_test_drivers/config/TEMPLATE_exceptions.xml" splitGroup="new" testName="exceptions_sycl_category" />
