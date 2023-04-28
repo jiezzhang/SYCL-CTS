@@ -131,7 +131,7 @@ TEMPLATE_LIST_TEST_CASE("Group and sub-group joint reduce functions with init",
   }
 #endif
 }
-/*
+
 TEMPLATE_LIST_TEST_CASE("Group and sub-group reduce functions",
                         "[group_func][type_list][dim]", ReduceTypes) {
   auto queue = sycl_cts::util::get_cts_object::queue();
@@ -160,7 +160,7 @@ TEMPLATE_LIST_TEST_CASE("Group and sub-group reduce functions",
   for_all_combinations<invoke_reduce_over_group>(Dims, Type, Operators, queue);
 #endif
 }
-
+/*
 TEMPLATE_LIST_TEST_CASE("Group and sub-group reduce functions with init",
                         "[group_func][type_list][dim]", prod2) {
   auto queue = sycl_cts::util::get_cts_object::queue();
