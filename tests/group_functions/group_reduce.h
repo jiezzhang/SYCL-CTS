@@ -47,12 +47,12 @@ inline auto get_op_types() {
 }
 
 template <bool with_init, typename OpT, typename IteratorT>
-auto get_reduce_reference(IteratorT first, IteratorT end) {
-  using T = IteratorT::value_type;
+size_t get_reduce_reference(IteratorT first, IteratorT end) {
+  // Cast `init` to size_t so that guards are introduced in verification
   if constexpr (with_init)
-    return std::accumulate(first, end, T(init), OpT());
+    return std::accumulate(first, end, size_t(init), OpT());
   else
-    return std::accumulate(first + 1, end, *first, OpT());
+    return std::accumulate(first + 1, end, size_t(*first), OpT());
 }
 
 template <bool with_init, typename OpT, typename IteratorT>
@@ -73,7 +73,8 @@ bool reduce_over_group_verify_helper(IteratorT first, size_t global_size,
         get_reduce_reference<with_init, OpT>(v.begin(), v.end());
     beg += cur_local_size;
 
-    res = std::all_of(first, first + global_size,
+    res = (group_reduced > util::exact_max<T>) ||
+          std::all_of(first, first + global_size,
                       [=](T i) { return i == group_reduced; });
     if (!res) break;
   }
@@ -99,10 +100,6 @@ bool reduce_over_group_sg_verifier(IteratorT first, size_t global_size,
     size_t cur_local_size = (i == count - 1 && global_size % local_size)
                                 ? global_size % local_size
                                 : local_size;
-    std::vector<T> v(cur_local_size);
-    std::iota(v.begin(), v.end(), 1);
-    const size_t group_reduced =
-        get_reduce_reference<with_init, OpT>(v.begin(), v.end());
     beg += cur_local_size;
     res = reduce_over_group_verify_helper<with_init, OpT, IteratorT>(
         first + global_size * i, local_size, sg_size);
