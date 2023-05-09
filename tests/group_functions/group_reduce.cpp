@@ -122,11 +122,11 @@ TEMPLATE_LIST_TEST_CASE("Group and sub-group joint reduce functions with init",
   if constexpr (std::is_same_v<T, U>)
 #endif
   {
-    // check all work group dimensions
-    // Get binary operators from TestType
+    // Get binary operators from T
     const auto Operators = get_op_types<T>();
     const auto RetType = unnamed_type_pack<T>();
     const auto ReducedType = unnamed_type_pack<U>();
+    // check all work group dimensions
     for_all_combinations<invoke_init_joint_reduce_group>(Dims, RetType, ReducedType, Operators, queue);
   }
 #endif
@@ -160,7 +160,7 @@ TEMPLATE_LIST_TEST_CASE("Group and sub-group reduce functions",
   for_all_combinations<invoke_reduce_over_group>(Dims, Type, Operators, queue);
 #endif
 }
-/*
+
 TEMPLATE_LIST_TEST_CASE("Group and sub-group reduce functions with init",
                         "[group_func][type_list][dim]", prod2) {
   auto queue = sycl_cts::util::get_cts_object::queue();
@@ -201,11 +201,12 @@ TEMPLATE_LIST_TEST_CASE("Group and sub-group reduce functions with init",
   if constexpr (std::is_same_v<T, U>)
 #endif
   {
+    // Get binary operators from T
+    const auto Operators = get_op_types<T>();
+    const auto RetType = unnamed_type_pack<T>();
+    const auto ReducedType = unnamed_type_pack<U>();
     // check all work group dimensions
-    init_reduce_over_group<1, T, U>(queue);
-    init_reduce_over_group<2, T, U>(queue);
-    init_reduce_over_group<3, T, U>(queue);
+    for_all_combinations<invoke_init_reduce_over_group>(Dims, RetType, ReducedType, Operators, queue);
   }
 #endif
 }
-*/
