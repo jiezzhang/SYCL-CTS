@@ -55,49 +55,58 @@ auto get_reduce_reference(IteratorT first, IteratorT end) {
     return std::accumulate(first + 1, end, *first, OpT());
 }
 
-template<bool with_init, typename OpT, typename IteratorT>
-bool reduce_over_group_verify_helper(IteratorT first, size_t global_size, size_t local_size) {
+template <bool with_init, typename OpT, typename IteratorT>
+bool reduce_over_group_verify_helper(IteratorT first, size_t global_size,
+                                     size_t local_size) {
   using T = IteratorT::value_type;
 
   bool res = false;
   const size_t count = (global_size + local_size - 1) / local_size;
   size_t beg = 0;
-  for(size_t i = 0; i < count; ++ i) {
-    size_t cur_local_size = (i == count - 1 && global_size % local_size) ? global_size % local_size : local_size;
+  for (size_t i = 0; i < count; ++i) {
+    size_t cur_local_size = (i == count - 1 && global_size % local_size)
+                                ? global_size % local_size
+                                : local_size;
     std::vector<T> v(cur_local_size);
     std::iota(v.begin(), v.end(), 1);
-    const size_t group_reduced = get_reduce_reference<with_init, OpT>(v.begin(), v.end());
+    const size_t group_reduced =
+        get_reduce_reference<with_init, OpT>(v.begin(), v.end());
     beg += cur_local_size;
 
     res = std::all_of(first, first + global_size,
                       [=](T i) { return i == group_reduced; });
-    if (!res)
-      break;
+    if (!res) break;
   }
   return res;
 }
 
-template<bool with_init, typename OpT, typename IteratorT>
-bool reduce_over_group_verifier(IteratorT first, size_t global_size, size_t local_size) {
-  return reduce_over_group_verify_helper<with_init, OpT, IteratorT>(first, global_size, local_size);
+template <bool with_init, typename OpT, typename IteratorT>
+bool reduce_over_group_verifier(IteratorT first, size_t global_size,
+                                size_t local_size) {
+  return reduce_over_group_verify_helper<with_init, OpT, IteratorT>(
+      first, global_size, local_size);
 }
 
-template<bool with_init, typename OpT, typename IteratorT>
-bool reduce_over_group_sg_verifier(IteratorT first, size_t global_size, size_t local_size, size_t sg_size) {
+template <bool with_init, typename OpT, typename IteratorT>
+bool reduce_over_group_sg_verifier(IteratorT first, size_t global_size,
+                                   size_t local_size, size_t sg_size) {
   using T = IteratorT::value_type;
 
   bool res = false;
   const size_t count = (global_size + local_size - 1) / local_size;
   size_t beg = 0;
-  for(size_t i = 0; i < count; ++ i) {
-    size_t cur_local_size = (i == count - 1 && global_size % local_size) ? global_size % local_size : local_size;
+  for (size_t i = 0; i < count; ++i) {
+    size_t cur_local_size = (i == count - 1 && global_size % local_size)
+                                ? global_size % local_size
+                                : local_size;
     std::vector<T> v(cur_local_size);
     std::iota(v.begin(), v.end(), 1);
-    const size_t group_reduced = get_reduce_reference<with_init, OpT>(v.begin(), v.end());
+    const size_t group_reduced =
+        get_reduce_reference<with_init, OpT>(v.begin(), v.end());
     beg += cur_local_size;
-    res = reduce_over_group_verify_helper<with_init, OpT, IteratorT>(first+global_size*i, local_size, sg_size);
-    if (!res)
-      break;
+    res = reduce_over_group_verify_helper<with_init, OpT, IteratorT>(
+        first + global_size * i, local_size, sg_size);
+    if (!res) break;
   }
   return res;
 }
@@ -266,7 +275,8 @@ void init_joint_reduce_group(sycl::queue& queue, const std::string& op_name) {
                            (size > util::exact_max<U>);
 
               ASSERT_RETURN_TYPE(
-                  T, sycl::joint_reduce(sub_group, v_begin, v_end, T(init), OpT()),
+                  T,
+                  sycl::joint_reduce(sub_group, v_begin, v_end, T(init), OpT()),
                   "Return type of joint_reduce(sub_group g, Ptr first, Ptr "
                   "last, T init, BinaryOperation binary_op) is wrong\n");
 
@@ -374,23 +384,27 @@ void reduce_over_group(sycl::queue& queue, const std::string& op_name) {
 
   // // Verify return value for reduce_over_group on group
   {
-    res = reduce_over_group_verifier<false, OpT>(output.cbegin(), work_group_size, work_group_size);
+    res = reduce_over_group_verifier<false, OpT>(
+        output.cbegin(), work_group_size, work_group_size);
     std::string work_group = sycl_cts::util::work_group_print(work_group_range);
     CAPTURE(D, work_group);
     INFO("Value of " << test_names[0] << " with " << op_name
-                    << " operation and T = " << type_name<T>() << " over group"
-                    << " is " << (res ? "right" : "wrong"));
+                     << " operation and T = " << type_name<T>() << " over group"
+                     << " is " << (res ? "right" : "wrong"));
     CHECK(res);
   }
 
   // Verify return value for reduce_over_group on sub_group
   {
-    res = reduce_over_group_sg_verifier<false, OpT>(output.cbegin()+work_group_size, work_group_size, work_group_size, sg_size);
+    res = reduce_over_group_sg_verifier<false, OpT>(
+        output.cbegin() + work_group_size, work_group_size, work_group_size,
+        sg_size);
     std::string work_group = sycl_cts::util::work_group_print(work_group_range);
     CAPTURE(D, work_group);
     INFO("Value of " << test_names[0] << " with " << op_name
-                    << " operation and T = " << type_name<T>() << " over sub_group"
-                    << " is " << (res ? "right" : "wrong"));
+                     << " operation and T = " << type_name<T>()
+                     << " over sub_group"
+                     << " is " << (res ? "right" : "wrong"));
     CHECK(res);
   }
 }
@@ -414,7 +428,7 @@ class init_reduce_over_group_kernel;
  * @tparam T Type for group values
  * @tparam U Type for init and result values
  */
- template <int D, typename T, typename U, typename OpT>
+template <int D, typename T, typename U, typename OpT>
 void init_reduce_over_group(sycl::queue& queue, const std::string& op_name) {
   // 2 function * 2 function objects
   constexpr int test_matrix = 2;
@@ -478,23 +492,27 @@ void init_reduce_over_group(sycl::queue& queue, const std::string& op_name) {
 
   // // Verify return value for reduce_over_group on group
   {
-    res = reduce_over_group_verifier<true, OpT>(output.cbegin(), work_group_size, work_group_size);
+    res = reduce_over_group_verifier<true, OpT>(
+        output.cbegin(), work_group_size, work_group_size);
     std::string work_group = sycl_cts::util::work_group_print(work_group_range);
     CAPTURE(D, work_group);
     INFO("Value of " << test_names[0] << " with " << op_name
-                    << " operation and T = " << type_name<T>() << " over group"
-                    << " is " << (res ? "right" : "wrong"));
+                     << " operation and T = " << type_name<T>() << " over group"
+                     << " is " << (res ? "right" : "wrong"));
     CHECK(res);
   }
 
   // Verify return value for reduce_over_group on sub_group
   {
-    res = reduce_over_group_sg_verifier<true, OpT>(output.cbegin()+work_group_size, work_group_size, work_group_size, sg_size);
+    res = reduce_over_group_sg_verifier<true, OpT>(
+        output.cbegin() + work_group_size, work_group_size, work_group_size,
+        sg_size);
     std::string work_group = sycl_cts::util::work_group_print(work_group_range);
     CAPTURE(D, work_group);
     INFO("Value of " << test_names[0] << " with " << op_name
-                    << " operation and T = " << type_name<T>() << " over sub_group"
-                    << " is " << (res ? "right" : "wrong"));
+                     << " operation and T = " << type_name<T>()
+                     << " over sub_group"
+                     << " is " << (res ? "right" : "wrong"));
     CHECK(res);
   }
 }

@@ -127,7 +127,8 @@ TEMPLATE_LIST_TEST_CASE("Group and sub-group joint reduce functions with init",
     const auto RetType = unnamed_type_pack<T>();
     const auto ReducedType = unnamed_type_pack<U>();
     // check all work group dimensions
-    for_all_combinations<invoke_init_joint_reduce_group>(Dims, RetType, ReducedType, Operators, queue);
+    for_all_combinations<invoke_init_joint_reduce_group>(
+        Dims, RetType, ReducedType, Operators, queue);
   }
 #endif
 }
@@ -206,7 +207,8 @@ TEMPLATE_LIST_TEST_CASE("Group and sub-group reduce functions with init",
     const auto RetType = unnamed_type_pack<T>();
     const auto ReducedType = unnamed_type_pack<U>();
     // check all work group dimensions
-    for_all_combinations<invoke_init_reduce_over_group>(Dims, RetType, ReducedType, Operators, queue);
+    for_all_combinations<invoke_init_reduce_over_group>(
+        Dims, RetType, ReducedType, Operators, queue);
   }
 #endif
 }
