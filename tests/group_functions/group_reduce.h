@@ -220,6 +220,7 @@ class init_joint_reduce_group_kernel;
  * @tparam D Dimension to use for group instance
  * @tparam T Type for init and result values
  * @tparam U Type for reduced values
+ * @tparam OpT Type for binary operator
  */
 template <int D, typename T, typename U, typename OpT>
 void init_joint_reduce_group(sycl::queue& queue, const std::string& op_name) {
@@ -323,6 +324,7 @@ class reduce_over_group_kernel;
  * @brief Provides test for reduce over group values
  * @tparam D Dimension to use for group instance
  * @tparam T Type for reduced values
+ * @tparam OpT Type for binary operator
  */
 template <int D, typename T, typename OpT>
 void reduce_over_group(sycl::queue& queue, const std::string& op_name) {
@@ -427,6 +429,7 @@ class init_reduce_over_group_kernel;
  * @tparam D Dimension to use for group instance
  * @tparam T Type for group values
  * @tparam U Type for init and result values
+ * @tparam OpT Type for binary operator
  */
 template <int D, typename T, typename U, typename OpT>
 void init_reduce_over_group(sycl::queue& queue, const std::string& op_name) {
