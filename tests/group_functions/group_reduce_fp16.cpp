@@ -62,7 +62,11 @@ TEMPLATE_TEST_CASE_SIG("Group and sub-group joint reduce functions",
   return;
 #else
   if (queue.get_device().has(sycl::aspect::fp16)) {
-    joint_reduce_group<D, sycl::half>(queue);
+    // Get binary operators from TestType
+    const auto Operators = get_op_types<sycl::half>();
+    const auto Type = unnamed_type_pack<sycl::half>();
+    for_all_combinations<invoke_joint_reduce_group>(Dims, Type, Operators,
+                                                    queue);
   } else {
     WARN("Device does not support half precision floating point operations.");
   }
@@ -113,10 +117,13 @@ TEMPLATE_LIST_TEST_CASE("Group and sub-group joint reduce functions with init",
     if (queue.get_device().has(sycl::aspect::fp16)) {
       if constexpr (std::is_same_v<T, sycl::half> ||
                     std::is_same_v<U, sycl::half>) {
+        // Get binary operators from T
+        const auto Operators = get_op_types<T>();
+        const auto RetType = unnamed_type_pack<T>();
+        const auto ReducedType = unnamed_type_pack<U>();
         // check all work group dimensions
-        init_joint_reduce_group<1, T, U>(queue);
-        init_joint_reduce_group<2, T, U>(queue);
-        init_joint_reduce_group<3, T, U>(queue);
+        for_all_combinations<invoke_init_joint_reduce_group>(
+            Dims, RetType, ReducedType, Operators, queue);
       }
     } else {
       WARN("Device does not support half precision floating point operations.");
@@ -136,7 +143,11 @@ TEMPLATE_TEST_CASE_SIG("Group and sub-group reduce functions",
   return;
 #else
   if (queue.get_device().has(sycl::aspect::fp16)) {
-    reduce_over_group<D, sycl::half>(queue);
+    // Get binary operators from TestType
+    const auto Operators = get_op_types<sycl::half>();
+    const auto Type = unnamed_type_pack<sycl::half>();
+    for_all_combinations<invoke_reduce_over_group>(Dims, Type, Operators,
+                                                   queue);
   } else {
     WARN("Device does not support half precision floating point operations.");
   }
@@ -181,10 +192,13 @@ TEMPLATE_LIST_TEST_CASE("Group and sub-group reduce functions with init",
     {
       if constexpr (std::is_same_v<T, sycl::half> ||
                     std::is_same_v<U, sycl::half>) {
+        // Get binary operators from T
+        const auto Operators = get_op_types<T>();
+        const auto RetType = unnamed_type_pack<T>();
+        const auto ReducedType = unnamed_type_pack<U>();
         // check all work group dimensions
-        init_reduce_over_group<1, T, U>(queue);
-        init_reduce_over_group<2, T, U>(queue);
-        init_reduce_over_group<3, T, U>(queue);
+        for_all_combinations<invoke_init_reduce_over_group>(
+            Dims, RetType, ReducedType, Operators, queue);
       }
     }
   } else {
