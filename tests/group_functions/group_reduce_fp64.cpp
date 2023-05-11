@@ -41,24 +41,21 @@ using prod2 =
     product<std::tuple, DoubleExtendedTypes, DoubleExtendedTypes>::type;
 
 // hipSYCL has no implementation over sub-groups
-TEMPLATE_TEST_CASE_SIG("Group and sub-group joint reduce functions",
-                       "[group_func][fp64][dim]", ((int D), D), 1, 2, 3) {
+TEST_CASE("Group and sub-group joint reduce functions",
+          "[group_func][fp64][dim]") {
   auto queue = sycl_cts::util::get_cts_object::queue();
-  // check dimensions to only print warning once
-  if constexpr (D == 1) {
-    // FIXME: hipSYCL omission
+  // FIXME: hipSYCL omission
 #if defined(SYCL_CTS_COMPILING_WITH_HIPSYCL)
-    WARN(
-        "hipSYCL has no implementation of "
-        "std::iterator_traits<Ptr>::value_type joint_reduce(sub_group g, "
-        "Ptr first, Ptr last, BinaryOperation binary_op) over sub-groups. "
-        "Skipping the test case.");
+  WARN(
+      "hipSYCL has no implementation of "
+      "std::iterator_traits<Ptr>::value_type joint_reduce(sub_group g, "
+      "Ptr first, Ptr last, BinaryOperation binary_op) over sub-groups. "
+      "Skipping the test case.");
 #elif defined(SYCL_CTS_COMPILING_WITH_COMPUTECPP)
-    WARN(
-        "ComputeCpp fails to compile with segfault in the compiler. "
-        "Skipping the test.");
+  WARN(
+      "ComputeCpp fails to compile with segfault in the compiler. "
+      "Skipping the test.");
 #endif
-  }
 
   // FIXME: Codeplay ComputeCpp - CE 2.11.0
   //        Device Compiler - clang version 8.0.0  (based on LLVM 8.0.0svn)
@@ -144,17 +141,13 @@ TEMPLATE_LIST_TEST_CASE("Group and sub-group joint reduce functions with init",
 #endif
 }
 
-TEMPLATE_TEST_CASE_SIG("Group and sub-group reduce functions",
-                       "[group_func][fp64][dim]", ((int D), D), 1, 2, 3) {
+TEST_CASE("Group and sub-group reduce functions", "[group_func][fp64][dim]") {
   auto queue = sycl_cts::util::get_cts_object::queue();
-  // check dimension to only print warning once
-  if constexpr (D == 1) {
 #if defined(SYCL_CTS_COMPILING_WITH_COMPUTECPP)
-    WARN(
-        "ComputeCpp fails to compile with segfault in the compiler. "
-        "Skipping the test.");
+  WARN(
+      "ComputeCpp fails to compile with segfault in the compiler. "
+      "Skipping the test.");
 #endif
-  }
 
   // FIXME: Codeplay ComputeCpp - CE 2.11.0
   //        Device Compiler - clang version 8.0.0  (based on LLVM 8.0.0svn)

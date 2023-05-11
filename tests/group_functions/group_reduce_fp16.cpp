@@ -40,22 +40,19 @@ using HalfExtendedTypes = concatenation<ReduceTypes, sycl::half>::type;
 using prod2 = product<std::tuple, HalfExtendedTypes, HalfExtendedTypes>::type;
 
 // hipSYCL has no implementation over sub-groups
-TEMPLATE_TEST_CASE_SIG("Group and sub-group joint reduce functions",
-                       "[group_func][fp16][dim]", ((int D), D), 1, 2, 3) {
+TEST_CASE("Group and sub-group joint reduce functions",
+          "[group_func][fp16][dim]") {
   auto queue = sycl_cts::util::get_cts_object::queue();
-  // check dimensions to only print warning once
-  if constexpr (D == 1) {
-    // FIXME: hipSYCL omission
+  // FIXME: hipSYCL omission
 #if defined(SYCL_CTS_COMPILING_WITH_HIPSYCL)
-    WARN(
-        "hipSYCL has no implementation of "
-        "std::iterator_traits<Ptr>::value_type joint_reduce(sub_group g, "
-        "Ptr first, Ptr last, BinaryOperation binary_op) over sub-groups. "
-        "Skipping the test case.");
+  WARN(
+      "hipSYCL has no implementation of "
+      "std::iterator_traits<Ptr>::value_type joint_reduce(sub_group g, "
+      "Ptr first, Ptr last, BinaryOperation binary_op) over sub-groups. "
+      "Skipping the test case.");
 #elif defined(SYCL_CTS_COMPILING_WITH_COMPUTECPP)
-    WARN("ComputeCpp cannot handle half type. Skipping the test.");
+  WARN("ComputeCpp cannot handle half type. Skipping the test.");
 #endif
-  }
 
   // FIXME: ComputeCpp has no half
 #if defined(SYCL_CTS_COMPILING_WITH_COMPUTECPP)
@@ -132,15 +129,11 @@ TEMPLATE_LIST_TEST_CASE("Group and sub-group joint reduce functions with init",
 #endif
 }
 
-TEMPLATE_TEST_CASE_SIG("Group and sub-group reduce functions",
-                       "[group_func][fp16][dim]", ((int D), D), 1, 2, 3) {
+TEST_CASE("Group and sub-group reduce functions", "[group_func][fp16][dim]") {
   auto queue = sycl_cts::util::get_cts_object::queue();
   // FIXME: ComputeCpp has no half
 #ifdef SYCL_CTS_COMPILING_WITH_COMPUTECPP
-  // check dimensions to only print warning once
-  if constexpr (D == 1)
-    WARN("ComputeCpp cannot handle half type. Skipping the test.");
-  return;
+  WARN("ComputeCpp cannot handle half type. Skipping the test.");
 #else
   if (queue.get_device().has(sycl::aspect::fp16)) {
     // Get binary operators from TestType

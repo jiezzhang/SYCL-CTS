@@ -33,14 +33,14 @@ using ReduceTypes = unnamed_type_pack<double, sycl::half>;
 // 2-dim Cartesian product of type lists
 using prod2 = product<std::tuple, ReduceTypes, ReduceTypes>::type;
 
-TEMPLATE_TEST_CASE_SIG("Group and sub-group joint reduce functions with init",
-                       "[group_func][fp16][fp64][dim]", prod2) {
+TEMPLATE_LIST_TEST_CASE("Group and sub-group joint reduce functions with init",
+                        "[group_func][fp16][fp64][dim]", prod2) {
   auto queue = sycl_cts::util::get_cts_object::queue();
   using T = std::tuple_element_t<0, TestType>;
   using U = std::tuple_element_t<1, TestType>;
 
-  // check dimensions to only print warning once
-  if constexpr (D == 1) {
+  // check types to only print warning once
+  if constexpr (std::is_same_v<T, double> && std::is_same_v<U, double>) {
     // FIXME: hipSYCL omission
 #if defined(SYCL_CTS_COMPILING_WITH_HIPSYCL)
     WARN(
@@ -86,14 +86,14 @@ TEMPLATE_TEST_CASE_SIG("Group and sub-group joint reduce functions with init",
 #endif
 }
 
-TEMPLATE_TEST_CASE_SIG("Group and sub-group reduce functions with init",
-                       "[group_func][fp16][fp64][dim]", prod2) {
+TEMPLATE_LIST_TEST_CASE("Group and sub-group reduce functions with init",
+                        "[group_func][fp16][fp64][dim]", prod2) {
   auto queue = sycl_cts::util::get_cts_object::queue();
   using T = std::tuple_element_t<0, TestType>;
   using U = std::tuple_element_t<1, TestType>;
 
-  // check dimensions to only print warning once
-  if constexpr (D == 1) {
+  // check types to only print warning once
+  if constexpr (std::is_same_v<T, double> && std::is_same_v<U, double>) {
 #if defined(SYCL_CTS_COMPILING_WITH_DPCPP)
     // Link to issue https://github.com/intel/llvm/issues/8341
     WARN(
