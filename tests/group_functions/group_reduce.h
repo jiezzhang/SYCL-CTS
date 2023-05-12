@@ -55,11 +55,9 @@ size_t get_reduce_reference(IteratorT first, IteratorT end) {
     return std::accumulate(first + 1, end, size_t(*first), OpT());
 }
 
-template <bool with_init, typename OpT, typename IteratorT>
-bool reduce_over_group_verify_helper(IteratorT first, size_t global_size,
-                                     size_t local_size) {
-  using T = IteratorT::value_type;
-
+template <bool with_init, typename OpT, typename InputT, typename OutputT>
+bool reduce_over_group_verify_helper(std::vector<InputT> &v_input, std::vector<OutputT> &v_output,
+                                     size_t global_size, size_t local_size, size_t offset = 0) {
   bool res = false;
   const size_t count = (global_size + local_size - 1) / local_size;
   size_t beg = 0;
@@ -67,42 +65,35 @@ bool reduce_over_group_verify_helper(IteratorT first, size_t global_size,
     size_t cur_local_size = (i == count - 1 && global_size % local_size)
                                 ? global_size % local_size
                                 : local_size;
-    std::vector<T> v(cur_local_size);
-    std::iota(v.begin(), v.end(), 1);
+    auto v_input_begin = v_input.begin() + beg + offset;
+    auto v_output_begin = v_output.begin() + beg + offset;
     const size_t group_reduced =
-        get_reduce_reference<with_init, OpT>(v.begin(), v.end());
-    beg += cur_local_size;
+        get_reduce_reference<with_init, OpT>(v_input_begin, v_input_begin + cur_local_size);
 
-    res = (group_reduced > util::exact_max<T>) ||
-          std::all_of(first, first + global_size,
-                      [=](T i) { return i == group_reduced; });
+    beg += cur_local_size;
+    res = (group_reduced > util::exact_max<OutputT>) ||
+          std::all_of(v_output_begin, v_output_begin + cur_local_size,
+                      [=](OutputT i) { return i == group_reduced; });
     if (!res) break;
   }
   return res;
 }
 
-template <bool with_init, typename OpT, typename IteratorT>
-bool reduce_over_group_verifier(IteratorT first, size_t global_size,
-                                size_t local_size) {
-  return reduce_over_group_verify_helper<with_init, OpT, IteratorT>(
-      first, global_size, local_size);
+template <bool with_init, typename OpT, typename InputT, typename OutputT>
+bool reduce_over_group_verifier(std::vector<InputT> &v_input, std::vector<OutputT> &v_output,
+                                size_t global_size, size_t local_size) {
+  return reduce_over_group_verify_helper<with_init, OpT>(
+      v_input, v_output, global_size, local_size);
 }
 
-template <bool with_init, typename OpT, typename IteratorT>
-bool reduce_over_group_sg_verifier(IteratorT first, size_t global_size,
+template <bool with_init, typename OpT, typename InputT, typename OutputT>
+bool reduce_over_group_sg_verifier(std::vector<InputT> &v_input, std::vector<OutputT> &v_output, size_t global_size,
                                    size_t local_size, size_t sg_size) {
-  using T = IteratorT::value_type;
-
   bool res = false;
   const size_t count = (global_size + local_size - 1) / local_size;
-  size_t beg = 0;
   for (size_t i = 0; i < count; ++i) {
-    size_t cur_local_size = (i == count - 1 && global_size % local_size)
-                                ? global_size % local_size
-                                : local_size;
-    beg += cur_local_size;
-    res = reduce_over_group_verify_helper<with_init, OpT, IteratorT>(
-        first + global_size * i, local_size, sg_size);
+    res = reduce_over_group_verify_helper<with_init, OpT>(
+        v_input, v_output, local_size, sg_size, local_size * i);
     if (!res) break;
   }
   return res;
@@ -335,18 +326,30 @@ void reduce_over_group(sycl::queue& queue, const std::string& op_name) {
   size_t work_group_size = work_group_range.size();
 
   bool res = false;
+  // array to input data
+  std::vector<T> v(work_group_size);
+  std::iota(v.begin(), v.end(), 1);
   // array to reduce results
-  std::vector<T> output(test_matrix * work_group_size, 0);
+  std::vector<T> group_output(work_group_size, 0);
+  std::vector<T> sg_output(work_group_size, 0);
+
   // Store subgroup size
   size_t sg_size = 0;
   {
-    sycl::buffer<T, 1> output_sycl(
-        output.data(), sycl::range<1>(test_matrix * work_group_size));
+    sycl::buffer<T, 1> v_sycl(
+        v.data(), sycl::range<1>(work_group_size));
+    sycl::buffer<T, 1> g_output_sycl(
+        group_output.data(), sycl::range<1>(work_group_size));
+    sycl::buffer<T, 1> sg_output_sycl(
+        sg_output.data(), sycl::range<1>(work_group_size));
     sycl::buffer<size_t> sgs_sycl(&sg_size, sycl::range<1>(1));
 
     queue.submit([&](sycl::handler& cgh) {
-      auto output_acc =
-          output_sycl.template get_access<sycl::access::mode::read_write>(cgh);
+      auto v_acc = v_sycl.template get_access<sycl::access::mode::read>(cgh);
+      auto g_output_acc =
+          g_output_sycl.template get_access<sycl::access::mode::read_write>(cgh);
+      auto sg_output_acc =
+          sg_output_sycl.template get_access<sycl::access::mode::read_write>(cgh);
       auto sgs_acc = sgs_sycl.get_access<sycl::access::mode::read_write>(cgh);
       sycl::nd_range<D> executionRange(work_group_range, work_group_range);
 
@@ -356,27 +359,23 @@ void reduce_over_group(sycl::queue& queue, const std::string& op_name) {
             size_t group_size = group.get_local_linear_range();
             size_t index = item.get_global_linear_id();
 
-            T local_var = item.get_local_linear_id() + 1;
-
             ASSERT_RETURN_TYPE(T,
-                               sycl::reduce_over_group(group, local_var, OpT()),
+                               sycl::reduce_over_group(group, v_acc[index], OpT()),
                                "Return type of reduce_over_group(group g, T x, "
                                "BinaryOperation binary_op) is wrong\n");
 
-            output_acc[index] =
-                sycl::reduce_over_group(group, local_var, OpT());
+            g_output_acc[index] =
+                sycl::reduce_over_group(group, v_acc[index], OpT());
 
             sycl::sub_group sub_group = item.get_sub_group();
             sgs_acc[0] = sub_group.get_local_linear_range();
 
-            local_var = sub_group.get_local_linear_id() + 1;
-
             ASSERT_RETURN_TYPE(
-                T, sycl::reduce_over_group(sub_group, local_var, OpT()),
+                T, sycl::reduce_over_group(sub_group, v_acc[index], OpT()),
                 "Return type of reduce_over_group(sub_group g, "
                 "T x, BinaryOperation binary_op) is wrong\n");
-            output_acc[work_group_size + index] =
-                sycl::reduce_over_group(sub_group, local_var, OpT());
+            sg_output_acc[index] =
+                sycl::reduce_over_group(sub_group, v_acc[index], OpT());
           });
     });
   }
@@ -384,7 +383,7 @@ void reduce_over_group(sycl::queue& queue, const std::string& op_name) {
   // // Verify return value for reduce_over_group on group
   {
     res = reduce_over_group_verifier<false, OpT>(
-        output.cbegin(), work_group_size, work_group_size);
+        v, group_output, work_group_size, work_group_size);
     std::string work_group = sycl_cts::util::work_group_print(work_group_range);
     CAPTURE(D, work_group);
     INFO("Value of " << test_names[0] << " with " << op_name
@@ -396,7 +395,7 @@ void reduce_over_group(sycl::queue& queue, const std::string& op_name) {
   // Verify return value for reduce_over_group on sub_group
   {
     res = reduce_over_group_sg_verifier<false, OpT>(
-        output.cbegin() + work_group_size, work_group_size, work_group_size,
+        v, sg_output, work_group_size, work_group_size,
         sg_size);
     std::string work_group = sycl_cts::util::work_group_print(work_group_range);
     CAPTURE(D, work_group);
@@ -441,18 +440,30 @@ void init_reduce_over_group(sycl::queue& queue, const std::string& op_name) {
   size_t work_group_size = work_group_range.size();
 
   bool res = false;
+  // array to input data
+  std::vector<T> v(work_group_size);
+  std::iota(v.begin(), v.end(), 1);
   // array to reduce results
-  std::vector<T> output(test_matrix * work_group_size, 0);
+  std::vector<T> group_output(work_group_size, 0);
+  std::vector<T> sg_output(work_group_size, 0);
+
   // Store subgroup size
   size_t sg_size = 0;
   {
-    sycl::buffer<T, 1> output_sycl(
-        output.data(), sycl::range<1>(test_matrix * work_group_size));
+    sycl::buffer<T, 1> v_sycl(
+        v.data(), sycl::range<1>(work_group_size));
+    sycl::buffer<T, 1> g_output_sycl(
+        group_output.data(), sycl::range<1>(work_group_size));
+    sycl::buffer<T, 1> sg_output_sycl(
+        sg_output.data(), sycl::range<1>(work_group_size));
     sycl::buffer<size_t> sgs_sycl(&sg_size, sycl::range<1>(1));
 
     queue.submit([&](sycl::handler& cgh) {
-      auto output_acc =
-          output_sycl.template get_access<sycl::access::mode::read_write>(cgh);
+      auto v_acc = v_sycl.template get_access<sycl::access::mode::read>(cgh);
+      auto g_output_acc =
+          g_output_sycl.template get_access<sycl::access::mode::read_write>(cgh);
+      auto sg_output_acc =
+          sg_output_sycl.template get_access<sycl::access::mode::read_write>(cgh);
       auto sgs_acc = sgs_sycl.get_access<sycl::access::mode::read_write>(cgh);
       sycl::nd_range<D> executionRange(work_group_range, work_group_range);
 
@@ -462,30 +473,26 @@ void init_reduce_over_group(sycl::queue& queue, const std::string& op_name) {
             size_t group_size = group.get_local_linear_range();
             size_t index = item.get_global_linear_id();
 
-            U local_var = item.get_local_linear_id() + 1;
-
             ASSERT_RETURN_TYPE(T,
                                sycl::reduce_over_group(
-                                   group, local_var, T(init), sycl::plus<T>()),
+                                   group, v_acc[index], T(init), OpT()),
                                "Return type of reduce_over_group(group g, V x, "
                                "T init, BinaryOperation binary_op) is wrong\n");
 
-            output_acc[index] =
-                sycl::reduce_over_group(group, local_var, T(init), OpT());
+            g_output_acc[index] =
+                sycl::reduce_over_group(group, v_acc[index], T(init), OpT());
 
             sycl::sub_group sub_group = item.get_sub_group();
             sgs_acc[0] = sub_group.get_local_linear_range();
 
-            local_var = sub_group.get_local_linear_id() + 1;
-
             ASSERT_RETURN_TYPE(
                 T,
-                sycl::reduce_over_group(sub_group, local_var, T(init),
-                                        sycl::maximum<T>()),
+                sycl::reduce_over_group(sub_group, v_acc[index], T(init),
+                                        OpT()),
                 "Return type of reduce_over_group(sub_group g, V x, T init, "
                 "BinaryOperation binary_op) is wrong\n");
-            output_acc[work_group_size + index] =
-                sycl::reduce_over_group(sub_group, local_var, T(init), OpT());
+            sg_output_acc[index] =
+                sycl::reduce_over_group(sub_group, v_acc[index], T(init), OpT());
           });
     });
   }
@@ -493,7 +500,7 @@ void init_reduce_over_group(sycl::queue& queue, const std::string& op_name) {
   // // Verify return value for reduce_over_group on group
   {
     res = reduce_over_group_verifier<true, OpT>(
-        output.cbegin(), work_group_size, work_group_size);
+        v, group_output, work_group_size, work_group_size);
     std::string work_group = sycl_cts::util::work_group_print(work_group_range);
     CAPTURE(D, work_group);
     INFO("Value of " << test_names[0] << " with " << op_name
@@ -505,7 +512,7 @@ void init_reduce_over_group(sycl::queue& queue, const std::string& op_name) {
   // Verify return value for reduce_over_group on sub_group
   {
     res = reduce_over_group_sg_verifier<true, OpT>(
-        output.cbegin() + work_group_size, work_group_size, work_group_size,
+        v, sg_output, work_group_size, work_group_size,
         sg_size);
     std::string work_group = sycl_cts::util::work_group_print(work_group_range);
     CAPTURE(D, work_group);
