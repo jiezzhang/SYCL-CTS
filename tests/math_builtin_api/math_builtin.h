@@ -163,9 +163,11 @@ bool verify(sycl_cts::util::logger& log, T a, T b, int accuracy,
 }
 
 template <int N, typename returnT, typename funT>
-void check_function(sycl_cts::util::logger& log, funT fun,
-                    sycl_cts::resultRef<returnT> ref, int accuracy = 0,
-                    const std::string& comment = {}) {
+__attribute__((noinline)) void check_function(sycl_cts::util::logger& log,
+                                              funT fun,
+                                              sycl_cts::resultRef<returnT> ref,
+                                              int accuracy = 0,
+                                              const std::string& comment = {}) {
   sycl::range<1> ndRng(1);
   returnT kernelResult;
   auto&& testQueue = once_per_unit::get_queue();
@@ -197,10 +199,9 @@ void check_function(sycl_cts::util::logger& log, funT fun,
 }
 
 template <int N, typename returnT, typename funT, typename argT>
-void check_function_multi_ptr_private(sycl_cts::util::logger& log, funT fun,
-                                      sycl_cts::resultRef<returnT> ref,
-                                      argT ptrRef, int accuracy = 0,
-                                      const std::string& comment = {}) {
+__attribute__((noinline)) void check_function_multi_ptr_private(
+    sycl_cts::util::logger& log, funT fun, sycl_cts::resultRef<returnT> ref,
+    argT ptrRef, int accuracy = 0, const std::string& comment = {}) {
   sycl::range<1> ndRng(1);
   returnT kernelResult;
   argT kernelResultArg;
@@ -247,10 +248,10 @@ void check_function_multi_ptr_private(sycl_cts::util::logger& log, funT fun,
 }
 
 template <int N, typename returnT, typename funT, typename argT>
-void check_function_multi_ptr_global(sycl_cts::util::logger& log, funT fun,
-                                     argT arg, sycl_cts::resultRef<returnT> ref,
-                                     argT ptrRef, int accuracy = 0,
-                                     const std::string& comment = {}) {
+__attribute__((noinline)) void check_function_multi_ptr_global(
+    sycl_cts::util::logger& log, funT fun, argT arg,
+    sycl_cts::resultRef<returnT> ref, argT ptrRef, int accuracy = 0,
+    const std::string& comment = {}) {
   sycl::range<1> ndRng(1);
   returnT kernelResult;
   auto&& testQueue = once_per_unit::get_queue();
@@ -280,10 +281,10 @@ void check_function_multi_ptr_global(sycl_cts::util::logger& log, funT fun,
 }
 
 template <int N, typename returnT, typename funT, typename argT>
-void check_function_multi_ptr_local(sycl_cts::util::logger& log, funT fun,
-                                    argT arg, sycl_cts::resultRef<returnT> ref,
-                                    argT ptrRef, int accuracy = 0,
-                                    const std::string& comment = {}) {
+__attribute__((noinline)) void check_function_multi_ptr_local(
+    sycl_cts::util::logger& log, funT fun, argT arg,
+    sycl_cts::resultRef<returnT> ref, argT ptrRef, int accuracy = 0,
+    const std::string& comment = {}) {
   sycl::range<1> ndRng(1);
   returnT kernelResult;
   auto&& testQueue = once_per_unit::get_queue();
